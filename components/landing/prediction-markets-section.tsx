@@ -134,7 +134,7 @@ export function PredictionMarketsSection() {
   const [selectedTrader, setSelectedTrader] = useState<string | null>(null)
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section id="prediction-markets" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-cyan-500/50 text-cyan-400">

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Users, MessageSquare, Shield, TrendingUp } from "lucide-react"
+import { ArrowRight, Users, MessageSquare, TrendingUp, BarChart3 } from "lucide-react"
 import Link from "next/link"
 
 export function HeroSection() {
@@ -19,13 +19,14 @@ export function HeroSection() {
         </div>
 
         <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-          Multi-Agent AI
-          <span className="block text-primary">Investment Prediction</span>
+          AI Trading Intelligence for
+          <span className="block text-primary">Stocks & Prediction Markets</span>
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Mirror the dynamics of real-world trading firms with specialized AI-powered agents. From fundamental analysts
-          to risk management teams, collaboratively evaluate markets and make informed trading decisions.
+          Deploy specialized AI agents with algorithmic trading strategies across stocks and prediction markets. Track
+          sharp traders on Polymarket & Kalshi, analyze outcomes with LLM-powered research, and execute momentum,
+          breakout, and scalping strategies with institutional-grade risk management.
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -38,10 +39,10 @@ export function HeroSection() {
 
         <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-4">
           {[
-            { icon: Users, label: "4 Analyst Teams", desc: "Specialized analysis" },
-            { icon: MessageSquare, label: "Dynamic Debates", desc: "Bull vs Bear research" },
-            { icon: Shield, label: "Risk Management", desc: "Portfolio protection" },
-            { icon: TrendingUp, label: "AI Predictions", desc: "Next-day forecasts" },
+            { icon: Users, label: "Multi-Agent Teams", desc: "4 specialized analysts" },
+            { icon: BarChart3, label: "Algo Strategies", desc: "Momentum & breakout" },
+            { icon: TrendingUp, label: "Prediction Markets", desc: "Polymarket & Kalshi" },
+            { icon: MessageSquare, label: "Copy Trading", desc: "Follow top performers" },
           ].map((item) => (
             <div
               key={item.label}

@@ -18,15 +18,27 @@ export function Header() {
           <span className="text-xl font-semibold text-foreground">TimeTravel.investments</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link href="#framework" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Framework
+        <nav className="hidden items-center gap-6 md:flex">
+          <Link href="#agents" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Agents
           </Link>
-          <Link href="#teams" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Agent Teams
+          <Link href="#workflow" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Workflow
           </Link>
           <Link href="#strategies" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Strategies
+          </Link>
+          <Link href="#signals" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Signals
+          </Link>
+          <Link
+            href="#prediction-markets"
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Prediction Markets
+          </Link>
+          <Link href="#features" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Features
           </Link>
         </nav>
 
@@ -51,14 +63,27 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="border-t border-border bg-background px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
-            <Link href="#framework" className="text-sm text-muted-foreground">
-              Framework
+            <Link href="#agents" className="text-sm text-muted-foreground" onClick={() => setMobileMenuOpen(false)}>
+              Agents
             </Link>
-            <Link href="#teams" className="text-sm text-muted-foreground">
-              Agent Teams
+            <Link href="#workflow" className="text-sm text-muted-foreground" onClick={() => setMobileMenuOpen(false)}>
+              Workflow
             </Link>
-            <Link href="#strategies" className="text-sm text-muted-foreground">
+            <Link href="#strategies" className="text-sm text-muted-foreground" onClick={() => setMobileMenuOpen(false)}>
               Strategies
+            </Link>
+            <Link href="#signals" className="text-sm text-muted-foreground" onClick={() => setMobileMenuOpen(false)}>
+              Signals
+            </Link>
+            <Link
+              href="#prediction-markets"
+              className="text-sm text-muted-foreground"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Prediction Markets
+            </Link>
+            <Link href="#features" className="text-sm text-muted-foreground" onClick={() => setMobileMenuOpen(false)}>
+              Features
             </Link>
             <div className="flex gap-2 pt-2">
               <Button variant="ghost" size="sm" className="flex-1" asChild>
