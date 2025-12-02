@@ -15,7 +15,7 @@ export function Header() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
             <Activity className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-semibold text-foreground">TradingAgents</span>
+          <span className="text-xl font-semibold text-foreground">TimeTravel.investments</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -25,11 +25,8 @@ export function Header() {
           <Link href="#teams" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Agent Teams
           </Link>
-          <Link href="#architecture" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Architecture
-          </Link>
-          <Link href="/dashboard" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Dashboard
+          <Link href="#strategies" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Strategies
           </Link>
         </nav>
 
@@ -40,7 +37,9 @@ export function Header() {
             </Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/dashboard">Launch App</Link>
+            <Link href="https://calendly.com/qwksearch/30min?month=2025-12" target="_blank">
+              Book Demo
+            </Link>
           </Button>
         </div>
 
@@ -58,11 +57,8 @@ export function Header() {
             <Link href="#teams" className="text-sm text-muted-foreground">
               Agent Teams
             </Link>
-            <Link href="#architecture" className="text-sm text-muted-foreground">
-              Architecture
-            </Link>
-            <Link href="/dashboard" className="text-sm text-muted-foreground">
-              Dashboard
+            <Link href="#strategies" className="text-sm text-muted-foreground">
+              Strategies
             </Link>
             <div className="flex gap-2 pt-2">
               <Button variant="ghost" size="sm" className="flex-1" asChild>
@@ -71,7 +67,9 @@ export function Header() {
                 </Link>
               </Button>
               <Button size="sm" className="flex-1" asChild>
-                <Link href="/dashboard">Launch App</Link>
+                <Link href="https://calendly.com/qwksearch/30min?month=2025-12" target="_blank">
+                  Book Demo
+                </Link>
               </Button>
             </div>
           </nav>

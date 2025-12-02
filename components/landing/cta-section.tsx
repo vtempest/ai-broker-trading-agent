@@ -10,16 +10,13 @@ export function CTASection() {
           Ready to Transform Your Trading?
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Join traders who trust PrimoAgent for daily insights and next-day predictions.
+          Join traders who trust TimeTravel.investments for daily insights and next-day predictions.
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-10 flex items-center justify-center">
           <Button size="lg" asChild>
-            <Link href="/dashboard">
-              Launch Dashboard <ArrowRight className="ml-2 h-4 w-4" />
+            <Link href="https://calendly.com/qwksearch/30min?month=2025-12" target="_blank">
+              Book a Demo <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-          </Button>
-          <Button size="lg" variant="outline">
-            Schedule Demo
           </Button>
         </div>
       </div>

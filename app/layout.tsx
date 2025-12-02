@@ -7,9 +7,8 @@ import "./globals.css"
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-// <CHANGE> Updated metadata for PrimoAgent
 export const metadata: Metadata = {
-  title: "PrimoAgent - Multi-Agent AI Stock Analysis",
+  title: "TimeTravel.investments - Multi-Agent AI Stock Analysis",
   description:
     "AI-powered multi-agent stock analysis system with next-day price predictions and comprehensive trading insights",
     generator: 'v0.app'

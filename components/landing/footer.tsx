@@ -10,7 +10,7 @@ export function Footer() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
               <Activity className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="text-lg font-semibold text-foreground">TradingAgents</span>
+            <span className="text-lg font-semibold text-foreground">TimeTravel.investments</span>
           </Link>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link
@@ -32,7 +32,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Tauric Research. Open source under MIT License.
+          © {new Date().getFullYear()} TimeTravel.investments. All rights reserved.
         </div>
       </div>
     </footer>

@@ -18,9 +18,9 @@ export function ArchitectureSection() {
     <section id="architecture" className="border-t border-border px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">LangGraph Architecture</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Agent Workflow</h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Built for flexibility and modularity, agents engage in dynamic discussions to pinpoint optimal strategies.
+            A sequential pipeline where specialized agents analyze, debate, and execute trading decisions.
           </p>
         </div>
 
@@ -69,10 +69,9 @@ export function ArchitectureSection() {
             ))}
           </div>
 
-          {/* Code Example */}
           <div className="mt-16 rounded-xl border border-border bg-card p-6">
             <div className="font-mono text-sm">
-              <div className="text-muted-foreground">{"// TradingAgents LangGraph Workflow"}</div>
+              <div className="text-muted-foreground">{"// Agent Workflow Pipeline"}</div>
               <div className="mt-4">
                 <span className="text-chart-1">Analyst Team</span>
                 <span className="text-muted-foreground"> (Fundamentals, Sentiment, News, Technical)</span>
@@ -94,23 +93,8 @@ export function ArchitectureSection() {
               <div className="mt-2">
                 <span className="text-chart-5">Portfolio Manager</span>
               </div>
-              <div className="ml-4 text-muted-foreground">{"→ Approves/rejects → Simulated Exchange Execution"}</div>
+              <div className="ml-4 text-muted-foreground">{"→ Approves/rejects → Exchange Execution"}</div>
             </div>
-          </div>
-
-          {/* Python Usage */}
-          <div className="mt-8 rounded-xl border border-border bg-card p-6">
-            <div className="mb-4 text-sm font-medium text-foreground">Quick Start</div>
-            <pre className="overflow-x-auto text-sm">
-              <code className="text-muted-foreground">
-                {`from tradingagents.graph.trading_graph import TradingAgentsGraph
-from tradingagents.default_config import DEFAULT_CONFIG
-
-ta = TradingAgentsGraph(debug=True, config=DEFAULT_CONFIG.copy())
-_, decision = ta.propagate("NVDA", "2024-05-10")
-print(decision)`}
-              </code>
-            </pre>
           </div>
         </div>
       </div>

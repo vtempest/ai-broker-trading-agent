@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Users, MessageSquare, Shield, GitBranch } from "lucide-react"
+import { ArrowRight, Users, MessageSquare, Shield, TrendingUp } from "lucide-react"
 import Link from "next/link"
 
 export function HeroSection() {
@@ -12,28 +12,23 @@ export function HeroSection() {
       <div className="mx-auto max-w-5xl text-center">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-1.5 text-sm">
           <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-muted-foreground">Built with LangGraph by Tauric Research</span>
+          <span className="text-muted-foreground">AI-Powered Investment Analysis</span>
         </div>
 
         <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-          Multi-Agent LLM
-          <span className="block text-primary">Financial Trading Framework</span>
+          Multi-Agent AI
+          <span className="block text-primary">Investment Prediction</span>
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Mirror the dynamics of real-world trading firms with specialized LLM-powered agents. From fundamental analysts
+          Mirror the dynamics of real-world trading firms with specialized AI-powered agents. From fundamental analysts
           to risk management teams, collaboratively evaluate markets and make informed trading decisions.
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button size="lg" asChild>
-            <Link href="/dashboard">
-              Try Dashboard <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="https://github.com/TauricResearch/TradingAgents" target="_blank">
-              <GitBranch className="mr-2 h-4 w-4" /> View on GitHub
+            <Link href="https://calendly.com/qwksearch/30min?month=2025-12" target="_blank">
+              Book a Demo <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>
@@ -43,7 +38,7 @@ export function HeroSection() {
             { icon: Users, label: "4 Analyst Teams", desc: "Specialized analysis" },
             { icon: MessageSquare, label: "Dynamic Debates", desc: "Bull vs Bear research" },
             { icon: Shield, label: "Risk Management", desc: "Portfolio protection" },
-            { icon: GitBranch, label: "Open Source", desc: "LangGraph powered" },
+            { icon: TrendingUp, label: "AI Predictions", desc: "Next-day forecasts" },
           ].map((item) => (
             <div
               key={item.label}
