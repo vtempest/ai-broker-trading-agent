@@ -8,14 +8,8 @@ export function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 -z-10">
         <img src="/images/image.png" alt="AI Trading Command Center" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
-      </div>
-
-      {/* Secondary accent image in corner */}
-      <div className="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-20 hidden lg:block">
-        <img src="/images/image.png" alt="Robot Hand Trading" className="h-full w-full object-cover object-left-top" />
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/50 to-background" />
+        <div className="absolute inset-0 bg-background/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
       </div>
 
       <div className="mx-auto max-w-5xl text-center relative z-10">
