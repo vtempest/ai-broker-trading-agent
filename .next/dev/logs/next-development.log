@@ -1,59 +1,11 @@
-[00:00:02.736] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
-[00:00:02.741] Server  LOG     
-[00:00:02.741] Server  LOG        We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
-[00:00:02.741] Server  LOG        The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
-
-[00:00:02.741] Server  LOG        	- include was updated to add '.next/dev/types/**/*.ts'
-[00:00:02.741] Server  LOG     
-[00:00:02.741] Server  LOG        The following mandatory changes were made to your tsconfig.json:
-
-[00:00:02.741] Server  LOG        	- jsx was set to react-jsx (next.js uses the React automatic runtime)
-[00:00:02.741] Server  LOG     
-[00:00:03.387] Server  LOG      ✓ Ready in 2.3s
-[00:00:20.945] Server  LOG      ○ Compiling /dashboard ...
-[00:00:21.216] Server  WARN     ⚠ [next]/internal/font/google/geist_a7695b8e.module.css
-Error while requesting resource
-There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap
-Hint: It looks like this error was TLS-related. Try enabling system TLS certificates with NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 as an environment variable, or set experimental.turbopackUseSystemTlsCerts in your next.config.js file.
-
-Import trace:
-  Server Component:
-    [next]/internal/font/google/geist_a7695b8e.module.css
-    [next]/internal/font/google/geist_a7695b8e.js
-    ./app/layout.tsx
-
-
-[00:00:21.216] Server  WARN     ⚠ [next]/internal/font/google/geist_mono_354fc78.module.css
-Error while requesting resource
-There was an issue establishing a connection while requesting https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap
-Hint: It looks like this error was TLS-related. Try enabling system TLS certificates with NEXT_TURBOPACK_EXPERIMENTAL_USE_SYSTEM_TLS_CERTS=1 as an environment variable, or set experimental.turbopackUseSystemTlsCerts in your next.config.js file.
-
-Import trace:
-  Server Component:
-    [next]/internal/font/google/geist_mono_354fc78.module.css
-    [next]/internal/font/google/geist_mono_354fc78.js
-    ./app/layout.tsx
-
-
-[00:00:21.217] Server  WARN     ⚠ [next]/internal/font/google/geist_a7695b8e.module.css
-next/font: warning:
-Failed to download `Geist` from Google Fonts. Using fallback font instead.
-
-Import trace:
-  Server Component:
-    [next]/internal/font/google/geist_a7695b8e.module.css
-    [next]/internal/font/google/geist_a7695b8e.js
-    ./app/layout.tsx
-
-
-[00:00:21.217] Server  WARN     ⚠ [next]/internal/font/google/geist_mono_354fc78.module.css
-next/font: warning:
-Failed to download `Geist Mono` from Google Fonts. Using fallback font instead.
-
-Import trace:
-  Server Component:
-    [next]/internal/font/google/geist_mono_354fc78.module.css
-    [next]/internal/font/google/geist_mono_354fc78.js
-    ./app/layout.tsx
-
-
+[00:00:01.977] Server  WARN     ⚠ Minimum recommended TypeScript version is v5.1.0, older versions can potentially be incompatible with Next.js. Detected: 5.0.2
+[00:00:02.336] Server  LOG      ✓ Ready in 1560ms
+[00:37:36.537] Server  LOG      ○ Compiling / ...
+[00:37:42.177] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:37:42.177] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:37:42.177] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.0","sv":"0.1.3","ts":1764758222777}
+[00:37:53.814] Browser WARN    Image with src "/images/image.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:42:47.736] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:42:47.736] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/dashboard","route":"/dashboard"}
+[00:42:47.736] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/dashboard color: rgb(120, 120, 120) color: inherit {"dp":"/dashboard","o":"http://localhost:3000/dashboard","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.0","sv":"0.1.3","ts":1764758528634}

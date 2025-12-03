@@ -239,3 +239,114 @@ export interface TrainTestSplit {
   trainTarget: number[];
   testTarget: number[];
 }
+
+
+
+export interface ContractData {
+  contractSymbol?: string;
+  strike?: number;
+  currency?: string;
+  lastPrice?: number;
+  change?: number;
+  percentChange?: number;
+  volume?: number;
+  openInterest?: number;
+  bid?: number;
+  ask?: number;
+  contractSize?: string;
+  expiration?: number;
+  lastTradeDate?: number;
+  impliedVolatility?: number;
+  inTheMoney?: boolean;
+  delta?: number;
+  theta?: number;
+  vega?: number;
+  gamma?: number;
+  rho?: number;
+  leverage?: number;
+}
+
+export interface ContractDataByStrike {
+  [strike: number]: ContractData | undefined;
+}
+
+export interface OptionChain {
+  call: ContractDataByStrike;
+  put: ContractDataByStrike;
+}
+
+export interface Expiration {
+  expirationString: string;
+  expirationTimestamp: number;
+}
+
+export interface OptionMeta {
+  strikes: number[];
+  expirations: Expiration[];
+}
+
+export interface Quote {
+  language?: string;
+  region?: string;
+  quoteType?: string;
+  triggerable?: number;
+  quoteSourceName?: string;
+  currency?: string;
+  regularMarketPreviousClose?: number;
+  bid?: number;
+  ask?: number;
+  bidSize?: number;
+  askSize?: number;
+  fullExchangeName?: string;
+  financialCurrency?: string;
+  regularMarketOpen?: number;
+  averageDailyVolume3Month?: number;
+  averageDailyVolume10Day?: number;
+  fiftyTwoWeekLowChange?: number;
+  fiftyTwoWeekLowChangePercent?: number;
+  fiftyTwoWeekRange?: string;
+  fiftyTwoWeekHighChange?: number;
+  fiftyTwoWeekHighChangePercent?: number;
+  exchange?: string;
+  shortName?: string;
+  longName?: string;
+  messageBoardId?: string;
+  exchangeTimezoneName?: string;
+  exchangeTimezoneShortName?: string;
+  gmtOffSetMilliseconds?: number;
+  market?: string;
+  esgPopulated?: number;
+  sharesOutstanding?: number;
+  fiftyDayAverage?: number;
+  fiftyDayAverageChange?: number;
+  fiftyDayAverageChangePercent?: number;
+  twoHundredDayAverage?: number;
+  twoHundredDayAverageChange?: number;
+  twoHundredDayAverageChangePercent?: number;
+  marketCap?: number;
+  sourceInterval?: number;
+  exchangeDataDelayedBy?: number;
+  tradeable?: number;
+  firstTradeDateMilliseconds?: number;
+  priceHint?: number;
+  postMarketChangePercent?: number;
+  postMarketTime?: number;
+  postMarketPrice?: number;
+  postMarketChange?: number;
+  regularMarketChange?: number;
+  regularMarketChangePercent?: number;
+  regularMarketTime?: number;
+  regularMarketPrice?: number;
+  regularMarketDayHigh?: number;
+  regularMarketDayRange?: string;
+  regularMarketDayLow?: number;
+  regularMarketVolume?: number;
+  fiftyTwoWeekLow?: number;
+  fiftyTwoWeekHigh?: number;
+  ytdReturn?: number;
+  trailingThreeMonthReturns?: number;
+  trailingThreeMonthNavReturns?: number;
+  marketState?: string;
+  symbol?: string;
+}
+

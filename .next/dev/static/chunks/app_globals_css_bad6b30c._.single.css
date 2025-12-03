@@ -163,7 +163,7 @@
 
   @supports (color: lab(0% 0 0)) {
     :root, :host {
-      --color-red-400: lab(63.7053% 60.745 31.3109);
+      --color-red-400: lab(63.7053% 60.7449 31.3109);
       --color-red-500: lab(55.4814% 75.0732 48.8528);
       --color-red-600: lab(48.4493% 77.4328 61.5452);
       --color-orange-400: lab(70.0429% 42.5156 75.8207);
@@ -173,23 +173,23 @@
       --color-amber-500: lab(72.7183% 31.8672 97.9407);
       --color-yellow-400: lab(83.2664% 8.65132 106.895);
       --color-yellow-500: lab(76.3898% 14.5258 98.4589);
-      --color-green-500: lab(70.5521% -66.5147 45.8073);
+      --color-green-500: lab(70.5521% -66.5147 45.8072);
       --color-green-600: lab(59.0978% -58.6621 41.2579);
-      --color-emerald-400: lab(75.0771% -60.7313 19.4147);
+      --color-emerald-400: lab(75.0771% -60.7313 19.4146);
       --color-emerald-500: lab(66.9756% -58.27 19.5419);
       --color-cyan-400: lab(76.6045% -40.9406 -29.6231);
       --color-cyan-500: lab(67.805% -35.3952 -30.2018);
-      --color-cyan-600: lab(55.1767% -26.7496 -30.5139);
-      --color-blue-400: lab(65.0361% -1.42065 -56.9802);
-      --color-blue-500: lab(54.1736% 13.3369 -74.6839);
-      --color-indigo-400: lab(59.866% 22.4834 -64.4485);
+      --color-cyan-600: lab(55.1767% -26.7496 -30.5138);
+      --color-blue-400: lab(65.0361% -1.42062 -56.9803);
+      --color-blue-500: lab(54.1736% 13.3368 -74.6839);
+      --color-indigo-400: lab(59.866% 22.4833 -64.4485);
       --color-indigo-500: lab(48.295% 38.3129 -81.9673);
       --color-purple-400: lab(63.6946% 47.6127 -59.2066);
       --color-purple-500: lab(52.0183% 66.11 -78.2316);
       --color-pink-500: lab(56.9303% 76.8162 -8.07021);
       --color-slate-300: lab(84.7652% -1.94535 -7.93337);
       --color-slate-400: lab(65.5349% -2.25151 -14.5072);
-      --color-gray-400: lab(65.9269% -.832707 -8.17473);
+      --color-gray-400: lab(65.9269% -.832707 -8.17474);
     }
   }
 }
@@ -3861,32 +3861,32 @@
     --card-foreground: lab(94.2% 0 0);
     --popover: lab(4.4107% -.247397 -2.73951);
     --popover-foreground: lab(94.2% 0 0);
-    --primary: lab(69.9573% -61.3571 31.7534);
+    --primary: lab(69.9573% -61.3572 31.7534);
     --primary-foreground: lab(1.96739% -.121817 -1.64016);
-    --secondary: lab(9.48197% -.41151 -3.68196);
+    --secondary: lab(9.48197% -.411496 -3.68196);
     --secondary-foreground: lab(94.2% 0 0);
-    --muted: lab(9.48197% -.41151 -3.68196);
+    --muted: lab(9.48197% -.411496 -3.68196);
     --muted-foreground: lab(59.4% 0 0);
-    --accent: lab(69.9573% -61.3571 31.7534);
+    --accent: lab(69.9573% -61.3572 31.7534);
     --accent-foreground: lab(1.96739% -.121817 -1.64016);
     --destructive: lab(45.5382% 69.8881 46.2994);
     --destructive-foreground: lab(94.2% 0 0);
-    --border: lab(16.4436% -.441715 -3.69567);
-    --input: lab(9.48197% -.41151 -3.68196);
-    --ring: lab(69.9573% -61.3571 31.7534);
-    --chart-1: lab(69.9573% -61.3571 31.7534);
+    --border: lab(16.4436% -.4417 -3.69567);
+    --input: lab(9.48197% -.411496 -3.68196);
+    --ring: lab(69.9573% -61.3572 31.7534);
+    --chart-1: lab(69.9573% -61.3572 31.7534);
     --chart-2: lab(60.8306% -46.6432 -19.0615);
-    --chart-3: lab(71.006% 16.077 70.1908);
+    --chart-3: lab(71.006% 16.0769 70.1908);
     --chart-4: lab(51.5803% 63.2457 38.9399);
     --chart-5: lab(62.9769% 24.066 -63.334);
     --sidebar: lab(3.02674% -.179462 -2.15476);
     --sidebar-foreground: lab(94.2% 0 0);
-    --sidebar-primary: lab(69.9573% -61.3571 31.7534);
+    --sidebar-primary: lab(69.9573% -61.3572 31.7534);
     --sidebar-primary-foreground: lab(1.96739% -.121817 -1.64016);
-    --sidebar-accent: lab(9.48197% -.41151 -3.68196);
+    --sidebar-accent: lab(9.48197% -.411496 -3.68196);
     --sidebar-accent-foreground: lab(94.2% 0 0);
-    --sidebar-border: lab(16.4436% -.441715 -3.69567);
-    --sidebar-ring: lab(69.9573% -61.3571 31.7534);
+    --sidebar-border: lab(16.4436% -.4417 -3.69567);
+    --sidebar-ring: lab(69.9573% -61.3572 31.7534);
   }
 }
 
@@ -3933,32 +3933,32 @@
     --card-foreground: lab(94.2% 0 0);
     --popover: lab(4.4107% -.247397 -2.73951);
     --popover-foreground: lab(94.2% 0 0);
-    --primary: lab(69.9573% -61.3571 31.7534);
+    --primary: lab(69.9573% -61.3572 31.7534);
     --primary-foreground: lab(1.96739% -.121817 -1.64016);
-    --secondary: lab(9.48197% -.41151 -3.68196);
+    --secondary: lab(9.48197% -.411496 -3.68196);
     --secondary-foreground: lab(94.2% 0 0);
-    --muted: lab(9.48197% -.41151 -3.68196);
+    --muted: lab(9.48197% -.411496 -3.68196);
     --muted-foreground: lab(59.4% 0 0);
-    --accent: lab(69.9573% -61.3571 31.7534);
+    --accent: lab(69.9573% -61.3572 31.7534);
     --accent-foreground: lab(1.96739% -.121817 -1.64016);
     --destructive: lab(45.5382% 69.8881 46.2994);
     --destructive-foreground: lab(94.2% 0 0);
-    --border: lab(16.4436% -.441715 -3.69567);
-    --input: lab(9.48197% -.41151 -3.68196);
-    --ring: lab(69.9573% -61.3571 31.7534);
-    --chart-1: lab(69.9573% -61.3571 31.7534);
+    --border: lab(16.4436% -.4417 -3.69567);
+    --input: lab(9.48197% -.411496 -3.68196);
+    --ring: lab(69.9573% -61.3572 31.7534);
+    --chart-1: lab(69.9573% -61.3572 31.7534);
     --chart-2: lab(60.8306% -46.6432 -19.0615);
-    --chart-3: lab(71.006% 16.077 70.1908);
+    --chart-3: lab(71.006% 16.0769 70.1908);
     --chart-4: lab(51.5803% 63.2457 38.9399);
     --chart-5: lab(62.9769% 24.066 -63.334);
     --sidebar: lab(3.02674% -.179462 -2.15476);
     --sidebar-foreground: lab(94.2% 0 0);
-    --sidebar-primary: lab(69.9573% -61.3571 31.7534);
+    --sidebar-primary: lab(69.9573% -61.3572 31.7534);
     --sidebar-primary-foreground: lab(1.96739% -.121817 -1.64016);
-    --sidebar-accent: lab(9.48197% -.41151 -3.68196);
+    --sidebar-accent: lab(9.48197% -.411496 -3.68196);
     --sidebar-accent-foreground: lab(94.2% 0 0);
-    --sidebar-border: lab(16.4436% -.441715 -3.69567);
-    --sidebar-ring: lab(69.9573% -61.3571 31.7534);
+    --sidebar-border: lab(16.4436% -.4417 -3.69567);
+    --sidebar-ring: lab(69.9573% -61.3572 31.7534);
   }
 }
 
