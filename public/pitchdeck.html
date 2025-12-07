@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TimeTravel.Investments Pitch Deck</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css" id="theme">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A0E27',
+                        secondary: '#151B3B',
+                        'accent-cyan': '#00D9FF',
+                        'accent-purple': '#8B5CF6',
+                        'accent-green': '#10B981',
+                        'accent-amber': '#F59E0B',
+                        'text-main': '#FFFFFF',
+                        'text-muted': '#94A3B8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Global overrides for Reveal */
+        .reveal .slides section {
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* Ensure slide container fits */
+        .slide-container {
+             /* Reset any fixed positioning that might break reveal flow */
+             position: relative !important;
+             margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <div id="slide-01" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col justify-center items-center relative overflow-hidden font-sans">
+  <img src="../images/slide01_title.webp" alt="AI Trading" class="absolute top-0 left-0 w-full h-full object-cover opacity-15 blur-[2px]">
+  <div class="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full pointer-events-none"></div>
+  <div class="absolute -bottom-[150px] -left-[150px] w-[500px] h-[500px] bg-gradient-radial from-accent-purple/15 to-transparent rounded-full pointer-events-none"></div>
+  
+  <div class="relative z-10 text-center max-w-[1400px] p-[60px]">
+    <div class="text-[96px] font-extrabold bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent mb-[30px] tracking-tighter drop-shadow-[0_0_80px_rgba(0,217,255,0.3)]">TimeTravel.Investments</div>
+    <div class="text-[42px] text-text-main font-semibold mb-[20px] tracking-tight">AI-Powered Multi-Agent Trading Platform</div>
+    <div class="text-[28px] text-text-muted font-normal leading-relaxed max-w-[1100px] mx-auto mb-[60px]">
+      Democratizing institutional-grade algorithmic trading through specialized AI agents,<br>
+      bridging equities and prediction markets for retail and institutional investors
+    </div>
+    
+    <div class="bg-accent-cyan/10 border-2 border-accent-cyan/30 rounded-2xl px-[60px] py-[40px] drop-shadow-xl inline-block backdrop-blur-md">
+      <div class="text-[32px] text-accent-cyan font-bold font-mono">$13.5B AI Trading Market → $70B by 2034</div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 1: Title Slide</h2>
+                    <ul>
+                        <li>Welcome everyone to TimeTravel.Investments.</li>
+                        <li>We are building an AI-powered multi-agent trading platform.</li>
+                        <li>Our goal is to democratize institutional-grade trading tools.</li>
+                        <li>Bridging the gap between traditional equities and prediction markets.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-02" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex relative overflow-hidden font-sans">
+  <div class="flex-1 flex flex-col justify-center pr-[60px] z-10">
+    <div class="text-[72px] font-extrabold text-text-main mb-[40px] tracking-tight">The <span class="text-accent-cyan">Problem</span></div>
+    
+    <div class="flex flex-col gap-[35px]">
+      <div class="flex items-start gap-[25px] bg-white/5 p-[30px] rounded-2xl border-l-4 border-accent-amber transition-all duration-300">
+        <div class="text-[36px] min-w-[50px] text-center">⚠️</div>
+        <div class="flex-1">
+          <div class="text-[28px] font-bold text-text-main mb-[12px]">Lack of Institutional Tools</div>
+          <div class="text-[20px] text-text-muted leading-relaxed">Retail traders miss complex market signals, macro indicators, and sharp money movements</div>
+        </div>
+      </div>
+      
+      <div class="flex items-start gap-[25px] bg-white/5 p-[30px] rounded-2xl border-l-4 border-accent-amber transition-all duration-300">
+        <div class="text-[36px] min-w-[50px] text-center">📊</div>
+        <div class="flex-1">
+          <div class="text-[28px] font-bold text-text-main mb-[12px]">Prediction Market Complexity</div>
+          <div class="text-[20px] text-text-muted leading-relaxed">$10B+ monthly volume, yet most traders can't extract actionable intelligence at scale</div>
+        </div>
+      </div>
+      
+      <div class="flex items-start gap-[25px] bg-white/5 p-[30px] rounded-2xl border-l-4 border-accent-amber transition-all duration-300">
+        <div class="text-[36px] min-w-[50px] text-center">🔍</div>
+        <div class="flex-1">
+          <div class="text-[28px] font-bold text-text-main mb-[12px]">Information Overload</div>
+          <div class="text-[20px] text-text-muted leading-relaxed">Sentiment shifts, insider transactions, and technical signals require 24/7 monitoring</div>
+        </div>
+      </div>
+      
+      <div class="flex items-start gap-[25px] bg-white/5 p-[30px] rounded-2xl border-l-4 border-accent-amber transition-all duration-300">
+        <div class="text-[36px] min-w-[50px] text-center">💸</div>
+        <div class="flex-1">
+          <div class="text-[28px] font-bold text-text-main mb-[12px]">High Barrier to Entry</div>
+          <div class="text-[20px] text-text-muted leading-relaxed">Algorithmic trading infrastructure is expensive and requires deep technical expertise</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="flex-1 flex items-center justify-center relative">
+    <div class="absolute w-[400px] h-[400px] bg-gradient-radial from-accent-amber/15 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10"></div>
+    <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-cyan/20 z-20">
+      <img src="../images/slide02_problem.webp" alt="Retail Trader Challenges" class="w-full h-full object-cover">
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 2: The Problem</h2>
+                    <ul>
+                        <li>Retail traders lack institutional tools.</li>
+                        <li>Markets like Polymarket are growing fast ($10B+ volume) but are complex.</li>
+                        <li>Information overload makes it hard to keep up.</li>
+                        <li>High technical barrier to entry for algorithmic trading.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-03" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Our <span class="bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent">Solution</span></div>
+  
+  <div class="grid grid-cols-2 gap-[50px] flex-1">
+    <div class="flex flex-col justify-center">
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/30 rounded-2xl p-[40px] mb-[30px]">
+        <div class="text-[36px] font-bold text-accent-cyan mb-[20px]">Multi-Agent AI System</div>
+        <div class="text-[22px] text-text-main leading-relaxed mb-[25px]">
+          Specialized AI agents work collaboratively to analyze markets, debate strategies, and execute trades with institutional-grade precision
+        </div>
+        
+        <div class="flex flex-col gap-[18px]">
+          <div class="flex items-center gap-[15px] text-[20px] text-text-muted">
+            <span class="text-[24px] min-w-[30px]">🤖</span>
+            <span>Analyst Team: Fundamentals, Sentiment, News, Technical</span>
+          </div>
+          <div class="flex items-center gap-[15px] text-[20px] text-text-muted">
+            <span class="text-[24px] min-w-[30px]">💬</span>
+            <span>Researcher Team: Bull vs. Bear structured debate</span>
+          </div>
+          <div class="flex items-center gap-[15px] text-[20px] text-text-muted">
+            <span class="text-[24px] min-w-[30px]">⚡</span>
+            <span>Trader Agent: Entry/exit timing + position sizing</span>
+          </div>
+          <div class="flex items-center gap-[15px] text-[20px] text-text-muted">
+            <span class="text-[24px] min-w-[30px]">🛡️</span>
+            <span>Risk Manager: Volatility, liquidity, correlation analysis</span>
+          </div>
+          <div class="flex items-center gap-[15px] text-[20px] text-text-muted">
+            <span class="text-[24px] min-w-[30px]">✅</span>
+            <span>Portfolio Manager: Final approval layer</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/10 border-2 border-accent-purple/30 rounded-2xl p-[25px] text-center">
+        <div class="text-[24px] text-accent-purple font-bold">Bridges Equities + Prediction Markets</div>
+        <div class="text-[18px] text-text-muted mt-[10px]">Polymarket, Kalshi, Traditional Exchanges</div>
+      </div>
+    </div>
+    
+    <div class="flex items-center justify-center relative">
+      <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-purple/20 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10"></div>
+      <div class="w-full h-full min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-purple/30 bg-white/2 z-20">
+        <img src="../images/slide03_solution.png" alt="Multi-Agent Architecture" class="w-full h-full object-contain bg-white/5">
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 3: Our Solution</h2>
+                    <ul>
+                        <li>We propose a Multi-Agent AI System.</li>
+                        <li>Specialized agents (Analyst, Researcher, Trader, Risk Manager).</li>
+                        <li>They collaborate and debate to execute high-precision trades.</li>
+                        <li>Integrates with both Equities and Prediction Markets.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-04" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[600px] h-[600px] bg-gradient-radial from-accent-green/15 to-transparent rounded-full top-1/2 -right-[200px] -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Market <span class="text-accent-green">Opportunity</span></div>
+  
+  <div class="grid grid-cols-[1.2fr_1fr] gap-[60px] flex-1">
+    <div class="flex items-center justify-center">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-green/30 bg-white/2">
+        <img src="../images/slide04_market.png" alt="Market Growth Chart" class="w-full h-full object-cover">
+      </div>
+    </div>
+    
+    <div class="flex flex-col justify-center gap-[30px]">
+      <div class="bg-accent-green/5 border-2 border-accent-green/30 rounded-2xl p-[35px] transition-all duration-300">
+        <div class="text-[56px] font-extrabold text-accent-green mb-[12px] font-mono">$13.5B → $70B</div>
+        <div class="text-[22px] text-text-main font-semibold mb-[8px]">AI Trading Platform Market</div>
+        <div class="text-[18px] text-text-muted leading-relaxed">20% CAGR from 2025 to 2034</div>
+      </div>
+      
+      <div class="bg-accent-green/5 border-2 border-accent-green/30 rounded-2xl p-[35px] transition-all duration-300">
+        <div class="text-[56px] font-extrabold text-accent-green mb-[12px] font-mono">$21B → $43B</div>
+        <div class="text-[22px] text-text-main font-semibold mb-[8px]">Algorithmic Trading Market</div>
+        <div class="text-[18px] text-text-muted leading-relaxed">Growing at 8-10% annually through 2030</div>
+      </div>
+      
+      <div class="bg-accent-green/5 border-2 border-accent-green/30 rounded-2xl p-[35px] transition-all duration-300">
+        <div class="text-[56px] font-extrabold text-accent-green mb-[12px] font-mono">$10B+</div>
+        <div class="text-[22px] text-text-main font-semibold mb-[8px]">Prediction Markets Monthly Volume</div>
+        <div class="text-[18px] text-text-muted leading-relaxed">Polymarket + Kalshi combined (Nov 2025)</div>
+      </div>
+      
+      <div class="bg-gradient-to-br from-accent-cyan/10 to-accent-purple/10 border-2 border-accent-cyan/30 rounded-2xl p-[35px] text-center">
+        <div class="text-[28px] text-accent-cyan font-bold mb-[15px]">Regulatory Tailwind</div>
+        <div class="text-[20px] text-text-main leading-relaxed">
+          Kalshi $11B valuation, $1B raise<br>
+          Institutional adoption accelerating<br>
+          CFTC-regulated exchanges emerging
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 4: Market Opportunity</h2>
+                    <ul>
+                        <li>AI Trading market growing to $70B by 2034.</li>
+                        <li>Algo trading market growing steadily.</li>
+                        <li>Prediction markets seeing explosive growth ($10B+ monthly).</li>
+                        <li>Regulatory tailwinds (Kalshi CFTC approval).</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-05" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 -left-[150px] -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Product <span class="bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent">Overview</span></div>
+  
+  <div class="grid grid-cols-2 gap-[50px] flex-1">
+    <div class="flex items-center justify-center">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-cyan/30 bg-white/2">
+        <img src="../images/slide05_product.png" alt="Platform Dashboard" class="w-full h-full object-cover">
+      </div>
+    </div>
+    
+    <div class="flex flex-col justify-center gap-[25px]">
+      <div class="bg-white/5 border-l-4 border-accent-cyan rounded-2xl p-[28px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">🎯</div>
+          <div class="text-[26px] font-bold text-text-main">Multi-Agent Analysis</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed pl-[60px]">
+          Analyst + Researcher teams debate insights, Trader agent executes with precision
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-cyan rounded-2xl p-[28px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">⚡</div>
+          <div class="text-[26px] font-bold text-text-main">4-6 Algorithmic Strategies</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed pl-[60px]">
+          Momentum, Mean Reversion, Breakout, Scalping, Prediction Market Arbitrage
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-cyan rounded-2xl p-[28px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">📊</div>
+          <div class="text-[26px] font-bold text-text-main">Real-Time Signal Scoring</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed pl-[60px]">
+          Weighted scoring: 30% technical, 20% VIX, 15% PE, 20% sentiment, 15% insider
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-cyan rounded-2xl p-[28px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">🔗</div>
+          <div class="text-[26px] font-bold text-text-main">Prediction Market Integration</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed pl-[60px]">
+          Track sharp traders on Polymarket/Kalshi, copy trades, exploit mispricings
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-cyan rounded-2xl p-[28px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">🛡️</div>
+          <div class="text-[26px] font-bold text-text-main">Institutional Risk Management</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed pl-[60px]">
+          Dynamic position sizing, stop losses, portfolio correlation, stress testing
+        </div>
+      </div>
+      
+      <div class="bg-gradient-to-br from-accent-purple/15 to-accent-cyan/15 border-2 border-accent-purple/40 rounded-2xl p-[30px] text-center mt-[10px]">
+        <div class="text-[24px] text-accent-purple font-bold">24/7 Automated Trading • Real-Time Alerts • Copy Trading</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 5: Product Overview</h2>
+                    <ul>
+                        <li>Multi-Agent Analysis core.</li>
+                        <li>4-6 built-in algorithmic strategies.</li>
+                        <li>Real-time signal scoring dashboard.</li>
+                        <li>One-click copy trading for prediction markets.</li>
+                        <li>Institutional-grade risk management.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-06" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-purple/20 to-transparent rounded-full top-1/2 -right-[150px] -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Multi-Agent <span class="text-accent-purple">Architecture</span></div>
+  
+  <div class="grid grid-cols-[1.3fr_1fr] gap-[50px] flex-1">
+    <div class="flex items-center justify-center">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-purple/30 bg-white/2">
+        <img src="../images/slide06_agents.jpg" alt="Multi-Agent Collaboration" class="w-full h-full object-contain">
+      </div>
+    </div>
+    
+    <div class="flex flex-col justify-center gap-[22px]">
+      <div class="bg-accent-purple/5 border-l-4 border-accent-purple rounded-2xl p-[24px]">
+        <div class="flex items-center gap-[15px] mb-[10px]">
+          <div class="text-[28px] min-w-[35px]">📊</div>
+          <div class="text-[24px] font-bold text-text-main">Analyst Team</div>
+        </div>
+        <div class="text-[18px] text-text-muted leading-relaxed pl-[50px]">
+          Fundamentals, Sentiment, News, Technical agents gather parallel data streams
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/5 border-l-4 border-accent-purple rounded-2xl p-[24px]">
+        <div class="flex items-center gap-[15px] mb-[10px]">
+          <div class="text-[28px] min-w-[35px]">💬</div>
+          <div class="text-[24px] font-bold text-text-main">Researcher Team</div>
+        </div>
+        <div class="text-[18px] text-text-muted leading-relaxed pl-[50px]">
+          Bull vs. Bear agents debate insights using structured frameworks
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/5 border-l-4 border-accent-purple rounded-2xl p-[24px]">
+        <div class="flex items-center gap-[15px] mb-[10px]">
+          <div class="text-[28px] min-w-[35px]">⚡</div>
+          <div class="text-[24px] font-bold text-text-main">Trader Agent</div>
+        </div>
+        <div class="text-[18px] text-text-muted leading-relaxed pl-[50px]">
+          Synthesizes debate output, determines entry/exit timing + position size
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/5 border-l-4 border-accent-purple rounded-2xl p-[24px]">
+        <div class="flex items-center gap-[15px] mb-[10px]">
+          <div class="text-[28px] min-w-[35px]">🛡️</div>
+          <div class="text-[24px] font-bold text-text-main">Risk Manager</div>
+        </div>
+        <div class="text-[18px] text-text-muted leading-relaxed pl-[50px]">
+          Evaluates volatility, liquidity, portfolio correlation before execution
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/5 border-l-4 border-accent-purple rounded-2xl p-[24px]">
+        <div class="flex items-center gap-[15px] mb-[10px]">
+          <div class="text-[28px] min-w-[35px]">✅</div>
+          <div class="text-[24px] font-bold text-text-main">Portfolio Manager</div>
+        </div>
+        <div class="text-[18px] text-text-muted leading-relaxed pl-[50px]">
+          Final approval layer with veto power on all transactions
+        </div>
+      </div>
+      
+      <div class="bg-gradient-to-br from-accent-cyan/10 to-accent-purple/10 border-2 border-accent-cyan/30 rounded-2xl p-[28px] text-center mt-[10px]">
+        <div class="text-[26px] text-accent-cyan font-bold mb-[10px]">Hierarchical Orchestration</div>
+        <div class="text-[19px] text-text-main leading-relaxed">
+          Centralized coordinator delegates tasks to specialized agents with domain-specific tools and memory
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 6: Multi-Agent Architecture</h2>
+                    <ul>
+                        <li><b>Analyst Team:</b> Gathers data (Fundamentals, Technicals).</li>
+                        <li><b>Researcher Team:</b> Debates Bull vs Bear cases.</li>
+                        <li><b>Trader Agent:</b> Executes based on debate outcome.</li>
+                        <li><b>Risk Manager:</b> Filters trades for safety.</li>
+                        <li><b>Portfolio Manager:</b> Final human-in-the-loop or automated approval.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-07" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 -left-[150px] -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Algorithmic <span class="text-accent-cyan">Strategies</span></div>
+  
+  <div class="grid grid-cols-2 gap-[50px] flex-1">
+    <div class="flex flex-col gap-[25px]">
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[30px] transition-all duration-300">
+        <div class="flex justify-between items-center mb-[15px]">
+          <div class="text-[28px] font-bold text-text-main">Momentum Trading</div>
+          <div class="text-[24px] font-extrabold text-accent-green font-mono">50-60%</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed mb-[12px]">
+          Capitalizes on trending markets by following price movements and volume surges
+        </div>
+        <div class="text-[17px] text-accent-cyan font-semibold">Best for: Trending markets, breakout scenarios</div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[30px] transition-all duration-300">
+        <div class="flex justify-between items-center mb-[15px]">
+          <div class="text-[28px] font-bold text-text-main">Mean Reversion</div>
+          <div class="text-[24px] font-extrabold text-accent-green font-mono">55-65%</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed mb-[12px]">
+          Identifies overbought/oversold conditions and trades expected price corrections
+        </div>
+        <div class="text-[17px] text-accent-cyan font-semibold">Best for: Range-bound markets, volatile oscillations</div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[30px] transition-all duration-300">
+        <div class="flex justify-between items-center mb-[15px]">
+          <div class="text-[28px] font-bold text-text-main">Breakout Trading</div>
+          <div class="text-[24px] font-extrabold text-accent-green font-mono">45-55%</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed mb-[12px]">
+          Captures explosive moves when price breaks through key resistance/support levels
+        </div>
+        <div class="text-[17px] text-accent-cyan font-semibold">Best for: High volume rallies, news-driven events</div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[30px] transition-all duration-300">
+        <div class="flex justify-between items-center mb-[15px]">
+          <div class="text-[28px] font-bold text-text-main">Scalping / Day Trading</div>
+          <div class="text-[24px] font-extrabold text-accent-green font-mono">60-70%</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed mb-[12px]">
+          Exploits small intraday price movements with rapid entry/exit execution
+        </div>
+        <div class="text-[17px] text-accent-cyan font-semibold">Best for: High liquidity, tight spreads</div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[30px] transition-all duration-300">
+        <div class="flex justify-between items-center mb-[15px]">
+          <div class="text-[28px] font-bold text-text-main">Prediction Market Arbitrage</div>
+          <div class="text-[24px] font-extrabold text-accent-green font-mono">Variable</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed mb-[12px]">
+          Exploits mispricings between prediction markets and traditional exchanges
+        </div>
+        <div class="text-[17px] text-accent-cyan font-semibold">Best for: Event-driven opportunities, sharp trader tracking</div>
+      </div>
+    </div>
+    
+    <div class="flex items-center justify-center">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-cyan/30 bg-white/2">
+        <img src="../images/slide07_strategies.png" alt="Trading Strategies Comparison" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 7: Algorithmic Strategies</h2>
+                    <ul>
+                        <li><b>Momentum:</b> Trend following.</li>
+                        <li><b>Mean Reversion:</b> Buying the dip / selling the rip.</li>
+                        <li><b>Breakout:</b> Catching big moves.</li>
+                        <li><b>Scalping:</b> Quick intraday profits.</li>
+                        <li><b>Prediction Market Arbitrage:</b> Exploiting price differences.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-08" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="slide-container">
+  <div class="glow-effect"></div>
+  
+  <div class="title">Signal Scoring <span class="title-accent">System</span></div>
+  
+  <div class="content-grid">
+    <div class="left-section">
+      <div class="weight-card">
+        <div class="weight-bar-container">
+          <div class="weight-label">Technical Indicators</div>
+          <div class="weight-bar-bg">
+            <div class="weight-bar bar-technical">30%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="weight-card">
+        <div class="weight-bar-container">
+          <div class="weight-label">VIX Volatility</div>
+          <div class="weight-bar-bg">
+            <div class="weight-bar bar-vix">20%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="weight-card">
+        <div class="weight-bar-container">
+          <div class="weight-label">PE Fundamentals</div>
+          <div class="weight-bar-bg">
+            <div class="weight-bar bar-pe">15%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="weight-card">
+        <div class="weight-bar-container">
+          <div class="weight-label">News Sentiment</div>
+          <div class="weight-bar-bg">
+            <div class="weight-bar bar-sentiment">20%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="weight-card">
+        <div class="weight-bar-container">
+          <div class="weight-label">Insider Activity</div>
+          <div class="weight-bar-bg">
+            <div class="weight-bar bar-insider">15%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="score-legend">
+        <div class="legend-title">Signal Interpretation</div>
+        <div class="legend-item">
+          <div class="legend-label">Strong Buy</div>
+          <div class="legend-value">≥ 0.80</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-label">Buy</div>
+          <div class="legend-value">≥ 0.60</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-label">Hold</div>
+          <div class="legend-value">≥ 0.40</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-label">Strong Sell</div>
+          <div class="legend-value">< 0.20</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="right-section">
+      <div class="dashboard-container">
+        <img src="../images/slide08_scoring.webp" alt="Signal Scoring Dashboard">
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 8: Signal Scoring System</h2>
+                    <ul>
+                        <li>Transparent scoring model.</li>
+                        <li>Weighted inputs: Technicals (30%), VIX (20%), Sentiment (20%), etc.</li>
+                        <li>Clear Buy/Sell/Hold thresholds.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-09" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-purple/20 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Prediction Market <span class="bg-gradient-to-br from-accent-purple to-pink-500 bg-clip-text text-transparent">Integration</span></div>
+  
+  <div class="grid grid-cols-[1fr_1.2fr] gap-[60px] flex-1">
+    <div class="flex flex-col justify-center gap-[30px]">
+      <div class="bg-accent-purple/5 border-2 border-accent-purple/30 rounded-2xl p-[35px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">🔗</div>
+          <div class="text-[26px] font-bold text-text-main">Direct Integration</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed">
+          Seamlessly connect with Polymarket and Kalshi APIs for real-time order execution and data ingestion
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/5 border-2 border-accent-purple/30 rounded-2xl p-[35px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">🐋</div>
+          <div class="text-[26px] font-bold text-text-main">"Sharp Trader" Tracking</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed">
+          Monitor wallet addresses of historically profitable whales and public figures (e.g., senators, CEOs)
+        </div>
+      </div>
+      
+      <div class="bg-accent-purple/5 border-2 border-accent-purple/30 rounded-2xl p-[35px] transition-all duration-300">
+        <div class="flex items-center gap-[20px] mb-[15px]">
+          <div class="text-[32px] min-w-[40px]">🤖</div>
+          <div class="text-[26px] font-bold text-text-main">LLM Arbitrage Analysis</div>
+        </div>
+        <div class="text-[19px] text-text-muted leading-relaxed">
+          Agents analyze news events vs. prediction probabilities to find +EV setups missed by the crowd
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center justify-center relative">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-purple/30 bg-white/2 z-10">
+        <img src="../images/slide09_prediction.png" alt="Polymarket Integration" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 9: Prediction Market Integration</h2>
+                    <ul>
+                        <li>Direct integration with Polymarket/Kalshi.</li>
+                        <li>Tracking "Sharp Traders" (whales/senators).</li>
+                        <li>Copy trading functionality.</li>
+                        <li>Exploiting arbitrage opportunities using LLM analysis.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-10" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[600px] h-[600px] bg-gradient-radial from-red-500/10 to-transparent rounded-full -top-[200px] -right-[200px] pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Risk Management <span class="text-red-500">Engine</span></div>
+  
+  <div class="grid grid-cols-[1.2fr_1fr] gap-[60px] flex-1">
+    <div class="flex items-center justify-center">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-red-500/30 bg-white/2">
+        <img src="../images/slide10_risk.png" alt="Risk Dashboard" class="w-full h-full object-cover">
+      </div>
+    </div>
+    
+    <div class="flex flex-col justify-center gap-[25px]">
+      <div class="bg-red-500/5 border-l-4 border-red-500 rounded-lg p-[25px] transition-all duration-300">
+        <div class="text-[26px] font-bold text-text-main mb-[8px]">Dynamic Position Sizing</div>
+        <div class="text-[19px] text-text-muted leading-relaxed">Kelley Criterion integrated with volatility scaling to optimize bet sizes</div>
+      </div>
+      
+      <div class="bg-red-500/5 border-l-4 border-red-500 rounded-lg p-[25px] transition-all duration-300">
+        <div class="text-[26px] font-bold text-text-main mb-[8px]">Automated Stop-Losses</div>
+        <div class="text-[19px] text-text-muted leading-relaxed">Trailing stops and hard stops executed at the exchange level</div>
+      </div>
+      
+      <div class="bg-red-500/5 border-l-4 border-red-500 rounded-lg p-[25px] transition-all duration-300">
+        <div class="text-[26px] font-bold text-text-main mb-[8px]">Black Swan Protection</div>
+        <div class="text-[19px] text-text-muted leading-relaxed">Portfolio de-risking during extreme VIX spikes or macro events</div>
+      </div>
+      
+      <div class="bg-red-500/5 border-l-4 border-red-500 rounded-lg p-[25px] transition-all duration-300">
+        <div class="text-[26px] font-bold text-text-main mb-[8px]">Correlation Matrix</div>
+        <div class="text-[19px] text-text-muted leading-relaxed">Prevents over-exposure to single sectors or related assets</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 10: Risk Management Engine</h2>
+                    <ul>
+                        <li>Position sizing based on volatility.</li>
+                        <li>Automated stop losses.</li>
+                        <li>Portfolio correlation checks.</li>
+                        <li>Stress testing against black swan events.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-11" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 -right-[150px] -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Platform <span class="text-accent-cyan">Architecture</span></div>
+  
+  <div class="grid grid-cols-2 gap-[50px] flex-1">
+    <div class="flex items-center justify-center">
+      <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-cyan/30 bg-white/2">
+        <img src="../images/slide11_architecture.png" alt="System Architecture Diagram" class="w-full h-full object-cover">
+      </div>
+    </div>
+    
+    <div class="flex flex-col justify-center gap-[22px]">
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[22px] transition-all duration-300">
+        <div class="flex items-center gap-[15px] mb-[8px]">
+          <div class="text-[28px]">📡</div>
+          <div class="text-[22px] font-bold text-text-main">Data Ingestion Layer</div>
+        </div>
+        <div class="text-[17px] text-text-muted leading-relaxed">
+          Real-time websockets (Alpha Vantage, Polygon.io) + News APIs + On-chain listeners
+        </div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[22px] transition-all duration-300">
+        <div class="flex items-center gap-[15px] mb-[8px]">
+          <div class="text-[28px]">🤖</div>
+          <div class="text-[22px] font-bold text-text-main">Multi-Agent Processing</div>
+        </div>
+        <div class="text-[17px] text-text-muted leading-relaxed">
+          LLM-powered analysis, structured debate, signal generation, outcome prediction
+        </div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[22px] transition-all duration-300">
+        <div class="flex items-center gap-[15px] mb-[8px]">
+          <div class="text-[28px]">⚡</div>
+          <div class="text-[22px] font-bold text-text-main">Execution Engine</div>
+        </div>
+        <div class="text-[17px] text-text-muted leading-relaxed">
+          Low-latency order routing, broker integrations, copy-trading mechanics
+        </div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[22px] transition-all duration-300">
+        <div class="flex items-center gap-[15px] mb-[8px]">
+          <div class="text-[28px]">🛡️</div>
+          <div class="text-[22px] font-bold text-text-main">Risk & Compliance</div>
+        </div>
+        <div class="text-[17px] text-text-muted leading-relaxed">
+          Real-time monitoring, portfolio management, regulatory compliance checks
+        </div>
+      </div>
+      
+      <div class="bg-accent-cyan/5 border-2 border-accent-cyan/20 rounded-2xl p-[22px] transition-all duration-300">
+        <div class="flex items-center gap-[15px] mb-[8px]">
+          <div class="text-[28px]">📱</div>
+          <div class="text-[22px] font-bold text-text-main">User Interface</div>
+        </div>
+        <div class="text-[17px] text-text-muted leading-relaxed">
+          Web + mobile dashboards, real-time alerts, customizable views
+        </div>
+      </div>
+      
+      <div class="border-2 border-dashed border-accent-cyan/30 rounded-2xl p-[20px] bg-white/5">
+        <div class="text-[18px] text-accent-cyan font-bold mb-[10px] text-center uppercase tracking-wider">Technology Stack</div>
+        <div class="flex flex-wrap justify-center gap-[12px]">
+          <span class="bg-accent-cyan/10 px-[15px] py-[6px] rounded-lg text-text-main text-[15px] font-mono border border-accent-cyan/20">Python</span>
+          <span class="bg-accent-cyan/10 px-[15px] py-[6px] rounded-lg text-text-main text-[15px] font-mono border border-accent-cyan/20">Node.js</span>
+          <span class="bg-accent-cyan/10 px-[15px] py-[6px] rounded-lg text-text-main text-[15px] font-mono border border-accent-cyan/20">React</span>
+          <span class="bg-accent-cyan/10 px-[15px] py-[6px] rounded-lg text-text-main text-[15px] font-mono border border-accent-cyan/20">AWS/GCP</span>
+          <span class="bg-accent-cyan/10 px-[15px] py-[6px] rounded-lg text-text-main text-[15px] font-mono border border-accent-cyan/20">LLMs</span>
+          <span class="bg-accent-cyan/10 px-[15px] py-[6px] rounded-lg text-text-main text-[15px] font-mono border border-accent-cyan/20">WebSockets</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 11: Platform Architecture</h2>
+                    <ul>
+                        <li><b>Data Layer:</b> APIs (Alpha Vantage, Polymarket).</li>
+                        <li><b>Processing:</b> Multi-Agent LLMs.</li>
+                        <li><b>Execution:</b> Low-latency routing.</li>
+                        <li><b>Risk:</b> Compliance checks.</li>
+                        <li><b>UI:</b> User-friendly dashboards.</li>
+                        <li>Tech Stack: Python, Node.js, React, AWS.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-12" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Competitive <span class="text-accent-cyan">Advantage</span></div>
+  
+  <div class="grid grid-cols-4 gap-[20px] mb-[40px] flex-1">
+    <div class="bg-gradient-to-b from-accent-cyan/20 to-accent-cyan/5 border-2 border-accent-cyan rounded-2xl p-[25px] flex flex-col items-center transform scale-105 shadow-[0_0_30px_rgba(0,217,255,0.2)] z-10">
+      <div class="text-[28px] font-bold text-accent-cyan mb-[25px]">TimeTravel</div>
+      <div class="flex flex-col gap-[20px] w-full items-center">
+        <div class="text-text-main text-[16px] font-semibold">✓ Multi-Agent AI</div>
+        <div class="text-text-main text-[16px] font-semibold">✓ Prediction Markets</div>
+        <div class="text-text-main text-[16px] font-semibold">✓ 4-6 Strategies</div>
+        <div class="text-text-main text-[16px] font-semibold">✓ LLM Research</div>
+        <div class="text-text-main text-[16px] font-semibold">✓ Copy Trading</div>
+        <div class="text-text-main text-[16px] font-semibold">✓ Institutional Risk</div>
+      </div>
+    </div>
+    
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-[25px] flex flex-col items-center grayscale opacity-80 backdrop-blur-sm">
+      <div class="text-[24px] font-bold text-text-muted mb-[25px]">Trade Ideas</div>
+      <div class="flex flex-col gap-[20px] w-full items-center">
+        <div class="text-text-main text-[16px]">✓ AI Signals</div>
+        <div class="text-red-400 text-[16px]">✗ Equities Only</div>
+        <div class="text-text-main text-[16px]">✓ Technical Focus</div>
+        <div class="text-red-400 text-[16px]">✗ No Debate</div>
+        <div class="text-red-400 text-[16px]">✗ No Copy Trading</div>
+        <div class="text-text-muted text-[16px]">Basic Risk</div>
+      </div>
+    </div>
+    
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-[25px] flex flex-col items-center grayscale opacity-80 backdrop-blur-sm">
+      <div class="text-[24px] font-bold text-text-muted mb-[25px]">Alpaca/IBKR</div>
+      <div class="flex flex-col gap-[20px] w-full items-center">
+        <div class="text-text-muted text-[16px]">Basic Algos</div>
+        <div class="text-red-400 text-[16px]">✗ Broker Lock-in</div>
+        <div class="text-text-muted text-[16px]">Limited Strategies</div>
+        <div class="text-red-400 text-[16px]">✗ Minimal AI</div>
+        <div class="text-red-400 text-[16px]">✗ No Prediction</div>
+        <div class="text-text-muted text-[16px]">Standard Risk</div>
+      </div>
+    </div>
+    
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-[25px] flex flex-col items-center grayscale opacity-80 backdrop-blur-sm">
+      <div class="text-[24px] font-bold text-text-muted mb-[25px]">Hedge Funds</div>
+      <div class="flex flex-col gap-[20px] w-full items-center">
+        <div class="text-text-muted text-[16px]">Manual Research</div>
+        <div class="text-red-400 text-[16px]">High Fees (2/20)</div>
+        <div class="text-text-muted text-[16px]">Slow Decisions</div>
+        <div class="text-red-400 text-[16px]">✗ Centralized</div>
+        <div class="text-red-400 text-[16px]">✗ No Retail Access</div>
+        <div class="text-text-main text-[16px]">✓ Strong Risk</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-3 gap-[30px] p-[20px] bg-white/5 rounded-3xl border border-white/10">
+    <div class="flex items-center gap-[15px]">
+      <div class="text-[32px]">🧠</div>
+      <div>
+        <div class="text-[20px] font-bold text-text-main">True Multi-Agent Reasoning</div>
+        <div class="text-[16px] text-text-muted leading-tight mt-[5px]">Bull vs. Bear debate creates robust logic</div>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-[15px]">
+      <div class="text-[32px]">🔗</div>
+      <div>
+        <div class="text-[20px] font-bold text-text-main">Prediction Market Bridge</div>
+        <div class="text-[16px] text-text-muted leading-tight mt-[5px]">Bridging equities and event markets</div>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-[15px]">
+      <div class="text-[32px]">🎯</div>
+      <div>
+        <div class="text-[20px] font-bold text-text-main">Democratized Access</div>
+        <div class="text-[16px] text-text-muted leading-tight mt-[5px]">Institutional tools at retail prices</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 12: Competitive Advantage</h2>
+                    <ul>
+                        <li>Comparison vs Trade Ideas and others.</li>
+                        <li><b>Our Edge:</b> Multi-Agent Debate + Prediction Markets.</li>
+                        <li>Others focus only on equities or lack deep AI reasoning.</li>
+                        <li>We offer institutional risk management for retail.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+            <section>
+                <div id="slide-13" style="width: 100%; height: 100%; overflow: hidden;">
+                    
+    
+
+<div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <div class="absolute w-[600px] h-[600px] bg-gradient-radial from-accent-green/15 to-transparent rounded-full -top-[200px] -right-[200px] pointer-events-none"></div>
+  
+  <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Business <span class="text-accent-green">Model</span></div>
+  
+  <div class="grid grid-cols-2 gap-[50px] flex-1">
+    <div class="flex flex-col gap-[20px] justify-center">
+      <div class="bg-white/5 border-l-4 border-accent-green rounded-2xl p-[20px] flex items-start gap-[20px]">
+        <div class="text-[32px] min-w-[40px] text-center">💳</div>
+        <div>
+          <div class="text-[22px] font-bold text-text-main mb-[5px]">Subscription Tiers</div>
+          <div class="text-[17px] text-text-muted">Free tier (basic signals), Pro ($29-99/mo), Enterprise ($500+/mo)</div>
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-green rounded-2xl p-[20px] flex items-start gap-[20px]">
+        <div class="text-[32px] min-w-[40px] text-center">📈</div>
+        <div>
+          <div class="text-[22px] font-bold text-text-main mb-[5px]">Performance Fees</div>
+          <div class="text-[17px] text-text-muted">10-25% of net gains on user accounts - aligns incentives like hedge funds</div>
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-green rounded-2xl p-[20px] flex items-start gap-[20px]">
+        <div class="text-[32px] min-w-[40px] text-center">🏢</div>
+        <div>
+          <div class="text-[22px] font-bold text-text-main mb-[5px]">Enterprise Licensing</div>
+          <div class="text-[17px] text-text-muted">White-label platform for brokers, funds, fintech partners (5-6 figure annual)</div>
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-green rounded-2xl p-[20px] flex items-start gap-[20px]">
+        <div class="text-[32px] min-w-[40px] text-center">👥</div>
+        <div>
+          <div class="text-[22px] font-bold text-text-main mb-[5px]">Copy-Trading Fees</div>
+          <div class="text-[17px] text-text-muted">2-5% commission on copied trades from sharp traders (Polymarket leaderboard)</div>
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border-l-4 border-accent-green rounded-2xl p-[20px] flex items-start gap-[20px]">
+        <div class="text-[32px] min-w-[40px] text-center">🔌</div>
+        <div>
+          <div class="text-[22px] font-bold text-text-main mb-[5px]">API Access</div>
+          <div class="text-[17px] text-text-muted">B2B2C: Other platforms pay for direct access to TimeTravel signals</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex flex-col gap-[30px] justify-center">
+      <div class="bg-accent-green/5 border-2 border-accent-green/30 rounded-3xl p-[30px]">
+        <div class="text-[26px] font-bold text-accent-green mb-[20px] text-center">Revenue Projections</div>
+        <div class="flex flex-col gap-[15px]">
+          <div class="flex items-center justify-between p-[15px] bg-black/20 rounded-xl">
+            <div class="text-[18px] text-text-main font-semibold">Year 1</div>
+            <div class="text-[24px] font-mono text-accent-green font-bold">$750K</div>
+            <div class="text-[14px] text-text-muted">500 paid users</div>
+          </div>
+          <div class="flex items-center justify-between p-[15px] bg-black/20 rounded-xl">
+            <div class="text-[18px] text-text-main font-semibold">Year 2</div>
+            <div class="text-[24px] font-mono text-accent-green font-bold">$5.4M</div>
+            <div class="text-[14px] text-text-muted">3K paid users</div>
+          </div>
+          <div class="flex items-center justify-between p-[15px] bg-black/20 rounded-xl border border-accent-green/50">
+            <div class="text-[18px] text-text-main font-semibold">Year 3</div>
+            <div class="text-[24px] font-mono text-accent-green font-bold">$27M</div>
+            <div class="text-[14px] text-text-muted">12K paid users</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white/5 border border-white/10 rounded-3xl p-[30px]">
+        <div class="text-[22px] font-bold text-text-main mb-[20px] text-center border-b border-white/10 pb-[10px]">Unit Economics</div>
+        <div class="grid grid-cols-2 gap-[20px]">
+          <div class="text-center">
+            <div class="text-[14px] text-text-muted uppercase tracking-wide mb-[5px]">CAC</div>
+            <div class="text-[24px] font-mono text-white font-bold">$50-100</div>
+          </div>
+          <div class="text-center">
+            <div class="text-[14px] text-text-muted uppercase tracking-wide mb-[5px]">LTV</div>
+            <div class="text-[24px] font-mono text-accent-green font-bold">$1.5-3K</div>
+          </div>
+          <div class="text-center">
+            <div class="text-[14px] text-text-muted uppercase tracking-wide mb-[5px]">LTV:CAC</div>
+            <div class="text-[24px] font-mono text-accent-green font-bold">20-40x</div>
+          </div>
+          <div class="text-center">
+            <div class="text-[14px] text-text-muted uppercase tracking-wide mb-[5px]">Margin</div>
+            <div class="text-[24px] font-mono text-white font-bold">75-80%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <aside class="notes">
+                    <h2>Slide 13: Business Model</h2>
+                    <ul>
+                        <li><b>SaaS:</b> Subscription tiers (Free/Pro/Enterprise).</li>
+                        <li><b>Performance Fees:</b> Sharing in user upside (10-25%).</li>
+                        <li><b>Enterprise Licensing:</b> White-label for brokers.</li>
+                        <li><b>Copy Trading:</b> Commission on copied bets.</li>
+                    </ul>
+                </aside>
+            </section>
+            
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            width: '100%',
+            height: '100%',
+            margin: 0,
+            minScale: 1,
+            maxScale: 1,
+            controls: true, /* "Just the arrow keys shown" */
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>
