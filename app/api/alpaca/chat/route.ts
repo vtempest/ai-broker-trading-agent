@@ -142,7 +142,7 @@ function generateSuggestions(userQuery: string, response: string): string[] {
 
   if (query.includes('risk') || resp.includes('risk management')) {
     return [
-      'What's a good stop loss percentage?',
+      "What's a good stop loss percentage?",
       'How do I calculate position size?',
       'Explain the risk/reward ratio for day trading'
     ]
