@@ -1007,7 +1007,7 @@ export const openApiSpec = {
         properties: {
           symbol: { type: "string", example: "AAPL" },
           agent: { type: "string", enum: ["debate-analyst", "news-researcher"], example: "debate-analyst" },
-          deep_think_llm: { type: "string", example: "llama-3.1-70b-versatile" },
+          deep_think_llm: { type: "string", example: "llama-3.3-70b-versatile" },
           quick_think_llm: { type: "string", example: "llama-3.1-8b-instant" },
           max_debate_rounds: { type: "integer", example: 1 }
         }

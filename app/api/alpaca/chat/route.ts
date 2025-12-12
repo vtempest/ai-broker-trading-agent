@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     // Create LLM configuration for Groq
     const config: TradingConfig = {
       llmProvider: 'groq',
-      deepThinkLLM: 'llama-3.1-70b-versatile',
+      deepThinkLLM: 'llama-3.3-70b-versatile',
       quickThinkLLM: 'llama-3.1-8b-instant',
       temperature: 0.7,
       apiKeys: {

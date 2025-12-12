@@ -356,8 +356,8 @@ import { stockAgentsAPI, TOP_STOCKS } from '@/lib/api/stock-agents-api'
 // Analyze a single stock
 const result = await stockAgentsAPI.analyzeWithDebateAnalyst({
   symbol: 'AAPL',
-  deep_think_llm: 'llama-3.1-70b-versatile',
-  quick_think_llm: 'llama-3.1-8b-instant',
+  deep_think_llm: 'llama-3.3-70b-versatile',
+  quick_think_llm: 'llama-3.3-70b-versatile',
   max_debate_rounds: 1
 })
 

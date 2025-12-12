@@ -36,6 +36,12 @@ export async function fetchTopTraders(limit = 50) {
   
   if (!resp.ok) throw new Error(`leaders fetch failed: ${resp.status}`)
   const data = await resp.json()
+  
+  if (!Array.isArray(data)) {
+    console.error('Polymarket API returned non-array:', JSON.stringify(data).substring(0, 200))
+    return []
+  }
+  
   return data.slice(0, limit)
 }
 
