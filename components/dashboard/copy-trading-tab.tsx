@@ -105,9 +105,10 @@ export function CopyTradingTab() {
                   <td className="p-4">
                     <div className="font-semibold">{trader.name}</div>
                   </td>
-                      <div className="text-green-500 font-bold">
-                        {source === 'zulu' ? `$${trader.overallPnL.toLocaleString()}` : `${trader.overallPnL.toFixed(2)}%`}
-                      </div>
+                  <td className="p-4">
+                    <div className="text-green-500 font-bold">
+                      {source === 'zulu' ? `$${trader.overallPnL.toLocaleString()}` : `${trader.overallPnL.toFixed(2)}%`}
+                    </div>
                   </td>
                   <td className="p-4">
                     <div className="font-semibold">{trader.winRate}%</div>
@@ -116,6 +117,7 @@ export function CopyTradingTab() {
                     <Badge variant="secondary">{trader.activePositions}</Badge>
                   </td>
                   <td className="p-4">
+                    <div className="font-semibold">
                       ${trader.currentValue.toLocaleString()}
                     </div>
                   </td>
@@ -139,6 +141,7 @@ export function CopyTradingTab() {
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="p-3 bg-muted rounded-lg">
                               <div className="text-xs text-muted-foreground mb-1">Overall P&L</div>
+                              <div className="text-lg font-bold text-green-500">
                                 {source === 'zulu' ? `$${trader.overallPnL.toLocaleString()}` : `${trader.overallPnL.toFixed(2)}%`}
                               </div>
                             </div>
