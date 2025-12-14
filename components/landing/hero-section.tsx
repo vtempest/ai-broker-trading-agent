@@ -14,7 +14,7 @@ import Link from "next/link"
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-4 py-24 sm:px-6 sm:py-32 lg:px-8 min-h-[90vh] flex items-center">
+    <section className="relative overflow-hidden sm:px-6 py-10 lg:px-8 min-h-[90vh] flex items-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img src="https://i.imgur.com/YUYD3zJ.jpeg" alt="AI Trading Command Center" className="h-full w-full object-cover" />

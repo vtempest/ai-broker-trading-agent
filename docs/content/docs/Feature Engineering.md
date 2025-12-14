@@ -1,5 +1,5 @@
 ---
-title: Feature Engineering
+title: Time-Series Correlation Models
 ---
 
 ## Features Used in Prophet Model
@@ -105,8 +105,99 @@ title: Feature Engineering
 | Evaluation metrics | MAE, RMSE, R², MAPE, accuracy, average percent error, data range |
 
 
+
+
+
+## Summary of the Best XGBoost Parameters
+
+XGBoost offers a wide array of parameters, which can be grouped into three main categories: general parameters, booster parameters, and learning task parameters. Below is a structured summary of the most important and commonly tuned parameters for optimal model performance.
+
 ---
 
-## Explanation
+**General Parameters**
 
-This script integrates advanced time series feature engineering, robust data handling, and a hybrid modeling approach (statistical + machine learning) for improved energy forecasting. It leverages both domain-specific features (weather, time) and generic statistical properties (rolling stats, lags, interactions) to maximize predictive accuracy. The ensemble of Prophet and machine learning models allows for robust, interpretable, and flexible forecasting, validated with comprehensive metric reporting and result saving[^1].
+- **booster**: Type of model to run at each iteration. Options are `gbtree` (default), `gblinear`, or `dart`.
+- **device**: Specify computation device (`cpu` or `cuda` for GPU acceleration).
+- **verbosity**: Controls the amount of messages printed. Range: 0 (silent) to 3 (debug).
+- **nthread**: Number of parallel threads used for running XGBoost.
+
+---
+
+**Tree Booster Parameters (for `gbtree` and `dart`)**
+
+
+| Parameter | Default | Description | Typical Range |
+| :-- | :-- | :-- | :-- |
+| eta (learning_rate) | 0.3 | Step size shrinkage to prevent overfitting. Lower values make learning slower but safer. | [0.01, 0.3] |
+| gamma | 0 | Minimum loss reduction required to make a split. Higher values make the algorithm more conservative. | [0, ∞) |
+| max_depth | 6 | Maximum depth of a tree. Larger values increase model complexity and risk of overfitting. |  |
+| min_child_weight | 1 | Minimum sum of instance weight (hessian) in a child. Higher values make the algorithm more conservative. |  |
+| subsample | 1 | Fraction of training samples used per tree. Reduces overfitting. | (0.5, 1] |
+| colsample_bytree | 1 | Fraction of features used per tree. | (0.5, 1] |
+| colsample_bylevel | 1 | Fraction of features used per tree level. | (0.5, 1] |
+| colsample_bynode | 1 | Fraction of features used per split. | (0.5, 1] |
+| lambda (reg_lambda) | 1 | L2 regularization term on weights. | [0, ∞) |
+| alpha (reg_alpha) | 0 | L1 regularization term on weights. | [0, ∞) |
+| tree_method | auto | Algorithm for constructing trees: `auto`, `exact`, `approx`, `hist`, `gpu_hist`. |  |
+| scale_pos_weight | 1 | Controls balance of positive/negative weights for unbalanced classification. | [1, \#neg/\#pos] |
+
+
+---
+
+**Learning Task Parameters**
+
+- **objective**: Specifies the learning task (e.g., `reg:squarederror` for regression, `binary:logistic` for binary classification, `multi:softmax` for multiclass).
+- **eval_metric**: Evaluation metric for validation data (e.g., `rmse`, `logloss`, `auc`).
+- **seed**: Random seed for reproducibility.
+
+---
+
+**Specialized Parameters**
+
+- **DART Booster**: Parameters like `rate_drop`, `skip_drop`, and `sample_type` control dropout behavior in the DART booster.
+- **gblinear Booster**: Parameters like `updater`, `feature_selector`, and `top_k` control linear model fitting.
+- **Categorical Features**: Parameters such as `max_cat_to_onehot` and `max_cat_threshold` manage categorical data handling.
+
+---
+
+**Parameter Tuning Tips**
+
+- Start with default values and tune the following for best results:
+    - `max_depth`, `min_child_weight` (model complexity)
+    - `subsample`, `colsample_bytree` (overfitting control)
+    - `eta` (learning rate; lower values often require more boosting rounds)
+    - `gamma`, `lambda`, `alpha` (regularization)
+- For imbalanced datasets, adjust `scale_pos_weight`.
+- Use `tree_method=hist` or `gpu_hist` for large datasets or GPU acceleration.
+
+---
+
+
+
+
+
+## Example of Good XGBoost Parameters
+
+
+
+### Typical Ranges for Key Parameters
+
+| Parameter | Typical Range |
+| :-- | :-- |
+| eta | 0.01 – 0.3 |
+| max_leaves | 16 – 256 |
+| colsample_bytree | 0.5 – 1.0 |
+| subsample | 0.5 – 1.0 |
+| alpha/lambda | 0 – 10 |
+| min_child_weight | 1 – 10 |
+
+
+### Why These Parameters Work Well
+
+- **colsample_bytree/colsample_bylevel**: Subsampling features helps reduce overfitting, especially in high-dimensional data[^1][^2].
+- **alpha/lambda**: Regularization terms are crucial for controlling model complexity and preventing overfitting, especially with many trees or deep trees[^1][^2][^4].
+- **tree_method: 'approx' \& grow_policy: 'lossguide'**: This combination enables efficient training on large datasets, and `lossguide` allows you to control complexity via `max_leaves` instead of `max_depth`[^1][^3].
+- **max_leaves**: Directly limits the number of terminal nodes, which is effective for large or sparse datasets[^1][^3].
+- **eta**: A moderate learning rate of 0.25 is a reasonable starting point; you can lower it (e.g., 0.05–0.1) for more conservative learning and increase `nrounds` if needed[^5].
+- **subsample**: High subsampling (0.95) allows nearly all data to be used but still adds some randomness for regularization[^1][^2].
+- **early_stopping_rounds**: Prevents unnecessary training if validation error stops improving[^1][^2].

@@ -20,8 +20,11 @@ import { useState } from "react"
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const navLinkClasses = "flex items-center gap-1.5 text-sm uppercase tracking-wide text-muted-foreground transition-all hover:font-medium hover:text-foreground hover:bg-accent hover:text-accent-foreground hover:rounded-md px-2 py-1 -mx-2 -my-1"
+  const mobileNavLinkClasses = "flex items-center gap-2 text-sm text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground hover:rounded-md px-2 py-1 -mx-2 -my-1"
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/75 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-300">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg overflow-hidden">
@@ -39,45 +42,46 @@ export function Header() {
         <nav className="hidden items-center gap-6 md:flex">
           <Link
             href="#agents"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className={navLinkClasses}
           >
             <Users className="h-4 w-4" />
             Research Agents
           </Link>
           {/* <Link
             href="#workflow"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className={navLinkClasses}
           >
             <GitBranch className="h-4 w-4" />
             Workflow
           </Link> */}
-          <Link
-            href="#strategies"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Target className="h-4 w-4" />
-            Algo Strategies
-          </Link>
+          
           {/* <Link
             href="#signals"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className={navLinkClasses}
           >
             <Radio className="h-4 w-4" />
             Signals
           </Link> */}
           <Link
             href="#prediction-markets"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className={navLinkClasses}
           >
             <TrendingUp className="h-4 w-4" />
             Prediction Markets
           </Link>
           <Link
             href="#copy-trading"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className={navLinkClasses}
           >
             <Sparkles className="h-4 w-4" />
             Copy Trading
+          </Link>
+          <Link
+            href="#strategies"
+            className={navLinkClasses}
+          >
+            <Target className="h-4 w-4" />
+            Algo Strategies
           </Link>
         </nav>
 
@@ -100,7 +104,7 @@ export function Header() {
           <nav className="flex flex-col gap-4">
             <Link
               href="#agents"
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className={mobileNavLinkClasses}
               onClick={() => setMobileMenuOpen(false)}
             >
               <Users className="h-4 w-4" />
@@ -108,7 +112,7 @@ export function Header() {
             </Link>
             <Link
               href="#workflow"
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className={mobileNavLinkClasses}
               onClick={() => setMobileMenuOpen(false)}
             >
               <GitBranch className="h-4 w-4" />
@@ -116,7 +120,7 @@ export function Header() {
             </Link>
             <Link
               href="#strategies"
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className={mobileNavLinkClasses}
               onClick={() => setMobileMenuOpen(false)}
             >
               <Target className="h-4 w-4" />
@@ -124,7 +128,7 @@ export function Header() {
             </Link>
             <Link
               href="#signals"
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className={mobileNavLinkClasses}
               onClick={() => setMobileMenuOpen(false)}
             >
               <Radio className="h-4 w-4" />
@@ -132,7 +136,7 @@ export function Header() {
             </Link>
             <Link
               href="#prediction-markets"
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className={mobileNavLinkClasses}
               onClick={() => setMobileMenuOpen(false)}
             >
               <TrendingUp className="h-4 w-4" />
@@ -140,7 +144,7 @@ export function Header() {
             </Link>
             <Link
               href="#features"
-              className="flex items-center gap-2 text-sm text-muted-foreground"
+              className={mobileNavLinkClasses}
               onClick={() => setMobileMenuOpen(false)}
             >
               <Sparkles className="h-4 w-4" />

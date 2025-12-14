@@ -16,14 +16,14 @@ const workflow = [
 
 export function ArchitectureSection() {
   return (
-    <section id="workflow" className="border-t border-border px-4 py-24 sm:px-6 lg:px-8">
+    <section id="workflow" className=" py-10 border-t border-border px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           <div className="relative flex items-center justify-center overflow-hidden rounded-2xl ">
            
 
               <Image
-                src="/images/stocks-diagram flow.png"
+                src="/images/diagram-trading-sources.png"
                 alt="Stock Prediction System Architecture Flow Diagram"
                 width={600}
                 height={450}
@@ -91,8 +91,6 @@ export function ArchitectureSection() {
               </div>
             ))}
           </div>
-
-          {/* System Flow Diagram */}
           
         </div>
       </div>

@@ -6,14 +6,14 @@ export function CTASection() {
   return (
     <section className="border-t border-border px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Ready to Transform Your Trading?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             Join traders who trust TimeTravel.investments for daily insights and next-day predictions.
           </p>
-        </div>
+        </div> */}
 
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Buttons Column */}

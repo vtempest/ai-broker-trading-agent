@@ -19,7 +19,7 @@ export function BrokerPlatformsSection() {
   const brokers = [
     {
       name: "Alpaca",
-      logo: "https://raw.githubusercontent.com/alpacahq/alpaca-mcp-server/main/assets/01-primary-alpaca-logo.png",
+      logo: "https://i.imgur.com/d8JZhkL.png",
       description: "Commission-free API-first trading for stocks, ETFs, and crypto",
       features: [
         "Developer-friendly REST & WebSocket API",
@@ -34,24 +34,8 @@ export function BrokerPlatformsSection() {
       docs: "https://alpaca.markets"
     },
     {
-      name: "Interactive Brokers",
-      logo: "https://www.interactivebrokers.com/images/common/logos/ibkr/ibkr.svg",
-      description: "Global institutional-grade trading with comprehensive API access",
-      features: [
-        "135+ markets worldwide",
-        "Stocks, options, futures, FX, bonds",
-        "TWS API & FIX protocol",
-        "Low margin rates"
-      ],
-      assets: ["Global Stocks", "Options", "Futures", "FX"],
-      color: "from-blue-500 to-indigo-600",
-      icon: Globe,
-      status: "Active",
-      docs: "https://www.interactivebrokers.com/en/trading/ib-api.php"
-    },
-    {
       name: "Webull",
-      logo: "https://wp.logos-download.com/wp-content/uploads/2022/11/Webull_Logo-700x122.png",
+      logo: "https://i.imgur.com/SbT9hzR.png",
       description: "Modern mobile-first platform with advanced charting and API",
       features: [
         "Commission-free trading",
@@ -67,7 +51,7 @@ export function BrokerPlatformsSection() {
     },
     {
       name: "Robinhood",
-      logo: "https://images.seeklogo.com/logo-png/41/3/robinhood-wordmark-logo-png_seeklogo-410600.png",
+      logo: "https://i.imgur.com/5Pfj1iS.png",
       description: "Popular retail platform with simple API and zero commissions",
       features: [
         "Zero-commission trades",
@@ -80,20 +64,43 @@ export function BrokerPlatformsSection() {
       icon: TrendingUp,
       status: "Coming Soon",
       docs: "https://robinhood.com"
+    },
+
+    {
+      name: "Interactive Brokers",
+      logo: "https://i.imgur.com/RnvCj2J.png",
+      description: "Global institutional-grade trading with comprehensive API access",
+      features: [
+        "135+ markets worldwide",
+        "Stocks, options, futures, FX, bonds",
+        "TWS API & FIX protocol",
+        "Low margin rates"
+      ],
+      assets: ["Global Stocks", "Options", "Futures", "FX"],
+      color: "from-blue-500 to-indigo-600",
+      icon: Globe,
+      status: "Active",
+      docs: "https://www.interactivebrokers.com/en/trading/ib-api.php"
     }
   ]
-
   return (
-    <section className="relative px-4 py-24 sm:px-6 lg:px-8 bg-muted/30">
+    <section className="relative sm:px-6 lg:px-8 bg-muted/30">
       <div className="mx-auto max-w-7xl">
-        {/* Header */}
+
+                {/* Flow Arrow */}
+                <div className="my-8 flex justify-center">
+                  <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2">
+                    <span className="text-sm text-muted-foreground">Order flow to auto trade on</span>
+                    <ArrowRight className="h-4 w-4 text-primary" />
+                  </div>
+                </div>
 
         {/* Broker Cards Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mb-12">
+        <div className="flex gap-6 overflow-x-auto pb-4 mb-12 custom-scrollbar">
           {brokers.map((broker) => (
             <Card
               key={broker.name}
-              className="group relative overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50"
+              className="group relative flex-shrink-0 w-80 overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50"
             >
               {/* Gradient Background */}
               <div className={`absolute inset-0 bg-gradient-to-br ${broker.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
@@ -103,6 +110,7 @@ export function BrokerPlatformsSection() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-24 h-16 flex items-center justify-center bg-white p-2 rounded-md">
+
                       {broker.logo.startsWith('http') ? (
                         <img
                           src={broker.logo}
@@ -177,8 +185,6 @@ export function BrokerPlatformsSection() {
             </Card>
           ))}
         </div>
-
-        
 
        
       </div>

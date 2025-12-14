@@ -11,7 +11,8 @@ docs/dist
 docs/.next
 # testing
 /coverage
-
+*lock*
+.claude/
 # next.js
 /.next/
 /out/
@@ -27,6 +28,7 @@ docs/.next
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*lock.json
 
 # local env files
 .env*.local

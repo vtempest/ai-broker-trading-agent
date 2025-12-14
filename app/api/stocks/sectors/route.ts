@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const SECTOR_INFO_FILE = path.join(process.cwd(), 'lib/data/sector-info.json');
+const SECTOR_INFO_FILE = path.join(process.cwd(), 'data/sector-info.json');
 
 export async function GET(request: NextRequest) {
     try {

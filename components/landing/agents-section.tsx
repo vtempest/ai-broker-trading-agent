@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from "next/image"
 
 const analystTeam = [
   {
@@ -76,10 +77,10 @@ const otherTeams = [
 
 export function AgentsSection() {
   return (
-    <section id="agents" className="border-t border-border bg-secondary/30 px-4 py-24 sm:px-6 lg:px-8">
+    <section id="agents" className="border-t border-border bg-secondary/30  sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Analyst Team */}
-        <div className="mt-12">
+        <div className="">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {analystTeam.map((analyst) => (
               <Card key={analyst.name} className="border-border bg-card">
@@ -111,16 +112,9 @@ export function AgentsSection() {
           </div>
         </div>
 
-        {/* Flow Arrow */}
-        <div className="my-8 flex justify-center">
-          <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2">
-            <span className="text-sm text-muted-foreground">Insights flow to</span>
-            <ArrowRight className="h-4 w-4 text-primary" />
-          </div>
-        </div>
 
         {/* Other Teams */}
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
           {otherTeams.map((team) => (
             <Card key={team.name} className="relative overflow-hidden border-border bg-card">
               <div className={`absolute right-0 top-0 h-32 w-32 ${team.bg} blur-3xl`} />
@@ -148,7 +142,18 @@ export function AgentsSection() {
             </Card>
           ))}
         </div>
-      </div>
+
+        </div>
+        
+                      <div className="mt-8 flex justify-center">
+          <Image
+            src="/images/diagram-research-flow.png"
+            alt="Stock Prediction System Architecture Flow Diagram"
+            width={900}
+            height={600}
+            className="object-contain rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+          />
+        </div>
     </section>
   )
 }

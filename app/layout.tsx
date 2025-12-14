@@ -12,12 +12,13 @@ const openSans = Open_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "TimeTravel.investments - Multi-Agent AI Stock Analysis",
+  title: "TimeTravel.Investments - LLM Agents Debate Stocks & Events",
   description:
-    "AI-powered multi-agent stock analysis system with next-day price predictions and comprehensive trading insights",
+    "AI multi-agent stock & event markets system with next-day price predictions and comprehensive trading insights",
   icons: {
     apple: "/apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest",
   viewport: "width=device-width, initial-scale=1",
 };
 

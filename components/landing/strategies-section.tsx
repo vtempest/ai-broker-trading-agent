@@ -5,6 +5,42 @@ import { TrendingUp, ArrowLeftRight, Zap, Timer, ChevronRight, Check, X } from "
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
+const tradingViewStrategies = [
+  "RSI-Adaptive T3 & SAR Strategy",
+  "Moving Average Band Strategy",
+  "Quasimodo Pattern Strategy Back Test",
+  "DEMA ATR Strategy",
+  "RSI Strategy",
+  "Momentum Reversal / Dip Buyer [Score Based]",
+  "Strategy: HMA 50 + Supertrend Sniper",
+  "EMA Cross + RSI + ADX - Autotrade Strategy V2",
+  "Triple EMA + RSI + ATR",
+  "RSI + MACD Multi-Timeframe Strategy",
+  "Range Trading Strategy",
+  "Bollinger Bands Mean Reversion using RSI",
+  "Double MOST with Pivot and EMA",
+  "RSI BREAKOUT SIGNALS",
+  "Macketings 1min Scalping",
+  "Hash Momentum Strategy",
+  "EMA Trend Pro v5.0 5M ONLY",
+  "Retracement Strategy",
+  "Rasta Long/Short",
+  "BB + RSI Breakout Strategy",
+  "ATR Trend + RSI Pullback Strategy [Profit-Focused]",
+  "W%R Pullback+EMA Trend",
+  "EMA + Sessions + RSI Strategy v1.0",
+  "ParabolicSAR+EMA[TS_Indie]",
+  "Fractal Break Strategy with Time Filter",
+  "Options Scalper v2 - SPY/QQQ",
+  "Third eye • Strategy",
+  "Vinz Win BTC – STRATEGY AUTO 1m",
+  "MOMO – Imbalance Trend (SIMPLE BUY/SELL)",
+  "Safe Supertrend Strategy (No Repaint)",
+  "XAUUSD 1m SMC Zones ",
+  "Ultra Reversion DCA Strategy with Manual Leverage",
+  "Mirror Blocks: Strategy",
+]
+
 const strategies = [
   {
     id: "momentum",
@@ -163,6 +199,41 @@ export function StrategiesSection() {
           </div>
           <div className="relative h-48 w-72 overflow-hidden rounded-xl border border-border lg:h-56 lg:w-80">
             <Image src="/images/banner-ai-trade.png" alt="AI Trading Bot" fill className="object-cover" />
+          </div>
+        </div>
+
+        {/* TradingView Expert Strategies Card */}
+        <div className="mb-12 rounded-2xl border border-purple-500/30 bg-purple-500/5 p-6 lg:p-8">
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-foreground">Select Strategies to Backtest</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Choose from TradingView expert algorithms - like having a personal hedge fund team
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-purple-400">
+              <Zap className="h-5 w-5" />
+              <span className="text-sm font-medium">1000+ Expert Strategies</span>
+            </div>
+          </div>
+
+          <div className="max-h-64 overflow-y-auto rounded-xl border border-border bg-card/50 p-4">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {tradingViewStrategies.map((strategy, idx) => (
+                <button
+                  key={idx}
+                  className="group flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2.5 text-left text-sm transition-all hover:border-purple-500/50 hover:bg-purple-500/5"
+                >
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500/10 text-xs font-medium text-purple-400 transition-colors group-hover:bg-purple-500/20">
+                    {idx + 1}
+                  </div>
+                  <span className="flex-1 text-muted-foreground transition-colors group-hover:text-foreground">
+                    {strategy}
+                  </span>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

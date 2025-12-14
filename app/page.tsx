@@ -17,11 +17,10 @@ export default function LandingPage() {
         <HeroSection />
         <ArchitectureSection />
         <AgentsSection />
+        <SignalIndicators />
         <BrokerPlatformsSection />
-        <StrategiesSection />
         <PredictionMarketsSection />
-        {/* <FeaturesSection /> */}
-        {/* <SignalIndicators /> */}
+        <StrategiesSection />
         <CTASection />
       </main>
     </div>

@@ -55,6 +55,17 @@ export const verifications = sqliteTable("verifications", {
   updatedAt: integer("updated_at", { mode: "timestamp" }),
 })
 
+// Wallet addresses table (for SIWE / Web3 auth)
+export const walletAddresses = sqliteTable("wallet_addresses", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  walletAddress: text("wallet_address").notNull().unique(),
+  chainId: integer("chain_id"),
+  isPrimary: integer("is_primary", { mode: "boolean" }).default(false),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+})
+
 // User Settings (API Keys & Broker Credentials)
 export const userSettings = sqliteTable("user_settings", {
   id: text("id").primaryKey(),
@@ -82,10 +93,6 @@ export const userSettings = sqliteTable("user_settings", {
   robinhoodPassword: text("robinhood_password"),
   ibkrUsername: text("ibkr_username"),
   ibkrPassword: text("ibkr_password"),
-  
-  // TD Ameritrade (Schwab)
-  tdaApiKey: text("tda_api_key"),
-  tdaRefreshToken: text("tda_refresh_token"),
 
   // Data Provider API Keys
   alphaVantageApiKey: text("alpha_vantage_api_key"),
@@ -121,10 +128,21 @@ export const strategies = sqliteTable("strategies", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 })
 
-// User Watchlist
+// User Watchlists (Collections)
+export const watchlists = sqliteTable("watchlists", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+})
+
+// User Watchlist Items
 export const watchlist = sqliteTable("watchlist", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  watchlistId: text("watchlist_id").references(() => watchlists.id, { onDelete: "cascade" }), // Nullable (NULL = Default/Favorites)
   symbol: text("symbol").notNull(),
   name: text("name"), // Stock name (optional)
   addedAt: integer("added_at", { mode: "timestamp" }).notNull(),

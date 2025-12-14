@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { watchlist } from "@/lib/db/schema"
-import { eq, and } from "drizzle-orm"
+import { eq, and, isNull } from "drizzle-orm"
 
-// GET - Fetch user's watchlist
+// GET - Fetch user's watchlist items
 export async function GET(request: NextRequest) {
   try {
     const session = await auth.api.getSession({
@@ -15,11 +15,21 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const userWatchlist = await db
+    const { searchParams } = new URL(request.url)
+    const listId = searchParams.get("listId")
+
+    let query = db
       .select()
       .from(watchlist)
-      .where(eq(watchlist.userId, session.user.id))
+      .where(
+        and(
+          eq(watchlist.userId, session.user.id),
+          listId ? eq(watchlist.watchlistId, listId) : isNull(watchlist.watchlistId)
+        )
+      )
       .orderBy(watchlist.addedAt)
+
+    const userWatchlist = await query
 
     return NextResponse.json({
       success: true,
@@ -46,7 +56,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { symbol, name } = body
+    const { symbol, name, listId } = body
 
     if (!symbol) {
       return NextResponse.json({ error: "Symbol is required" }, { status: 400 })
@@ -59,7 +69,8 @@ export async function POST(request: NextRequest) {
       .where(
         and(
           eq(watchlist.userId, session.user.id),
-          eq(watchlist.symbol, symbol.toUpperCase())
+          eq(watchlist.symbol, symbol.toUpperCase()),
+          listId ? eq(watchlist.watchlistId, listId) : isNull(watchlist.watchlistId)
         )
       )
       .limit(1)
@@ -75,6 +86,7 @@ export async function POST(request: NextRequest) {
     const newItem = {
       id: crypto.randomUUID(),
       userId: session.user.id,
+      watchlistId: listId || null,
       symbol: symbol.toUpperCase(),
       name: name || null,
       addedAt: new Date(),
@@ -108,6 +120,7 @@ export async function DELETE(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const symbol = searchParams.get("symbol")
+    const listId = searchParams.get("listId")
 
     if (!symbol) {
       return NextResponse.json({ error: "Symbol is required" }, { status: 400 })
@@ -118,7 +131,8 @@ export async function DELETE(request: NextRequest) {
       .where(
         and(
           eq(watchlist.userId, session.user.id),
-          eq(watchlist.symbol, symbol.toUpperCase())
+          eq(watchlist.symbol, symbol.toUpperCase()),
+          listId ? eq(watchlist.watchlistId, listId) : isNull(watchlist.watchlistId)
         )
       )
 

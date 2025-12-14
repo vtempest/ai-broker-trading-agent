@@ -200,7 +200,7 @@ async function getTickerToCikMapping(userAgent: string): Promise<TickerToCikMapp
         // Try local file first
         const fs = await import('fs/promises');
         const path = await import('path');
-        const filePath = path.join(__dirname, 'data', 'company_tickers_exchange.json');
+        const filePath = path.join(__dirname, '../data', 'company_tickers.json');
         const fileContent = await fs.readFile(filePath, 'utf-8');
         const data = JSON.parse(fileContent);
 

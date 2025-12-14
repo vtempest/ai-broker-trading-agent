@@ -1,6 +1,7 @@
 "use client"
 
 import { GoogleSignIn } from "@/components/auth/google-signin"
+import { SiweSignIn } from "@/components/auth/siwe-signin"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
@@ -30,8 +31,21 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <div className="w-full">
+          <div className="w-full space-y-4">
             <GoogleSignIn />
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <SiweSignIn />
           </div>
 
           <div className="text-center text-sm text-muted-foreground">

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const STOCK_NAMES_FILE = path.join(process.cwd(), 'lib/data/stock-names.json');
+const STOCK_NAMES_FILE = path.join(process.cwd(), 'data/stock-names.json');
 let stockCache: any[] | null = null;
 
 export async function GET(request: NextRequest) {

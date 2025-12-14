@@ -43,12 +43,28 @@
             padding: 0;
             margin: 0;
         }
-        
+
         /* Ensure slide container fits */
         .slide-container {
              /* Reset any fixed positioning that might break reveal flow */
              position: relative !important;
              margin: 0 auto;
+        }
+
+        /* Logo positioning */
+        .slide-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .slide-logo:hover {
+            opacity: 1;
         }
     </style>
 </head>
@@ -65,9 +81,12 @@
   <img src="/images/trading-background.jpeg" alt="AI Trading" class="absolute top-0 left-0 w-full h-full object-cover opacity-15 blur-[2px]">
   <div class="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full pointer-events-none"></div>
   <div class="absolute -bottom-[150px] -left-[150px] w-[500px] h-[500px] bg-gradient-radial from-accent-purple/15 to-transparent rounded-full pointer-events-none"></div>
-  
+
   <div class="relative z-10 text-center max-w-[1400px] p-[60px]">
-    <div class="text-[96px] font-extrabold bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent mb-[30px] tracking-tighter drop-shadow-[0_0_80px_rgba(0,217,255,0.3)]">TimeTravel.Investments</div>
+    <div class="flex items-center justify-center mb-[30px]">
+      <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="w-[120px] h-[120px] drop-shadow-[0_0_30px_rgba(0,217,255,0.4)] mr-[30px]">
+      <div class="text-[96px] font-extrabold bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent tracking-tighter drop-shadow-[0_0_80px_rgba(0,217,255,0.3)]">TimeTravel.Investments</div>
+    </div>
     <div class="text-[42px] text-text-main font-semibold mb-[20px] tracking-tight">AI-Powered Multi-Agent Trading Platform</div>
     <div class="text-[28px] text-text-muted font-normal leading-relaxed max-w-[1100px] mx-auto mb-[60px]">
       Democratizing institutional-grade algorithmic trading through specialized AI agents,<br>
@@ -78,6 +97,7 @@
       <div class="text-[32px] text-accent-cyan font-bold font-mono">$13.5B AI Trading Market → $70B by 2034</div>
     </div>
   </div>
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
 </div>
 
                 </div>
@@ -94,10 +114,11 @@
             
             <section>
                 <div id="slide-02" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="flex-1 flex flex-col justify-center pr-[60px] z-10">
     <div class="text-[72px] font-extrabold text-text-main mb-[40px] tracking-tight">The <span class="text-accent-cyan">Problem</span></div>
     
@@ -158,10 +179,11 @@
             
             <section>
                 <div id="slide-03" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Our <span class="bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent">Solution</span></div>
   
   <div class="grid grid-cols-2 gap-[50px] flex-1">
@@ -205,7 +227,7 @@
     <div class="flex items-center justify-center relative">
       <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-purple/20 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10"></div>
       <div class="w-full h-full min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-purple/30 bg-white/2 z-20">
-        <img src="/images/ai-trade-schema.png" alt="Multi-Agent Architecture" class="w-full h-full object-contain bg-white/5">
+        <img src="/images/diagram-research-flow.png" alt="Multi-Agent Architecture" class="w-full h-full object-contain bg-white/5">
       </div>
     </div>
   </div>
@@ -229,14 +251,15 @@
     
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[600px] h-[600px] bg-gradient-radial from-accent-green/15 to-transparent rounded-full top-1/2 -right-[200px] -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Market <span class="text-accent-green">Opportunity</span></div>
   
   <div class="grid grid-cols-[1.2fr_1fr] gap-[60px] flex-1">
     <div class="flex items-center justify-center">
       <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-green/30 bg-white/2">
-        <img src="/images/banner-ai-trade.png" alt="Market Growth Chart" class="w-full h-full object-cover">
+        <img src="/images/banner-trading-floor.jpeg" alt="Market Growth Chart" class="w-full h-full object-cover">
       </div>
     </div>
     
@@ -289,8 +312,9 @@
     
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 -left-[150px] -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Product <span class="bg-gradient-to-br from-accent-cyan to-accent-purple bg-clip-text text-transparent">Overview</span></div>
   
   <div class="grid grid-cols-2 gap-[50px] flex-1">
@@ -373,18 +397,19 @@
             
             <section>
                 <div id="slide-06" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-purple/20 to-transparent rounded-full top-1/2 -right-[150px] -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Multi-Agent <span class="text-accent-purple">Architecture</span></div>
   
   <div class="grid grid-cols-[1.3fr_1fr] gap-[50px] flex-1">
     <div class="flex items-center justify-center">
       <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-purple/30 bg-white/2">
-        <img src="/images/ai-trade-schema.png" alt="Multi-Agent Collaboration" class="w-full h-full object-contain">
+        <img src="/images/diagram-research-flow.png" alt="Multi-Agent Collaboration" class="w-full h-full object-contain">
       </div>
     </div>
     
@@ -464,12 +489,13 @@
             
             <section>
                 <div id="slide-07" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 -left-[150px] -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Algorithmic <span class="text-accent-cyan">Strategies</span></div>
   
   <div class="grid grid-cols-2 gap-[50px] flex-1">
@@ -532,7 +558,7 @@
     
     <div class="flex items-center justify-center">
       <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-cyan/30 bg-white/2">
-        <img src="/images/banner-ai-trade.png" alt="Trading Strategies Comparison" class="w-full h-full object-cover">
+        <img src="/images/diagram-trading-sources.png" alt="Trading Strategies Comparison" class="w-full h-full object-contain bg-white/5">
       </div>
     </div>
   </div>
@@ -554,12 +580,13 @@
             
             <section>
                 <div id="slide-09" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-purple/20 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Prediction Market <span class="bg-gradient-to-br from-accent-purple to-pink-500 bg-clip-text text-transparent">Integration</span></div>
   
   <div class="grid grid-cols-[1fr_1.2fr] gap-[60px] flex-1">
@@ -597,7 +624,7 @@
     
     <div class="flex items-center justify-center relative">
       <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-purple/30 bg-white/2 z-10">
-        <img src="/images/banner-trading-floor.jpeg" alt="Polymarket Integration" class="w-full h-full object-cover">
+        <img src="/images/banner-ai-trade.png" alt="Polymarket Integration" class="w-full h-full object-cover">
       </div>
     </div>
   </div>
@@ -617,18 +644,19 @@
             
             <section>
                 <div id="slide-10" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[600px] h-[600px] bg-gradient-radial from-red-500/10 to-transparent rounded-full -top-[200px] -right-[200px] pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Risk Management <span class="text-red-500">Engine</span></div>
   
   <div class="grid grid-cols-[1.2fr_1fr] gap-[60px] flex-1">
     <div class="flex items-center justify-center">
       <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-red-500/30 bg-white/2">
-        <img src="/images/banner-ai-trade.png" alt="Risk Dashboard" class="w-full h-full object-cover">
+        <img src="/images/banner-picking-screen.png" alt="Risk Dashboard" class="w-full h-full object-cover">
       </div>
     </div>
     
@@ -670,18 +698,19 @@
             
             <section>
                 <div id="slide-11" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 -right-[150px] -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Platform <span class="text-accent-cyan">Architecture</span></div>
   
   <div class="grid grid-cols-2 gap-[50px] flex-1">
     <div class="flex items-center justify-center">
       <div class="w-full flex-1 min-h-0 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-accent-cyan/30 bg-white/2">
-        <img src="/images/stocks-diagram flow.png" alt="System Architecture Diagram" class="w-full h-full object-cover">
+        <img src="/images/diagram-trading-sources.png" alt="System Architecture Diagram" class="w-full h-full object-cover">
       </div>
     </div>
     
@@ -767,12 +796,13 @@
             
             <section>
                 <div id="slide-12" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[500px] h-[500px] bg-gradient-radial from-accent-cyan/15 to-transparent rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Competitive <span class="text-accent-cyan">Advantage</span></div>
   
   <div class="grid grid-cols-4 gap-[20px] mb-[40px] flex-1">
@@ -866,12 +896,13 @@
             
             <section>
                 <div id="slide-13" style="width: 100%; height: 100%; overflow: hidden;">
-                    
-    
+
+
 
 <div class="w-full h-full p-10 bg-gradient-to-br from-primary to-secondary flex flex-col relative overflow-hidden font-sans">
+  <img src="/apple-touch-icon.png" alt="TimeTravel Logo" class="slide-logo">
   <div class="absolute w-[600px] h-[600px] bg-gradient-radial from-accent-green/15 to-transparent rounded-full -top-[200px] -right-[200px] pointer-events-none"></div>
-  
+
   <div class="text-[72px] font-extrabold text-text-main mb-[50px] tracking-tight text-center">Business <span class="text-accent-green">Model</span></div>
   
   <div class="grid grid-cols-2 gap-[50px] flex-1">
@@ -990,7 +1021,7 @@
             progress: true,
             center: true,
             hash: true,
-            transition: 'slide'
+            transition: 'fade'
         });
     </script>
 </body>

@@ -11,10 +11,9 @@ import { StrategiesTab } from "@/components/dashboard/strategies-tab"
 import { PredictionMarketsTab } from "@/components/dashboard/prediction-markets-tab"
 import { CopyTradingTab } from "@/components/dashboard/copy-trading-tab"
 import { RiskPortfolioTab } from "@/components/dashboard/risk-portfolio-tab"
-import { ApiDataTab } from "@/components/dashboard/api-data-tab"
+
 import { AlpacaTradingTab } from "@/components/dashboard/alpaca-trading-tab"
-import { WatchlistTab } from "@/components/dashboard/watchlist-tab"
-import { OptionsAdvisor } from "@/components/dashboard/options-advisor"
+import { MarketScanner } from "@/components/dashboard/market-scanner"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Loader2, LogIn } from "lucide-react"
@@ -126,12 +125,16 @@ function DashboardContent() {
           <OverviewTab />
         </TabsContent>
 
-        <TabsContent value="watchlist" className="space-y-6 mt-6">
-          <WatchlistTab />
+        <TabsContent value="scanner" className="space-y-6 mt-6">
+          <MarketScanner />
         </TabsContent>
 
-        <TabsContent value="api-data" className="space-y-6 mt-6">
-          <ApiDataTab />
+        {/* Legacy tabs redirect/mapping if needed, but sidebar is updated */}
+        <TabsContent value="watchlist" className="space-y-6 mt-6">
+          <MarketScanner />
+        </TabsContent>
+        <TabsContent value="screener" className="space-y-6 mt-6">
+          <MarketScanner />
         </TabsContent>
 
         <TabsContent value="alpaca" className="space-y-6 mt-6">

@@ -1,5 +1,5 @@
 ---
-title: Dashboard Api Readme
+title: Dashboard Features
 ---
 
 # Dashboard API Integration Guide

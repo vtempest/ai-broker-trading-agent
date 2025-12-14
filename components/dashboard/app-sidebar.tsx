@@ -25,7 +25,8 @@ import {
   Search,
   Bell,
   Star,
-  Trash2
+  Trash2,
+  BarChart3
 } from 'lucide-react'
 import { useSession, signOut } from "@/lib/auth-client"
 
@@ -162,8 +163,7 @@ const navigationGroups = [
   {
     title: "Market",
     items: [
-      { name: "Watchlist", tab: "watchlist", icon: Star },
-      { name: "Research Agents", tab: "api-data", icon: Activity },
+      { name: "Market Scanner", tab: "scanner", icon: BarChart3 },
       { name: "Strategies", tab: "strategies", icon: Zap },
     ],
   },

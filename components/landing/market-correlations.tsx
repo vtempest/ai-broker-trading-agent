@@ -420,7 +420,7 @@ export function MarketCorrelations() {
               <AlertCircle className="w-6 h-6 text-violet-400" />
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold mb-2">Multi-Factor Prediction Models</h4>
+              <h4 className="font-semibold mb-2">XGBoost & Prophet TimeSeries ML Models</h4>
               <p className="text-sm text-muted-foreground mb-4">
                 Our platform combines 5-10 prediction market signals to forecast individual stock movements. The system
                 requires 3 validation criteria before generating high-conviction signals: elite forecaster consensus
