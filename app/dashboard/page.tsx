@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OverviewTab } from "@/components/dashboard/overview-tab"
 import { AgentsTab } from "@/components/dashboard/agents-tab"
 import { StrategiesTab } from "@/components/dashboard/strategies-tab"
+import { OptionsAdvisor } from "@/components/dashboard/options-advisor"
 import { PredictionMarketsTab } from "@/components/dashboard/prediction-markets-tab"
 import { CopyTradingTab } from "@/components/dashboard/copy-trading-tab"
 import { RiskPortfolioTab } from "@/components/dashboard/risk-portfolio-tab"
@@ -149,9 +150,6 @@ function DashboardContent() {
           <StrategiesTab />
         </TabsContent>
 
-        <TabsContent value="options-advisor" className="space-y-6 mt-6">
-          <OptionsAdvisor />
-        </TabsContent>
 
         <TabsContent value="prediction-markets" className="space-y-6 mt-6">
           <PredictionMarketsTab />

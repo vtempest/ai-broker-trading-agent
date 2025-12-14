@@ -1,11 +1,10 @@
-"use client"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { signIn } from "@/lib/auth-client"
+import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { Loader2, Wallet } from "lucide-react"
 import { BrowserProvider } from "ethers"
+import { SiweMessage } from "siwe"
 
 declare global {
   interface Window {
@@ -29,12 +28,47 @@ export function SiweSignIn() {
       const provider = new BrowserProvider(window.ethereum)
       const signer = await provider.getSigner()
       const address = await signer.getAddress()
+      const network = await provider.getNetwork()
+      const chainId = Number(network.chainId)
 
-      await (signIn as any).siwe({
-        signer,
+      // 1. Get Nonce
+      // We cast to any because typescript might not infer the plugin methods immediately
+      const nonce = await (authClient as any).siwe.generateNonce()
+
+      // 2. Create SIWE Message
+      const message = new SiweMessage({
+        domain: window.location.host,
         address,
-        callbackURL: "/dashboard",
+        statement: "Sign in with Ethereum to the app.",
+        uri: window.location.origin,
+        version: "1",
+        chainId,
+        nonce,
       })
+
+      const preparedMessage = message.prepareMessage()
+
+      // 3. Sign Message
+      const signature = await signer.signMessage(preparedMessage)
+
+      // 4. Verify & Sign In
+      // Use verify() instead of signIn() as per better-auth SIWE docs
+      const { data, error } = await (authClient as any).siwe.verify({
+        message: preparedMessage,
+        signature,
+      })
+
+      if (error) {
+         console.error("SIWE Verify Error:", error)
+         setIsLoading(false)
+         return
+      }
+
+      if (data) {
+        router.refresh()
+        router.push("/dashboard")
+      }
+
     } catch (error) {
       console.error("SIWE Error:", error)
       setIsLoading(false)
@@ -54,7 +88,7 @@ export function SiweSignIn() {
       ) : (
         <Wallet className="mr-2 h-5 w-5" />
       )}
-      Sign in with Ethereum
+      Sign in with MetaMask
     </Button>
   )
 }
