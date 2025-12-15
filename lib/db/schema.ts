@@ -428,3 +428,131 @@ export const agentApiLogs = sqliteTable("agent_api_logs", {
   timestamp: integer("timestamp", { mode: "timestamp" }).notNull(),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 })
+
+// ============================================================================
+// Organizations & Teams
+// ============================================================================
+
+// Organizations - Companies or groups
+export const organizations = sqliteTable("organizations", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  image: text("image"),
+  ownerId: text("owner_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+})
+
+// Organization Members
+export const organizationMembers = sqliteTable("organization_members", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  role: text("role").notNull().default("member"), // owner, admin, member
+  joinedAt: integer("joined_at", { mode: "timestamp" }).notNull(),
+})
+
+// Teams - Sub-groups within organizations
+export const teams = sqliteTable("teams", {
+  id: text("id").primaryKey(),
+  organizationId: text("organization_id").notNull().references(() => organizations.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description"),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+})
+
+// Team Members
+export const teamMembers = sqliteTable("team_members", {
+  id: text("id").primaryKey(),
+  teamId: text("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  role: text("role").notNull().default("member"), // lead, member
+  joinedAt: integer("joined_at", { mode: "timestamp" }).notNull(),
+})
+
+// ============================================================================
+// User Social Features
+// ============================================================================
+
+// User Follows - Users following other users
+export const userFollows = sqliteTable("user_follows", {
+  id: text("id").primaryKey(),
+  followerId: text("follower_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  followingId: text("following_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+})
+
+// User Invitations - Invite users via email
+export const userInvitations = sqliteTable("user_invitations", {
+  id: text("id").primaryKey(),
+  inviterId: text("inviter_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  email: text("email").notNull(),
+  status: text("status").notNull().default("pending"), // pending, accepted, expired
+  organizationId: text("organization_id").references(() => organizations.id, { onDelete: "cascade" }),
+  teamId: text("team_id").references(() => teams.id, { onDelete: "cascade" }),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+})
+
+// ============================================================================
+// Sharing & Notifications
+// ============================================================================
+
+// Shared Items - Stock alerts, debate reports, etc.
+export const sharedItems = sqliteTable("shared_items", {
+  id: text("id").primaryKey(),
+  sharedById: text("shared_by_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  sharedWithEmail: text("shared_with_email").notNull(),
+  sharedWithUserId: text("shared_with_user_id").references(() => users.id, { onDelete: "set null" }),
+  itemType: text("item_type").notNull(), // stock_alert, debate_report, signal, strategy
+  itemId: text("item_id").notNull(), // Reference to the shared item
+  symbol: text("symbol"), // For stock-related shares
+  title: text("title"),
+  message: text("message"), // Optional message from sender
+  metadata: text("metadata"), // JSON string with additional data
+  viewedAt: integer("viewed_at", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+})
+
+// Notifications
+export const notifications = sqliteTable("notifications", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // share, follow, invite, comment, like, mention
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  actionUrl: text("action_url"), // Link to the relevant item
+  fromUserId: text("from_user_id").references(() => users.id, { onDelete: "cascade" }),
+  relatedItemType: text("related_item_type"), // stock_alert, debate_report, comment, etc.
+  relatedItemId: text("related_item_id"),
+  read: integer("read", { mode: "boolean" }).default(false),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+})
+
+// ============================================================================
+// Comments & Likes
+// ============================================================================
+
+// Comments - On debate reports and news tips
+export const comments = sqliteTable("comments", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  itemType: text("item_type").notNull(), // debate_report, news_tip, signal, strategy
+  itemId: text("item_id").notNull(), // ID of the item being commented on
+  parentCommentId: text("parent_comment_id").references(() => comments.id, { onDelete: "cascade" }), // For nested comments
+  content: text("content").notNull(),
+  editedAt: integer("edited_at", { mode: "timestamp" }),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+})
+
+// Likes - On debate reports, comments, and news tips
+export const likes = sqliteTable("likes", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  itemType: text("item_type").notNull(), // debate_report, news_tip, signal, strategy, comment
+  itemId: text("item_id").notNull(), // ID of the item being liked
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+})
