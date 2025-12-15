@@ -78,8 +78,29 @@ export interface AgentState {
 
   /** Current state of the risk debate */
   riskDebateState: RiskDebateState
+  /** Risk-adjusted plan after risk team debate */
+  finalRiskAdjustedPlan?: string
+  /** Fund manager's final decision */
+  fundManagerDecision?: string
+  /** Final approval status (APPROVE/REJECT/MODIFY) */
+  finalApproval?: string
+  /** Approved position size */
+  approvedPositionSize?: string | null
   /** Final decision made by the Risk Analysts */
   finalTradeDecision: string
+}
+
+export interface StructuredReport {
+  /** Summary of key points */
+  summary: string
+  /** Detailed findings */
+  findings: string[]
+  /** Recommendations */
+  recommendations: string[]
+  /** Confidence level */
+  confidence?: 'High' | 'Medium' | 'Low'
+  /** Supporting data */
+  data?: Record<string, any>
 }
 
 export interface TradingConfig {
