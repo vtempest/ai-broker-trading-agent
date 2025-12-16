@@ -1,9 +1,13 @@
 "use client"
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { TechnicalChart } from "./technical-chart"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { Loader2, X, Search } from "lucide-react"
+import type { IChartApi, ISeriesApi } from "lightweight-charts"
 
 interface DynamicStockChartProps {
   symbol: string
@@ -19,6 +23,23 @@ interface ChartData {
   close: number
 }
 
+interface ComparisonSymbol {
+  symbol: string
+  color: string
+  data: ChartData[]
+  loading: boolean
+}
+
+// Predefined colors for comparison symbols
+const COMPARISON_COLORS = [
+  'rgb(225, 87, 90)',    // Red
+  'rgb(242, 142, 44)',   // Orange
+  'rgb(76, 175, 80)',    // Green
+  'rgb(156, 39, 176)',   // Purple
+  'rgb(33, 150, 243)',   // Blue
+  'rgb(255, 193, 7)',    // Yellow
+]
+
 export function DynamicStockChart({
   symbol,
   initialRange = "1mo",
@@ -28,6 +49,15 @@ export function DynamicStockChart({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastFetchedRange, setLastFetchedRange] = useState<{from: number; to: number} | null>(null)
+
+  // Comparison state
+  const [comparisonSymbols, setComparisonSymbols] = useState<ComparisonSymbol[]>([])
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchResults, setSearchResults] = useState<any[]>([])
+  const [showSearchResults, setShowSearchResults] = useState(false)
+  const chartRef = useRef<IChartApi | null>(null)
+  const mainSeriesRef = useRef<ISeriesApi<any> | null>(null)
+  const comparisonSeriesRefs = useRef<Map<string, ISeriesApi<any>>>(new Map())
 
   // Fetch initial data
   useEffect(() => {
