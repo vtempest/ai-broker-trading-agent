@@ -20,18 +20,18 @@ export function ArchitectureSection() {
       <div className="mx-auto max-w-7xl">
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           <div className="relative flex items-center justify-center overflow-hidden rounded-2xl ">
-           
 
-              <Image
-                src="/images/diagram-trading-sources.png"
-                alt="Stock Prediction System Architecture Flow Diagram"
-                width={600}
-                height={450}
-                className="object-contain "
-              />
+
+            <Image
+              src="/images/diagram-trading-sources.png"
+              alt="Stock Prediction System Architecture Flow Diagram"
+              width={600}
+              height={450}
+              className="object-contain "
+            />
           </div>
           <div className="flex flex-col justify-center">
-            <h3 className="text-2xl font-bold text-foreground"> 
+            <h3 className="text-2xl font-bold text-foreground">
               Automation of Hedge Fund Level of Research
             </h3>
             <p className="mt-4 text-muted-foreground">
@@ -93,7 +93,7 @@ export function ArchitectureSection() {
               </div>
             ))}
           </div>
-          
+
         </div>
       </div>
     </section>

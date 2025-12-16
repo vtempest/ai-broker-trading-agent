@@ -1,20 +1,20 @@
 {
-  "name": "timetravel-investments-agents",
+  "name": "investment-prediction-agent",
   "description": "Investing with research agents, algorithmic strategies, and prediction markets",
   "version": "0.2.0",
-  "private": true,
   "author": "vtempest",
   "license": "rights.institute/prosper",
   "scripts": {
     "dev": "next dev",
     "import:stategies": "bun lib/algo-stategies/tv-scraper.ts --pages=10",
+    "import:leaders": "bun lib/leaders/nvsty-leaders.ts",
     "import:stocks": "bun lib/stocks/import-stock-names.ts",
-    "import:leaders": "bun lib/prediction/nvsty-leaders.ts",
     "build": "next build",
     "start": "next start",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "build:lib": "vite build"
   },
   "dependencies": {
     "@alpacahq/alpaca-trade-api": "^3.1.3",
@@ -104,6 +104,22 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "tw-animate-css": "1.4.0",
-    "typescript": "^5.9.3"
-  }
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "data": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ]
 }

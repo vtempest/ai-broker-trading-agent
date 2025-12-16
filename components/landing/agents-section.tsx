@@ -143,17 +143,17 @@ export function AgentsSection() {
           ))}
         </div>
 
-        </div>
-        
-                      <div className="mt-8 flex justify-center">
-          <Image
-            src="/images/diagram-research-flow.png"
-            alt="Stock Prediction System Architecture Flow Diagram"
-            width={900}
-            height={600}
-            className="object-contain rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-          />
-        </div>
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Image
+          src="/images/diagram-research-flow.jpg"
+          alt="Stock Prediction System Architecture Flow Diagram"
+          width={900}
+          height={600}
+          className="object-contain rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+        />
+      </div>
     </section>
   )
 }

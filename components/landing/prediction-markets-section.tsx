@@ -22,19 +22,9 @@ import { MarketCorrelations } from "./market-correlations"
 import Image from "next/image"
 
 const topTraders = [
+
   {
     rank: 1,
-    name: "Nancy Pelosi",
-    pnl: 12847293,
-    winRate: 78.4,
-    activePositions: 67,
-    currentValue: 4340000,
-    specialty: "Tech & Finance",
-    badge: "senate",
-    type: "politician",
-  },
-  {
-    rank: 2,
     name: "Warren Buffett",
     pnl: 8215890,
     winRate: 82.1,
@@ -45,7 +35,7 @@ const topTraders = [
     type: "investor",
   },
   {
-    rank: 3,
+    rank: 2,
     name: "Theo",
     pnl: 5847293,
     winRate: 68.4,
@@ -56,7 +46,7 @@ const topTraders = [
     type: "trader",
   },
   {
-    rank: 4,
+    rank: 3,
     name: "Dan Crenshaw",
     pnl: 4215890,
     winRate: 74.5,
@@ -109,6 +99,17 @@ const topTraders = [
     specialty: "Tech",
     badge: "sharp",
     type: "trader",
+  },
+  {
+    rank: 10,
+    name: "Nancy Pelosi",
+    pnl: 12847293,
+    winRate: 78.4,
+    activePositions: 67,
+    currentValue: 4340000,
+    specialty: "Tech & Finance",
+    badge: "senate",
+    type: "politician",
   },
 ]
 
@@ -206,9 +207,9 @@ export function PredictionMarketsSection() {
   return (
     <section id="prediction-markets" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
-        
-                    
-                    <div className="text-center mb-16">
+
+
+        <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-cyan-500/50 text-cyan-400">
             Prediction Markets Intelligence
           </Badge>
@@ -275,39 +276,28 @@ export function PredictionMarketsSection() {
           ))}
         </div>
 
-        
+
 
         {/* Copy Trading Leaderboard */}
         <Card className="bg-card/50 border-border/50 backdrop-blur max-w-4xl mx-auto">
           <CardHeader>
 
 
-      
+
             <div id="copy-trading" className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex ml-[200px] justify-center mb-2">
 
-                     <Image
-          src="/images/banner-trading-floor.jpeg"
-          alt="AI Trading Floor with Multiple Agents"
-          width={400}
-          height={400}
-          className="items-center justify-center object-cover"
-        />
-                  <Trophy className="w-5 h-5 text-amber-400" />
-                  <CardTitle>Top Traders Leaderboard</CardTitle>
+                  <Image
+                    src="/images/copy-trading-leaders.jpg"
+                    alt="AI Trading Floor with Multiple Agents"
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
                 </div>
               </div>
-              <Button
-                variant="outline"
-                className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 bg-transparent"
-                asChild
-              >
-                <a href="https://polymarketanalytics.com/traders" target="_blank" rel="noopener noreferrer">
-                  <Eye className="w-4 h-4 mr-2" />
-                  View Full Leaderboard
-                </a>
-              </Button>
+
             </div>
           </CardHeader>
           <CardContent>
@@ -342,10 +332,10 @@ export function PredictionMarketsSection() {
                             {trader.rank <= 3 ? (
                               <div
                                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${trader.rank === 1
-                                    ? "bg-amber-500/20 text-amber-400"
-                                    : trader.rank === 2
-                                      ? "bg-slate-400/20 text-slate-300"
-                                      : "bg-orange-600/20 text-orange-400"
+                                  ? "bg-amber-500/20 text-amber-400"
+                                  : trader.rank === 2
+                                    ? "bg-slate-400/20 text-slate-300"
+                                    : "bg-orange-600/20 text-orange-400"
                                   }`}
                               >
                                 {trader.rank}
@@ -405,6 +395,17 @@ export function PredictionMarketsSection() {
                   })}
                 </tbody>
               </table>
+
+              <Button
+                variant="outline"
+                className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 bg-transparent"
+                asChild
+              >
+                <a href="https://polymarketanalytics.com/traders" target="_blank" rel="noopener noreferrer">
+                  <Eye className="w-4 h-4 mr-2" />
+                  View Full Leaderboard
+                </a>
+              </Button>
             </div>
 
             {/* LLM Analysis Preview */}

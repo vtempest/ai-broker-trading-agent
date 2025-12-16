@@ -29,8 +29,8 @@ export function HeroSection() {
         </div>
 
         <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-tight">
-          Your Personal Hedge Fund Analyst Chatbot Team
-          <span className="block text-primary"> for Everyday Investors</span>
+          <span className="block text-primary"> Invest Like a Boss</span>
+          Of Your Own AI Hedge Fund Team
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl rounded-lg border border-border bg-background/50 p-4 text-lg leading-relaxed text-foreground backdrop-blur-sm">
@@ -41,7 +41,7 @@ export function HeroSection() {
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button size="lg" asChild>
-            <Link href="https://takemymoney.timetravel.investments" target="_blank">
+            <Link href="/survey">
               <Calendar className="mr-2 h-5 w-5" />
               Book a Demo
             </Link>

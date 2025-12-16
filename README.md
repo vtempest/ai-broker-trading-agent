@@ -1,10 +1,42 @@
+<p align="center">
+    <img width="400px" src="https://i.imgur.com/dE5Rfck.jpeg" />
+</p>
+<p align="center">
+    <a href="https://discord.gg/SJdBqBz3tV">
+        <img src="https://img.shields.io/discord/1110227955554209923.svg?label=Chat&logo=Discord&colorB=7289da&style=flat"
+            alt="Join Discord" />
+    </a>
+     <a href="https://github.com/vtempest/stock-prediction-agent/discussions">
+     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/vtempest/stock-prediction-agent" /></a>
+    <a href="https://github.com/vtempest/stock-prediction-agent/discussions">
+    <img alt="GitHub Discussions"
+        src="https://img.shields.io/github/discussions/vtempest/stock-prediction-agent" />
+    </a>
+    <!-- <a href="https://npmjs.org/package/stock-prediction-agent"><img src="https://img.shields.io/npm/v/stock-prediction-agent"/></a>    -->
+    <a href="https://github.com/vtempest/stock-prediction-agent/pulse" alt="Activity">
+        <img src="https://img.shields.io/github/commit-activity/m/vtempest/stock-prediction-agent" />
+    </a>
+    <img src="https://img.shields.io/github/last-commit/vtempest/stock-prediction-agent.svg" alt="GitHub last commit" />
+    <img src="https://img.shields.io/badge/Next.js-16.0-black" alt="Next.js" />
+
+</p>
+<p align="center">
+    <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">
+        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"
+            alt="PRs Welcome" />
+    </a>
+    <a href="https://codespaces.new/vtempest/stock-prediction-agent">
+    <img src="https://github.com/codespaces/badge.svg" width="150" height="20" />
+    </a>
+</p>
+<h3 align="center">
+    <a href="https://docs.timetravel.investments/"> 📑 Docs </a> <a href="https://timetravel.investments/api/docs"> API </a> 
+ <a href="https://timetravel.investments"> 🚀 Demo</a></h3>
+
 # Investment Prediction Agent
 
-> AI-powered multi-agent trading system for comprehensive stock market analysis and automated trading decisions.
+> AI-powered multi-agent trading system for comprehensive stock & prediction markets analysis and automated trading decisions.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.0-black)](https://nextjs.org/)
-[![Python](https://img.shields.io/badge/Python-3.9+-blue)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ## 🚀 Overview
 
@@ -18,37 +50,6 @@ The **Investment Prediction Agent** is a sophisticated platform combining 8 spec
 - **"Bull vs. Bear" Debates**: Automated debates to assess risk and reward before every trade.
 - **Groq Integration**: High-speed inference using `llama-3.3-70b-versatile`.
 
-## 🛠️ Quick Start
-
-**Prerequisites**: Node.js 18+, Python 3.9+, and API Keys (Groq, OpenAI, etc.).
-
-1.  **Clone & Install**
-    ```bash
-    git clone https://github.com/vtempest/investment-prediction-agent.git
-    cd investment-prediction-agent
-    npm install             # Install frontend deps
-    npm run db:push         # Initialize database
-    ```
-
-2.  **Setup Python Agents**
-    ```bash
-    cd agents
-    # Setup venv and install dependencies for specific agents as needed
-    # See agents/README.md for detailed setup
-    pip install -r requirements.txt
-    ```
-
-3.  **Run Services**
-    ```bash
-    # Terminal 1: Frontend
-    npm run dev
-
-    # Terminal 2: Unified Backend
-    cd agents && python unified_api_server.py
-    ```
-
-4.  **Explore**: Open [http://localhost:3000](http://localhost:3000).
-
 ## 🤖 AI Agents & Strategies
 
 | Agent/Team | Role |
@@ -60,24 +61,15 @@ The **Investment Prediction Agent** is a sophisticated platform combining 8 spec
 
 **Strategies**: Momentum (Trend Following), Mean Reversion, Breakout (Volatility), and Day Trading Scalp.
 
-## 📂 Project Ecosystem
-
-
-- **[Documentation](./docs/README.md)**: Full architecture and API details.
-- **[Lightweight Charts](https://www.tradingview.com/lightweight-charts/)**: Deep dive into the AI stack.
-- **[LangChain Integration](./docs/GROQ_LANGCHAIN_INTEGRATION.md)**: Deep dive into the AI stack.
-- **[API Docs](http://localhost:3000/api/docs)**: Interactive Scalar documentation (when running).
-
-## 📦 Project Structure
-
-```
-├── agents/             # Python AI services (News, Debate, etc.)
-├── app/                # Next.js App Router
-├── components/         # React UI (Dashboard, Charts)
-├── lib/                # Shared utilities & Database schema
-└── docs/               # Detailed documentation
-```
+## 📂 Third Party APIs
+- **[Alpaca](https://alpaca.markets/)**: Broker & trading as a service.
+- **[Finnhub](https://finnhub.io/dashboard)**: Stock market data.
+- **[TradingView](https://www.tradingview.com/ideas/)**: TradingView PineScript automated trading.
+- **[ZuluTrade](https://www.zulutrade.com/traders/list/75932)**: Top traders leaderboard.
+- **[Polymarket](https://polymarketanalytics.com/)**: Top event predictions leaderboard & correlation with stock market.
+- **[Lightweight Charts](https://www.tradingview.com/lightweight-charts/)**: Candlestick UI widget from TradingView
+- **[TradingAgents](https://github.com/TauricResearch/TradingAgents)**: Implementation of LLM research bots ([paper](https://arxiv.org/pdf/2412.20138))
 
 ## 🤝 Contributing & License
 
-Contributions are welcome! Please open an issue or PR. Licensed under [MIT](LICENSE).
+Contributions are welcome! Please open an issue or PR. 

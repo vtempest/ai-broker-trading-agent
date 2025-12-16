@@ -16,6 +16,7 @@ import {
   Calendar,
 } from "lucide-react"
 import { useState } from "react"
+import { APP_NAME } from "@/lib/customize-site"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -36,7 +37,7 @@ export function Header() {
               className="h-full w-full object-cover"
             />
           </div>
-          <span className="text-xl font-semibold text-foreground">TimeTravel.Investments</span>
+          <span className="text-xl font-semibold text-foreground">{APP_NAME}</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -47,21 +48,6 @@ export function Header() {
             <Users className="h-4 w-4" />
             Research Agents
           </Link>
-          {/* <Link
-            href="#workflow"
-            className={navLinkClasses}
-          >
-            <GitBranch className="h-4 w-4" />
-            Workflow
-          </Link> */}
-          
-          {/* <Link
-            href="#signals"
-            className={navLinkClasses}
-          >
-            <Radio className="h-4 w-4" />
-            Signals
-          </Link> */}
           <Link
             href="#prediction-markets"
             className={navLinkClasses}
@@ -86,14 +72,14 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          
-            <Button size="sm" asChild className="w-[100px]">
-              <Link href="/login" target="_blank" rel="noopener noreferrer">
-                Login
-              </Link>
-            </Button>
-            
-            <Button  variant="outline" size="sm" asChild>
+
+          <Button size="sm" asChild className="w-[100px]">
+            <Link href="/login" target="_blank" rel="noopener noreferrer">
+              Login
+            </Link>
+          </Button>
+
+          <Button variant="outline" size="sm" asChild>
             <Link href="https://takemymoney.timetravel.investments" target="_blank">
               <Calendar className="mr-2 h-4 w-4" />
               Book Demo
@@ -109,57 +95,55 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="border-t border-border bg-background px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
+
             <Link
               href="#agents"
-              className={mobileNavLinkClasses}
-              onClick={() => setMobileMenuOpen(false)}
+              className={navLinkClasses}
             >
               <Users className="h-4 w-4" />
-              Agents
+              Research Agents
             </Link>
-            <Link
-              href="#workflow"
-              className={mobileNavLinkClasses}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <GitBranch className="h-4 w-4" />
-              Workflow
-            </Link>
-            <Link
-              href="#strategies"
-              className={mobileNavLinkClasses}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <Target className="h-4 w-4" />
-              Strategies
-            </Link>
-            <Link
-              href="#signals"
-              className={mobileNavLinkClasses}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <Radio className="h-4 w-4" />
-              Signals
-            </Link>
+            {/* <Link
+            href="#workflow"
+            className={navLinkClasses}
+          >
+            <GitBranch className="h-4 w-4" />
+            Workflow
+          </Link> */}
+
+            {/* <Link
+            href="#signals"
+            className={navLinkClasses}
+          >
+            <Radio className="h-4 w-4" />
+            Signals
+          </Link> */}
             <Link
               href="#prediction-markets"
-              className={mobileNavLinkClasses}
-              onClick={() => setMobileMenuOpen(false)}
+              className={navLinkClasses}
             >
               <TrendingUp className="h-4 w-4" />
               Prediction Markets
             </Link>
             <Link
-              href="#features"
-              className={mobileNavLinkClasses}
-              onClick={() => setMobileMenuOpen(false)}
+              href="#copy-trading"
+              className={navLinkClasses}
             >
               <Sparkles className="h-4 w-4" />
-              Features
+              Copy Trading
             </Link>
+            <Link
+              href="#strategies"
+              className={navLinkClasses}
+            >
+              <Target className="h-4 w-4" />
+              Algo Strategies
+            </Link>
+
+
             <div className="pt-2">
               <Button size="sm" className="w-full" asChild>
-                <Link href="https://takemymoney.timetravel.investments" target="_blank">
+                <Link href="/survey" target="_blank">
                   <Calendar className="mr-2 h-4 w-4" />
                   Book Demo
                 </Link>

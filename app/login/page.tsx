@@ -5,6 +5,7 @@ import { SiweSignIn } from "@/components/auth/siwe-signin"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
+import { APP_NAME } from "@/lib/customize-site"
 
 export default function LoginPage() {
   return (
@@ -13,15 +14,15 @@ export default function LoginPage() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg overflow-hidden">
-            <Image
-              src="/apple-touch-icon.png"
-              alt="Logo"
-              width={36}
-              height={36}
-              className="h-full w-full object-cover"
-            />
-          </div>
-            <span className="text-2xl font-bold">TimeTravel</span>
+              <Image
+                src="/apple-touch-icon.png"
+                alt="Logo"
+                width={36}
+                height={36}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <span className="text-2xl font-bold">{APP_NAME}</span>
           </div>
 
           <div className="text-center">
@@ -33,7 +34,7 @@ export default function LoginPage() {
 
           <div className="w-full space-y-4">
             <GoogleSignIn />
-            
+
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />

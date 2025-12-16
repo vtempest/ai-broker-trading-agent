@@ -60,13 +60,13 @@ import { Input } from "@/components/ui/input"
 // Helper component for Search
 function SidebarSearch() {
   const [query, setQuery] = React.useState("")
-  const [results, setResults] = React.useState<{symbol: string, name: string}[]>([])
+  const [results, setResults] = React.useState<{ symbol: string, name: string }[]>([])
   const [isOpen, setIsOpen] = React.useState(false)
   const wrapperRef = React.useRef<HTMLDivElement>(null)
   const router = useRouter()
   const { state, toggleSidebar } = useSidebar()
 
-   React.useEffect(() => {
+  React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setIsOpen(false)
@@ -121,12 +121,12 @@ function SidebarSearch() {
     <div ref={wrapperRef} className="relative w-full px-2">
       <div className="relative">
         <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-        <Input 
-          placeholder="Search stocks..." 
-          className="pl-8 h-8 bg-sidebar-accent/50 border-sidebar-border" 
+        <Input
+          placeholder="Search stocks..."
+          className="pl-8 h-8 bg-sidebar-accent/50 border-sidebar-border"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => { if(results.length > 0) setIsOpen(true) }}
+          onFocus={() => { if (results.length > 0) setIsOpen(true) }}
         />
       </div>
       {isOpen && results.length > 0 && (
@@ -192,7 +192,7 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const currentTab = searchParams.get('tab') || 'overview'
   const { data: session } = useSession()
   const user = session?.user || { name: "Guest User", email: "guest@example.com", image: null }
-  
+
   // Helper to determine active state
   const isActive = (tab?: string, href?: string) => {
     if (href) return pathname === href
@@ -264,8 +264,8 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton 
-                  asChild 
+                <SidebarMenuButton
+                  asChild
                   isActive={pathname === '/dashboard/settings'}
                   tooltip="Settings"
                 >
@@ -275,9 +275,9 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-               <SidebarMenuItem>
-                <SidebarMenuButton 
-                  asChild 
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
                   isActive={pathname === '/help'}
                   tooltip="Help"
                 >
@@ -309,10 +309,10 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <span className="truncate font-semibold">{user.name || "Guest"}</span>
                     <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                   </div>
-                  <div className="relative group-data-[collapsible=icon]:hidden">
+                  {/* <div className="relative group-data-[collapsible=icon]:hidden">
                     <Bell className="h-4 w-4 ml-auto text-muted-foreground" />
                      <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500 border border-sidebar-accent" />
-                  </div>
+                  </div> */}
                   <ChevronUp className="ml-2 size-4 group-data-[collapsible=icon]:hidden" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -340,12 +340,12 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    Billing
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  Billing
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <Bell className="mr-2 h-4 w-4" />
-                    Notifications
+                  <Bell className="mr-2 h-4 w-4" />
+                  Notifications
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={async () => {

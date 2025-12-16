@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { openApiSpec } from "@/lib/openapi/spec";
+import json from "@/lib/openapi/investment-agent-openapi.json";
 
 export async function GET() {
-  return NextResponse.json(openApiSpec);
+  return NextResponse.json(json);
 }

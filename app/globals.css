@@ -3,11 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
-#tv-attr-logo{
+/* remove lightweight-charts logo */
+#tv-attr-logo {
   display: none;
   visibility: hidden;
-
 }
+
 /* <CHANGE> Light/Dark fintech theme with emerald accent for stock/trading aesthetic */
 :root {
   --background: oklch(0.98 0.005 260);
@@ -125,6 +126,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

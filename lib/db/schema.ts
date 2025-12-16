@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core"
+import { sqliteTable, text, integer, real, type AnySQLiteColumn } from "drizzle-orm/sqlite-core"
 
 // User table
 export const users = sqliteTable("users", {
@@ -12,6 +12,7 @@ export const users = sqliteTable("users", {
   alpacaKeyId: text("alpaca_key_id"),
   alpacaSecretKey: text("alpaca_secret_key"),
   alpacaPaper: integer("alpaca_paper", { mode: "boolean" }).default(true),
+  surveyResponse: text("survey_response"), // JSON string of survey responses
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 })
@@ -541,7 +542,7 @@ export const comments = sqliteTable("comments", {
   userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   itemType: text("item_type").notNull(), // debate_report, news_tip, signal, strategy
   itemId: text("item_id").notNull(), // ID of the item being commented on
-  parentCommentId: text("parent_comment_id").references(() => comments.id, { onDelete: "cascade" }), // For nested comments
+  parentCommentId: text("parent_comment_id").references((): AnySQLiteColumn => comments.id, { onDelete: "cascade" }), // For nested comments
   content: text("content").notNull(),
   editedAt: integer("edited_at", { mode: "timestamp" }),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),

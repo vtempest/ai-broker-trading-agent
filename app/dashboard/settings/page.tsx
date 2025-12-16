@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { ExternalLink, Eye, EyeOff, Save, Moon, Sun, Monitor, Copy, RefreshCw } from "lucide-react";
+import { TeamsManager } from "@/components/settings/teams-manager";
 
 const LLM_PROVIDERS = [
   {
@@ -615,6 +616,11 @@ export default function SettingsPage() {
               ))}
             </CardContent>
           </Card>
+        </section>
+
+        {/* Teams Section */}
+        <section id="teams" className="scroll-mt-20">
+             <TeamsManager />
         </section>
       </div>
     </div>

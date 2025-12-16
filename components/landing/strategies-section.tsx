@@ -189,7 +189,7 @@ export function StrategiesSection() {
         <div className="mb-16 flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-12">
           <div className="flex-1 text-center lg:text-left">
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Algorithmic Trading Strategies for Technical Analysts
+              Algorithmic Trading Strategies
             </h2>
             <p className="mt-4 max-w-2xl text-muted-foreground">
               Four AI-powered algorithmic strategies leveraging technical indicators (MACD, RSI, Bollinger Bands, ATR)
@@ -198,7 +198,14 @@ export function StrategiesSection() {
             </p>
           </div>
           <div className="relative h-48 w-72 overflow-hidden rounded-xl border border-border lg:h-56 lg:w-80">
-            <Image src="/images/banner-ai-trade.png" alt="AI Trading Bot" fill className="object-cover" />
+            <Image
+              src="/images/banner-trading-floor.jpeg"
+              alt="AI Trading Floor with Multiple Agents"
+              width={400}
+              height={400}
+              className="items-center justify-center object-cover"
+            />
+
           </div>
         </div>
 
@@ -237,7 +244,7 @@ export function StrategiesSection() {
           </div>
         </div>
 
-       
+
       </div>
     </section>
   )

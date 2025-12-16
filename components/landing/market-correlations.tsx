@@ -329,7 +329,7 @@ export function MarketCorrelations() {
         <Badge variant="outline" className="mb-4 border-violet-500/50 text-violet-400">
           Cross-Market Intelligence
         </Badge>
-        <h3 className="text-3xl font-bold mb-4">Prediction Market Correlations</h3>
+        <h3 className="text-3xl font-bold mb-4">Stock Price Correlations with Event Prediction</h3>
         <p className="text-muted-foreground max-w-3xl mx-auto">
           Discover how prediction markets correlate with traditional securities across sectors. Our AI identifies
           non-obvious relationships, providing 45-60 day advance signals for strategic positioning.
@@ -372,7 +372,7 @@ export function MarketCorrelations() {
                             <span>•</span>
                             <span className="flex items-center gap-1">
                               <TrendingUp className="h-3 w-3" />
-                              {(100*correlation.correlation).toFixed(0)}% correlation
+                              {(100 * correlation.correlation).toFixed(0)}% correlation
                             </span>
                           </CardDescription>
                         </div>
