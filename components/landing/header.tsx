@@ -17,7 +17,6 @@ import {
   Calendar,
 } from "lucide-react"
 import { useState } from "react"
-import { APP_NAME } from "@/lib/customize-site"
 import { ThemeDropdown } from "@/components/theme-dropdown"
 
 export function Header() {
@@ -39,7 +38,7 @@ export function Header() {
               className="h-full w-full object-cover"
             />
           </div>
-          <span className="text-xl font-semibold text-foreground">{APP_NAME}</span>
+          <span className="text-xl font-semibold text-foreground">{process?.env?.NEXT_PUBLIC_APP_NAME}</span>
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
