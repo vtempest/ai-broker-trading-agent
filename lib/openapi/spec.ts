@@ -25,6 +25,10 @@ export const openApiSpec = {
       description: "Stock market data and analysis endpoints"
     },
     {
+      name: "Alpaca Broker",
+      description: "Alpaca Broker API integration for account creation, trading, and real-time data"
+    },
+    {
       name: "Trading Agents",
       description: "AI-powered trading analysis and decision making"
     },
@@ -54,6 +58,501 @@ export const openApiSpec = {
     }
   ],
   paths: {
+    "/alpaca/broker/accounts": {
+      post: {
+        tags: ["Alpaca Broker"],
+        summary: "Create brokerage account",
+        description: "Create a new brokerage account for an end user using Alpaca Broker API. Requires KYC information.",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/BrokerAccountRequest" }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Account created successfully",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/BrokerAccountResponse" }
+              }
+            }
+          }
+        }
+      },
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get brokerage accounts",
+        description: "List all brokerage accounts or get a specific account by ID",
+        parameters: [
+          {
+            name: "account_id",
+            in: "query",
+            description: "Optional account ID to fetch specific account",
+            schema: { type: "string" }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    data: { type: "object" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/account": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get account info",
+        description: "Get authenticated user's Alpaca account information including cash, equity, and buying power",
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/AlpacaAccount" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/orders": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get orders",
+        description: "List orders for authenticated user with optional status and limit filters",
+        parameters: [
+          {
+            name: "status",
+            in: "query",
+            description: "Order status filter (all, open, closed, etc.)",
+            schema: { type: "string", default: "all" }
+          },
+          {
+            name: "limit",
+            in: "query",
+            description: "Maximum number of orders to return",
+            schema: { type: "integer", default: 50 }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    orders: {
+                      type: "array",
+                      items: { $ref: "#/components/schemas/AlpacaOrder" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      post: {
+        tags: ["Alpaca Broker"],
+        summary: "Create order",
+        description: "Place a new order (market, limit, stop, bracket, etc.)",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/CreateOrderRequest" }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Order created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    order: { $ref: "#/components/schemas/AlpacaOrder" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      delete: {
+        tags: ["Alpaca Broker"],
+        summary: "Cancel orders",
+        description: "Cancel a specific order by ID or cancel all open orders",
+        parameters: [
+          {
+            name: "id",
+            in: "query",
+            description: "Order ID to cancel (omit to cancel all)",
+            schema: { type: "string" }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Order(s) cancelled successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    message: { type: "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/positions": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get positions",
+        description: "Get all open positions for authenticated user",
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    positions: {
+                      type: "array",
+                      items: { $ref: "#/components/schemas/AlpacaPosition" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      delete: {
+        tags: ["Alpaca Broker"],
+        summary: "Close positions",
+        description: "Close a specific position by symbol or close all positions",
+        parameters: [
+          {
+            name: "symbol",
+            in: "query",
+            description: "Stock symbol to close (omit to close all)",
+            schema: { type: "string" }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Position(s) closed successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    message: { type: "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/portfolio-history": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get portfolio history",
+        description: "Get historical portfolio equity and profit/loss data",
+        parameters: [
+          {
+            name: "period",
+            in: "query",
+            description: "Time period (1D, 1W, 1M, 3M, 1Y, ALL)",
+            schema: { type: "string", default: "1M" }
+          },
+          {
+            name: "timeframe",
+            in: "query",
+            description: "Data granularity (1Min, 5Min, 15Min, 1H, 1D)",
+            schema: { type: "string", default: "1D" }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    history: {
+                      type: "object",
+                      properties: {
+                        timestamp: { type: "array", items: { type: "number" } },
+                        equity: { type: "array", items: { type: "number" } },
+                        profit_loss: { type: "array", items: { type: "number" } },
+                        profit_loss_pct: { type: "array", items: { type: "number" } }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/assets": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get tradable assets",
+        description: "List all tradable assets available on Alpaca",
+        parameters: [
+          {
+            name: "status",
+            in: "query",
+            description: "Asset status filter (active, inactive)",
+            schema: { type: "string", default: "active" }
+          },
+          {
+            name: "asset_class",
+            in: "query",
+            description: "Asset class filter (us_equity, crypto)",
+            schema: { type: "string" }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    assets: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          id: { type: "string" },
+                          symbol: { type: "string" },
+                          name: { type: "string" },
+                          exchange: { type: "string" },
+                          tradable: { type: "boolean" },
+                          marginable: { type: "boolean" },
+                          shortable: { type: "boolean" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/watchlist": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get watchlists",
+        description: "Get all watchlists for authenticated user",
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    watchlists: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          id: { type: "string" },
+                          name: { type: "string" },
+                          account_id: { type: "string" },
+                          assets: {
+                            type: "array",
+                            items: {
+                              type: "object",
+                              properties: {
+                                id: { type: "string" },
+                                symbol: { type: "string" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      post: {
+        tags: ["Alpaca Broker"],
+        summary: "Create watchlist",
+        description: "Create a new watchlist with name and symbols",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["name"],
+                properties: {
+                  name: { type: "string", example: "My Tech Stocks" },
+                  symbols: {
+                    type: "array",
+                    items: { type: "string" },
+                    example: ["AAPL", "TSLA", "NVDA"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Watchlist created successfully"
+          }
+        }
+      },
+      delete: {
+        tags: ["Alpaca Broker"],
+        summary: "Delete watchlist",
+        description: "Delete a watchlist by ID",
+        parameters: [
+          {
+            name: "id",
+            in: "query",
+            required: true,
+            description: "Watchlist ID",
+            schema: { type: "string" }
+          }
+        ],
+        responses: {
+          "200": {
+            description: "Watchlist deleted successfully"
+          }
+        }
+      }
+    },
+    "/alpaca/stream": {
+      get: {
+        tags: ["Alpaca Broker"],
+        summary: "Get WebSocket stream info",
+        description: "Get WebSocket connection details and credentials for real-time market data streaming",
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    connection: {
+                      type: "object",
+                      properties: {
+                        websocket_url: { type: "string", example: "wss://stream.data.alpaca.markets/v2/iex" },
+                        feed: { type: "string", example: "iex" },
+                        key_id: { type: "string" }
+                      }
+                    },
+                    instructions: {
+                      type: "object",
+                      properties: {
+                        auth_message: { type: "object" },
+                        subscribe_example: { type: "object" },
+                        unsubscribe_example: { type: "object" }
+                      }
+                    },
+                    supported_channels: {
+                      type: "object",
+                      properties: {
+                        trades: { type: "string" },
+                        quotes: { type: "string" },
+                        bars: { type: "string" },
+                        dailyBars: { type: "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alpaca/stream/snapshot": {
+      post: {
+        tags: ["Alpaca Broker"],
+        summary: "Get real-time snapshots",
+        description: "Get latest real-time snapshot data for symbols (alternative to WebSocket for one-time queries)",
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: ["symbols"],
+                properties: {
+                  symbols: {
+                    type: "array",
+                    items: { type: "string" },
+                    example: ["AAPL", "TSLA", "NVDA"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        responses: {
+          "200": {
+            description: "Successful response",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                    snapshots: { type: "object" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/stocks/trending": {
       get: {
         tags: ["Stocks"],
@@ -1208,6 +1707,219 @@ export const openApiSpec = {
               }
             }
           }
+        }
+      },
+      BrokerAccountRequest: {
+        type: "object",
+        required: ["contact", "identity"],
+        properties: {
+          contact: {
+            type: "object",
+            required: ["email_address", "phone_number", "street_address", "city", "state", "postal_code"],
+            properties: {
+              email_address: { type: "string", format: "email", example: "user@example.com" },
+              phone_number: { type: "string", example: "+15551234567" },
+              street_address: { type: "array", items: { type: "string" }, example: ["123 Main St"] },
+              city: { type: "string", example: "San Francisco" },
+              state: { type: "string", example: "CA" },
+              postal_code: { type: "string", example: "94105" },
+              country: { type: "string", default: "USA" }
+            }
+          },
+          identity: {
+            type: "object",
+            required: ["given_name", "family_name", "date_of_birth", "tax_id"],
+            properties: {
+              given_name: { type: "string", example: "John" },
+              middle_name: { type: "string" },
+              family_name: { type: "string", example: "Doe" },
+              date_of_birth: { type: "string", format: "date", example: "1990-01-01" },
+              tax_id: { type: "string", example: "123-45-6789" },
+              tax_id_type: { type: "string", default: "USA_SSN", enum: ["USA_SSN", "ARG_AR_CUIT"] },
+              country_of_citizenship: { type: "string", default: "USA" },
+              country_of_birth: { type: "string", default: "USA" },
+              country_of_tax_residence: { type: "string", default: "USA" },
+              funding_source: { type: "array", items: { type: "string" }, default: ["employment_income"] }
+            }
+          },
+          disclosures: {
+            type: "object",
+            properties: {
+              is_control_person: { type: "boolean", default: false },
+              is_affiliated_exchange_or_finra: { type: "boolean", default: false },
+              is_politically_exposed: { type: "boolean", default: false },
+              immediate_family_exposed: { type: "boolean", default: false }
+            }
+          },
+          agreements: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                agreement: { type: "string", enum: ["margin_agreement", "account_agreement", "customer_agreement"] },
+                signed_at: { type: "string", format: "date-time" },
+                ip_address: { type: "string" }
+              }
+            }
+          },
+          ip_address: { type: "string", example: "192.168.1.1" }
+        }
+      },
+      BrokerAccountResponse: {
+        type: "object",
+        properties: {
+          success: { type: "boolean" },
+          account: {
+            type: "object",
+            properties: {
+              id: { type: "string", format: "uuid" },
+              status: { type: "string", enum: ["SUBMITTED", "ACTION_REQUIRED", "EDITED", "APPROVAL_PENDING", "APPROVED", "ACTIVE", "REJECTED"] },
+              account_number: { type: "string" },
+              created_at: { type: "string", format: "date-time" }
+            }
+          }
+        }
+      },
+      AlpacaAccount: {
+        type: "object",
+        properties: {
+          success: { type: "boolean" },
+          account: {
+            type: "object",
+            properties: {
+              id: { type: "string" },
+              account_number: { type: "string" },
+              status: { type: "string" },
+              currency: { type: "string", example: "USD" },
+              cash: { type: "string", example: "100000.00" },
+              portfolio_value: { type: "string", example: "105000.00" },
+              pattern_day_trader: { type: "boolean" },
+              trading_blocked: { type: "boolean" },
+              transfers_blocked: { type: "boolean" },
+              account_blocked: { type: "boolean" },
+              created_at: { type: "string", format: "date-time" },
+              trade_suspended_by_user: { type: "boolean" },
+              multiplier: { type: "string", example: "4" },
+              shorting_enabled: { type: "boolean" },
+              equity: { type: "string", example: "105000.00" },
+              last_equity: { type: "string", example: "104000.00" },
+              long_market_value: { type: "string", example: "5000.00" },
+              short_market_value: { type: "string", example: "0" },
+              initial_margin: { type: "string", example: "2500.00" },
+              maintenance_margin: { type: "string", example: "1500.00" },
+              last_maintenance_margin: { type: "string", example: "1500.00" },
+              sma: { type: "string", example: "0" },
+              daytrade_count: { type: "integer", example: 0 },
+              buying_power: { type: "string", example: "400000.00" }
+            }
+          }
+        }
+      },
+      AlpacaOrder: {
+        type: "object",
+        properties: {
+          id: { type: "string", format: "uuid" },
+          client_order_id: { type: "string" },
+          created_at: { type: "string", format: "date-time" },
+          updated_at: { type: "string", format: "date-time" },
+          submitted_at: { type: "string", format: "date-time" },
+          filled_at: { type: "string", format: "date-time" },
+          expired_at: { type: "string", format: "date-time" },
+          canceled_at: { type: "string", format: "date-time" },
+          failed_at: { type: "string", format: "date-time" },
+          replaced_at: { type: "string", format: "date-time" },
+          replaced_by: { type: "string" },
+          replaces: { type: "string" },
+          asset_id: { type: "string" },
+          symbol: { type: "string", example: "AAPL" },
+          asset_class: { type: "string", example: "us_equity" },
+          notional: { type: "string" },
+          qty: { type: "string", example: "10" },
+          filled_qty: { type: "string", example: "10" },
+          filled_avg_price: { type: "string", example: "150.50" },
+          order_class: { type: "string", enum: ["simple", "bracket", "oco", "oto"] },
+          order_type: { type: "string", enum: ["market", "limit", "stop", "stop_limit", "trailing_stop"] },
+          type: { type: "string", enum: ["market", "limit", "stop", "stop_limit", "trailing_stop"] },
+          side: { type: "string", enum: ["buy", "sell"] },
+          time_in_force: { type: "string", enum: ["day", "gtc", "opg", "cls", "ioc", "fok"] },
+          limit_price: { type: "string", example: "150.00" },
+          stop_price: { type: "string", example: "145.00" },
+          status: { type: "string", enum: ["new", "partially_filled", "filled", "done_for_day", "canceled", "expired", "replaced", "pending_cancel", "pending_replace", "accepted", "pending_new", "accepted_for_bidding", "stopped", "rejected", "suspended", "calculated"] },
+          extended_hours: { type: "boolean" },
+          legs: { type: "array", items: { type: "object" } },
+          trail_percent: { type: "string" },
+          trail_price: { type: "string" },
+          hwm: { type: "string" }
+        }
+      },
+      CreateOrderRequest: {
+        type: "object",
+        required: ["symbol", "side", "type", "time_in_force"],
+        properties: {
+          symbol: { type: "string", example: "AAPL" },
+          qty: { type: "string", example: "10", description: "Number of shares (use qty or notional, not both)" },
+          notional: { type: "string", example: "1000.00", description: "Dollar amount (use qty or notional, not both)" },
+          side: { type: "string", enum: ["buy", "sell"], example: "buy" },
+          type: { type: "string", enum: ["market", "limit", "stop", "stop_limit", "trailing_stop"], example: "market" },
+          time_in_force: { type: "string", enum: ["day", "gtc", "opg", "cls", "ioc", "fok"], example: "day" },
+          limit_price: { type: "string", example: "150.00", description: "Required for limit and stop_limit orders" },
+          stop_price: { type: "string", example: "145.00", description: "Required for stop and stop_limit orders" },
+          trail_price: { type: "string", description: "Dollar offset for trailing stop" },
+          trail_percent: { type: "string", description: "Percent offset for trailing stop" },
+          extended_hours: { type: "boolean", default: false },
+          client_order_id: { type: "string", description: "Client unique order ID (max 48 chars)" },
+          order_class: { type: "string", enum: ["simple", "bracket", "oco", "oto"], default: "simple" },
+          take_profit: {
+            type: "object",
+            description: "Take profit leg for bracket orders",
+            properties: {
+              limit_price: { type: "string", example: "160.00" }
+            }
+          },
+          stop_loss: {
+            type: "object",
+            description: "Stop loss leg for bracket orders",
+            properties: {
+              stop_price: { type: "string", example: "140.00" },
+              limit_price: { type: "string", description: "Optional limit price for stop-limit stop loss" }
+            }
+          }
+        }
+      },
+      AlpacaPosition: {
+        type: "object",
+        properties: {
+          asset_id: { type: "string" },
+          symbol: { type: "string", example: "AAPL" },
+          exchange: { type: "string", example: "NASDAQ" },
+          asset_class: { type: "string", example: "us_equity" },
+          avg_entry_price: { type: "string", example: "150.00" },
+          qty: { type: "string", example: "100" },
+          side: { type: "string", enum: ["long", "short"] },
+          market_value: { type: "string", example: "15500.00" },
+          cost_basis: { type: "string", example: "15000.00" },
+          unrealized_pl: { type: "string", example: "500.00" },
+          unrealized_plpc: { type: "string", example: "0.0333" },
+          unrealized_intraday_pl: { type: "string", example: "200.00" },
+          unrealized_intraday_plpc: { type: "string", example: "0.0133" },
+          current_price: { type: "string", example: "155.00" },
+          lastday_price: { type: "string", example: "153.00" },
+          change_today: { type: "string", example: "0.0131" }
+        }
+      },
+      Settings: {
+        type: "object",
+        properties: {
+          alpacaApiKey: { type: "string" },
+          alpacaApiSecret: { type: "string" },
+          alpacaBaseUrl: { type: "string" },
+          alpacaPaper: { type: "boolean" },
+          groqApiKey: { type: "string" },
+          openaiApiKey: { type: "string" },
+          anthropicApiKey: { type: "string" },
+          alphaVantageApiKey: { type: "string" },
+          finnhubApiKey: { type: "string" },
+          polygonApiKey: { type: "string" }
         }
       }
     },
