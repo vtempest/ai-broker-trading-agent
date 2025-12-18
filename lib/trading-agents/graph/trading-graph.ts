@@ -16,6 +16,7 @@ import { FinancialSituationMemory } from '../utils/memory'
 import { MarketAnalyst } from '../agents/market-analyst'
 import { BullResearcher, BearResearcher, InvestmentJudge } from '../agents/researchers'
 import { Trader } from '../agents/trader'
+import { NewsAnalyst } from '../agents/news-analyst'
 
 const DEFAULT_CONFIG: TradingConfig = {
   llmProvider: 'groq',
@@ -48,6 +49,7 @@ export class TradingAgentsGraph {
   private bearResearcher: BearResearcher
   private investmentJudge: InvestmentJudge
   private trader: Trader
+  private newsAnalyst: NewsAnalyst
 
   // State tracking
   private currentState: AgentState | null = null
@@ -80,6 +82,7 @@ export class TradingAgentsGraph {
     this.bearResearcher = new BearResearcher(this.deepThinkingLLM, this.bearMemory)
     this.investmentJudge = new InvestmentJudge(this.quickThinkingLLM, this.investJudgeMemory)
     this.trader = new Trader(this.quickThinkingLLM, this.traderMemory)
+    this.newsAnalyst = new NewsAnalyst(this.deepThinkingLLM)
   }
 
   /**
@@ -109,7 +112,15 @@ export class TradingAgentsGraph {
     // For this initial implementation, we'll focus on market analysis
     // Other analysts (social, news, fundamentals) can be added similarly
     if (!state.sentimentReport) state.sentimentReport = 'No social media analysis performed.'
-    if (!state.newsReport) state.newsReport = 'No news analysis performed.'
+
+    if (this.selectedAnalysts.includes('news')) {
+      if (this.debug) console.log('Running News Analyst...')
+      const newsUpdate = await this.newsAnalyst.analyze(state)
+      state = { ...state, ...newsUpdate }
+    } else {
+      if (!state.newsReport) state.newsReport = 'No news analysis performed.'
+    }
+
     if (!state.fundamentalsReport) state.fundamentalsReport = 'No fundamentals analysis performed.'
 
     // Step 2: Investment Debate (Bull vs Bear)
