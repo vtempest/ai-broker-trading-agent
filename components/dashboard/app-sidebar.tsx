@@ -31,7 +31,8 @@ import {
   Palette,
   Moon,
   Sun,
-  ChevronRight
+  ChevronRight,
+  Database
 } from 'lucide-react'
 import { useSession, signOut } from "@/lib/auth-client"
 import { useTheme } from "next-themes"
@@ -395,6 +396,18 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuButton>
                   }
                 />
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive('third-party-sync')}
+                  tooltip="Third-Party Sync"
+                >
+                  <Link href="/dashboard?tab=third-party-sync">
+                    <Database />
+                    <span className="group-data-[collapsible=icon]:hidden">Third-Party Sync</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton
