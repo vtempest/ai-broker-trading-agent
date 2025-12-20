@@ -116,8 +116,8 @@ class LeadersAPI {
 
 export const myLeadersAPI = new LeadersAPI();
 
-async function syncCopyTradingLeadersOrders() {
-  const traders = await myLeadersAPI.getTraderRankings(); 
+export async function syncCopyTradingLeadersOrders() {
+  const traders = await myLeadersAPI.getTraderRankings();
   traders.forEach((trader) => {
   });
   console.log(`Found ${traders.length} traders`);
@@ -135,5 +135,3 @@ async function syncCopyTradingLeadersOrders() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
-
-syncCopyTradingLeadersOrders();
