@@ -12,7 +12,6 @@ import Link from "next/link"
 import { useSession } from "@/lib/auth-client"
 import { DynamicStockChart } from "@/components/dashboard/dynamic-stock-chart"
 import { TradeModal } from "@/components/dashboard/trade-modal"
-import * as Broker from '@/lib/api-client';
 
 interface QuoteData {
   symbol: string
@@ -111,15 +110,8 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
         setLoading(true)
         setError("") // Clear any previous errors
 
-        // const res = await fetch(`/api/stocks/quote/${symbol}`)
-        const json = await Broker.getStocksQuoteBySymbol({
-          path: {
-            symbol
-          }
-        })
-
-
-        //await res.json()
+        const res = await fetch(`/api/stocks/quote/${symbol}`)
+        const json = await res.json()
 
         if (json.success && json.data) {
           setData(json.data)
