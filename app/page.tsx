@@ -31,7 +31,7 @@ export default function LandingPage() {
         <BrokerPlatformsSection />
         <PredictionMarketsSection />
         <StrategiesSection />
-        <CTASection />
+        {/* <CTASection /> */}
       </main>
       <Footer />
     </div>

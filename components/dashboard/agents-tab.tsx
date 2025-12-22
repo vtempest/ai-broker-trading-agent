@@ -3,8 +3,10 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { Button } from "@/components/ui/button"
 import { demoAgents } from "@/lib/demo-data"
-import { Clock, Activity, AlertTriangle } from "lucide-react"
+import { Clock, Activity, AlertTriangle, Users } from "lucide-react"
+import Link from "next/link"
 
 export function AgentsTab() {
   const analysts = demoAgents.filter(a => a.type === 'analyst')
@@ -61,6 +63,23 @@ export function AgentsTab() {
 
   return (
     <div className="space-y-6">
+      <Card className="p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/20">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-2xl font-bold mb-2">Multi-Agent Debate Analysis</h2>
+            <p className="text-sm text-muted-foreground">
+              Get comprehensive stock analysis using specialized AI agents in collaborative debate
+            </p>
+          </div>
+          <Link href="/dashboard/debate-agents">
+            <Button size="lg" className="gap-2">
+              <Users className="h-5 w-5" />
+              Try Debate Agents
+            </Button>
+          </Link>
+        </div>
+      </Card>
+
       <Card className="p-6">
         <h2 className="text-2xl font-bold mb-6">Analyst Team</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
