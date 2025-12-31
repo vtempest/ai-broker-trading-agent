@@ -1,0 +1,19 @@
+{
+  "name": "api-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server generated from OpenAPI spec (33 tools)",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "mcp-use": "^1.11.2",
+    "zod": "^3.23.0",
+    "dotenv": "^16.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

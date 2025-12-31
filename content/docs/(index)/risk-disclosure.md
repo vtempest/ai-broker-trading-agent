@@ -7,14 +7,14 @@ icon: ShieldAlert
 
 
 IT IS IMPORTANT THAT YOU READ AND FULLY UNDERSTAND THE FOLLOWING RISKS OF
-TRADING AND INVESTING IN YOUR SELF-DIRECTED ROBINHOOD FINANCIAL ACCOUNT.
+TRADING AND INVESTING IN YOUR SELF-DIRECTED Auto Investment Broker ACCOUNT.
 Use of Self-Directed Trading Accounts.
-All Customer Accounts are self-directed. Accordingly, unless Robinhood Financial clearly identifies
+All Customer Accounts are self-directed. Accordingly, unless Auto Investment Broker clearly identifies
 a communication as an individualized recommendation, Customers are solely responsible for any
 and all orders placed in their Accounts and understand that all orders entered by them are
 based on their own investment decisions or the investment decisions of their duly authorized
-representative or agent. Consequently, any Customer of Robinhood Financial agrees that, unless
-otherwise agreed to in writing, neither Robinhood Financial nor any of its employees, agents,
+representative or agent. Consequently, any Customer of Auto Investment Broker agrees that, unless
+otherwise agreed to in writing, neither Auto Investment Broker nor any of its employees, agents,
 principals or representatives:
 ● provide investment advice in connection with a Customer Account;
 ● recommend any security, transaction or order;
@@ -29,14 +29,14 @@ strategies.
 General Risks of Trading and Investing.
 All securities trading, whether in stocks, exchange-traded funds (“ETFs”), options, closed-end
 funds (“CEFs”) or other investment vehicles, is speculative in nature and involves substantial
-risk of loss. Robinhood Financial encourages its Customers to invest carefully and to use the
+risk of loss. Auto Investment Broker encourages its Customers to invest carefully and to use the
 information available at the websites of the SEC at http://www.sec.gov and FINRA at
 http://FINRA.org. Customers can review public companies’ filings at the SEC's EDGAR page.
-FINRA has published information on how to invest carefully at its website. Robinhood Financial
-may also make some of this information available on its website. Robinhood Financial believes it
+FINRA has published information on how to invest carefully at its website. Auto Investment Broker
+may also make some of this information available on its website. Auto Investment Broker believes it
 is very important that every Customer understands all of the risks of any form of trading or
 investing prior to trading or investing real dollars. Past performance is not necessarily indicative
-of future results. By investing their money in securities through Robinhood Financial, Customers
+of future results. By investing their money in securities through Auto Investment Broker, Customers
 are taking full responsibility for all trading actions, and should make every effort to understand the
 risks involved.
 
@@ -57,13 +57,13 @@ signals will result in profits or that they will not result in losses. All Custo
 to fully understand all risks associated with any kind of trading or investing they choose to
 do.
 
-## 3. Robinhood Financial is an online brokerage website and affiliated with other
+## 3. Auto Investment Broker is an online brokerage website and affiliated with other
 nonbrokerage informational and other similar types of websites.
-Neither Robinhood Financial nor its affiliates provide investment advice. Our affiliate,
+Neither Auto Investment Broker nor its affiliates provide investment advice. Our affiliate,
 Robinhood Markets, Inc., provides technology, technology support and administrative
 services, and it does not offer trading or investment advice or recommend the purchase
-or sale of any securities. All Robinhood Financial brokerage accounts are self-directed,
-and unless Robinhood Financial clearly identifies a communication as an individualized
+or sale of any securities. All Auto Investment Broker brokerage accounts are self-directed,
+and unless Auto Investment Broker clearly identifies a communication as an individualized
 recommendation, all investment decisions are self-directed, the sole responsibility of the
 Customer, and made at the Customer’s own risk. Therefore, Customers need to depend
 on their own mastery of the details of trading and investing in order to handle
