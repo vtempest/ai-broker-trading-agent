@@ -19,13 +19,13 @@ export function Footer() {
                     </div>
 
                     <nav className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
-                        {/* <Link
-                            href="/legal/terms"
+                        <Link
+                            href="/docs/risk-disclosure"
                             className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent/50 hover:text-primary transition-all duration-300 hover:scale-105"
                         >
                             <FileText className="w-4 h-4" />
-                            Terms of Service
-                        </Link> */}
+                            Risk Disclosure
+                        </Link>
                         <Link
                             href="/legal/privacy"
                             className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-accent/50 hover:text-primary transition-all duration-300 hover:scale-105"
