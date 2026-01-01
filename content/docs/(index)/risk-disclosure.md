@@ -28,7 +28,7 @@ principals or representatives:
 ● make discretionary trades; and
 
 ● produce or provide research. To the extent research materials or similar information is
-available through Robinhood.com or the websites of any of its affiliates, these materials
+available through autoinvestmentbroker.com or the websites of any of its affiliates, these materials
 are intended for informational and educational purposes only and they do not constitute a
 recommendation to enter into any securities transactions or to engage in any investment
 strategies.
@@ -63,10 +63,9 @@ signals will result in profits or that they will not result in losses. All Custo
 to fully understand all risks associated with any kind of trading or investing they choose to
 do.
 
-## 3. Auto Investment Broker is an online brokerage website and affiliated with other
-nonbrokerage informational and other similar types of websites.
+## 3. Auto Investment Broker is an online brokerage website and affiliated with other nonbrokerage informational and other similar types of websites.
 Neither Auto Investment Broker nor its affiliates provide investment advice. Our affiliate,
-Robinhood Markets, Inc., provides technology, technology support and administrative
+Alpaca Markets, Inc., provides technology, technology support and administrative
 services, and it does not offer trading or investment advice or recommend the purchase
 or sale of any securities. All Auto Investment Broker brokerage accounts are self-directed,
 and unless Auto Investment Broker clearly identifies a communication as an individualized
