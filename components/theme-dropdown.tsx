@@ -69,7 +69,7 @@ const themeColors: Record<string, { primary: string; secondary: string }> = {
   "pastel-dreams": { primary: "#a78bfa", secondary: "#e9d8fd" }
 };
 
-export function x() {
+export function ThemeDropdown() {
   const { theme, setTheme } = useTheme()
   const [colorTheme, setColorTheme] = useState("modern-minimal")
   const [mounted, setMounted] = useState(false)
