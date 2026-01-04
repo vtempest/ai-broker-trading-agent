@@ -26,7 +26,14 @@ export async function getStockData(
       throw new Error(`Failed to fetch stock data for ${symbol}`)
     }
 
-    return result.data.map((d: any) => ({
+    // Handle both data.quotes array format (from Finnhub/Alpaca) and direct array format
+    const quotes = Array.isArray(result.data) ? result.data : result.data.quotes
+
+    if (!quotes || !Array.isArray(quotes)) {
+      throw new Error(`Invalid data format returned for ${symbol}`)
+    }
+
+    return quotes.map((d: any) => ({
       date: d.date,
       open: d.open,
       high: d.high,
