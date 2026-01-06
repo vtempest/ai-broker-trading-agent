@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Moon, Sun, Palette } from "lucide-react"
+import { Moon, Sun, Palette, Monitor } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -117,10 +117,6 @@ export function ThemeDropdown() {
     return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
   }
 
-  const toggleLightDark = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
-
   if (!mounted) {
     return null
   }
@@ -133,25 +129,25 @@ export function ThemeDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56 max-h-[400px] overflow-y-auto">
-        <DropdownMenuLabel className="flex items-center justify-between">
-          <span>Theme</span>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8"
-            onClick={(e) => {
-              e.stopPropagation()
-              toggleLightDark()
-            }}
-          >
-            {theme === "dark" ? (
-              <Moon className="h-4 w-4" />
-            ) : (
-              <Sun className="h-4 w-4" />
-            )}
-          </Button>
-        </DropdownMenuLabel>
+        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
+          <Sun className="mr-2 h-4 w-4" />
+          <span>Light</span>
+          {theme === "light" && <span className="ml-auto text-xs">✓</span>}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
+          <Moon className="mr-2 h-4 w-4" />
+          <span>Dark</span>
+          {theme === "dark" && <span className="ml-auto text-xs">✓</span>}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
+          <Monitor className="mr-2 h-4 w-4" />
+          <span>System</span>
+          {theme === "system" && <span className="ml-auto text-xs">✓</span>}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>Color Theme</DropdownMenuLabel>
         <div className="text-xs text-muted-foreground px-2 py-1.5">
           Current: {formatThemeName(colorTheme)}
         </div>
