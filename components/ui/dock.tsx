@@ -31,11 +31,9 @@ export default function Dock({ items, className }: DockProps) {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className={cn(
           "flex items-end gap-4 px-4 py-3 rounded-3xl",
-          "border bg-background/70 backdrop-blur-2xl shadow-lg"
+          "border bg-background/70 backdrop-blur-2xl shadow-lg",
+          "md:[transform:perspective(600px)_rotateX(10deg)]" // arc layout illusion only on desktop
         )}
-        style={{
-          transform: "perspective(600px) rotateX(10deg)", // arc layout illusion
-        }}
       >
         <TooltipProvider delayDuration={100}>
           {items.map((item, i) => {
@@ -53,8 +51,16 @@ export default function Dock({ items, className }: DockProps) {
                       rotate: isHovered ? -5 : 0,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="relative flex flex-col items-center"
+                    className="relative flex flex-col items-center gap-1"
                   >
+                    {/* Label above icon - visible on mobile */}
+                    <span className={cn(
+                      "text-xs font-medium transition-colors md:hidden",
+                      isActive ? "text-primary" : "text-muted-foreground"
+                    )}>
+                      {item.label}
+                    </span>
+
                     <Button
                       variant="ghost"
                       size="icon"
@@ -90,12 +96,12 @@ export default function Dock({ items, className }: DockProps) {
                     {isActive && (
                       <motion.div
                         layoutId="dot"
-                        className="w-1.5 h-1.5 rounded-full bg-primary mt-1"
+                        className="w-1.5 h-1.5 rounded-full bg-primary mt-1 md:block hidden"
                       />
                     )}
                   </motion.div>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="text-xs">
+                <TooltipContent side="top" className="text-xs hidden md:block">
                   {item.label}
                 </TooltipContent>
               </Tooltip>

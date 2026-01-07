@@ -85,8 +85,8 @@ export function CopyTradingTab() {
       </div>
 
       <Card>
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-x-auto touch-pan-x">
+          <table className="w-full min-w-[640px]">
             <thead className="border-b">
               <tr className="text-left">
                 <th className="p-4 font-semibold">Rank</th>

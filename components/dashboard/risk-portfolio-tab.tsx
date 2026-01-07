@@ -164,8 +164,8 @@ export function RiskPortfolioTab() {
       <Card className="p-6">
         <h2 className="text-2xl font-bold mb-6">Portfolio Holdings</h2>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-x-auto touch-pan-x">
+          <table className="w-full min-w-[640px]">
             <thead className="border-b">
               <tr className="text-left">
                 <th className="p-3 font-semibold">Asset</th>

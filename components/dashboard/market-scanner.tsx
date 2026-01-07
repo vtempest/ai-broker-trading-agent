@@ -248,7 +248,7 @@ export function MarketScanner() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <div className="w-full overflow-x-auto pb-2">
+        <div className="w-full overflow-x-auto touch-pan-x pb-2">
           <TabsList>
             <TabsTrigger value="indexes">Indexes</TabsTrigger>
             <TabsTrigger value="trending">Trending</TabsTrigger>
