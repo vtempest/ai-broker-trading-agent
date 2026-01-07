@@ -13,8 +13,8 @@ export function RecentAnalysis() {
         <CardTitle className="text-lg text-card-foreground">Recent Analysis</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-x-auto touch-pan-x">
+          <table className="w-full min-w-[640px]">
             <thead>
               <tr className="border-b border-border">
                 <th className="pb-3 text-left text-sm font-medium text-muted-foreground">Stock</th>
