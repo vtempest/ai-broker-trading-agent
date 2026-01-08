@@ -236,6 +236,131 @@ export default function InvestorSurvey() {
           </Card>
         </div>
 
+        {/* Risk Disclosure */}
+        <Card className="backdrop-blur-sm bg-white/60 border-white/40 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl text-balance">Investment Risk Disclosure</CardTitle>
+            <CardDescription>
+              Please review the following important risk disclosures before proceeding.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64 overflow-y-auto border border-slate-200 rounded-md p-4 bg-white/80 text-sm space-y-4">
+              <div className="font-semibold text-base">
+                IT IS IMPORTANT THAT YOU READ AND FULLY UNDERSTAND THE FOLLOWING RISKS OF TRADING AND INVESTING IN
+                YOUR SELF-DIRECTED AUTO INVESTMENT BROKER ACCOUNT.
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">Use of Self-Directed Trading Accounts</h3>
+                <p className="mb-2">
+                  All Customer Accounts are self-directed. Accordingly, unless Auto Investment Broker clearly
+                  identifies a communication as an individualized recommendation, Customers are solely responsible
+                  for any and all orders placed in their Accounts and understand that all orders entered by them are
+                  based on their own investment decisions or the investment decisions of their duly authorized
+                  representative or agent.
+                </p>
+                <p className="mb-2">Consequently, any Customer of Auto Investment Broker agrees that, unless otherwise agreed to in writing, neither Auto Investment Broker nor any of its employees, agents, principals or representatives:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>provide investment advice in connection with a Customer Account;</li>
+                  <li>recommend any security, transaction or order;</li>
+                  <li>solicit orders;</li>
+                  <li>act as a market maker in any security;</li>
+                  <li>make discretionary trades; and</li>
+                  <li>
+                    produce or provide research. To the extent research materials or similar information is available
+                    through autoinvestmentbroker.com or the websites of any of its affiliates, these materials are
+                    intended for informational and educational purposes only and they do not constitute a
+                    recommendation to enter into any securities transactions or to engage in any investment strategies.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">General Risks of Trading and Investing</h3>
+                <p>
+                  All securities trading, whether in stocks, exchange-traded funds ("ETFs"), options, closed-end funds
+                  ("CEFs") or other investment vehicles, is speculative in nature and involves substantial risk of
+                  loss. Auto Investment Broker encourages its Customers to invest carefully and to use the information
+                  available at the websites of the SEC at http://www.sec.gov and FINRA at http://FINRA.org.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">1. You may lose money trading and investing.</h3>
+                <p>
+                  Trading and investing in securities is always risky. For that reason, Customers should trade or
+                  invest only with money they can afford to lose. Trading stocks, ETFs and stock options involves HIGH
+                  RISK, and YOU can LOSE a lot of money. Margin trading involves interest charges and additional
+                  risks, including the potential to lose more than deposited or the need to deposit additional
+                  collateral in a falling market.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">2. Past performance is not necessarily indicative of future results.</h3>
+                <p>
+                  All investments carry risk, and all trading decisions of an individual remain the responsibility of
+                  that individual. There is no guarantee that systems, indicators, or trading signals will result in
+                  profits or that they will not result in losses. All Customers are advised to fully understand all
+                  risks associated with any kind of trading or investing they choose to do.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">
+                  3. Auto Investment Broker is an online brokerage website and affiliated with other non-brokerage
+                  informational and other similar types of websites.
+                </h3>
+                <p>
+                  Neither Auto Investment Broker nor its affiliates provide investment advice. All Auto Investment
+                  Broker brokerage accounts are self-directed, and unless Auto Investment Broker clearly identifies a
+                  communication as an individualized recommendation, all investment decisions are self-directed, the
+                  sole responsibility of the Customer, and made at the Customer's own risk.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">4. Stop orders may reduce, but not eliminate, your trading risk.</h3>
+                <p>
+                  A stop market order is an order, placed with your broker, to buy or sell a particular stock at the
+                  market price if and when the price reaches a specified level. There can be no guarantee, however,
+                  that it will be possible under all market conditions to execute the order at the price specified. In
+                  an active, volatile market, the market price may be declining (or rising) so rapidly that there is no
+                  opportunity to liquidate your position at the stop price you have designated.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">Risks of Investing in Stocks, ETFs, and CEFs</h3>
+                <p className="mb-2">Investments always entail some degree of risk. Be aware that:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>
+                    Some investments in stock cannot easily be sold or converted to cash. Check to see if there is any
+                    penalty or charge if you must sell an investment quickly.
+                  </li>
+                  <li>Stock investments are not federally insured against a loss in market value.</li>
+                  <li>
+                    There is a risk when buying shares of stock that the value of the stock can fall to zero. Short
+                    selling involves substantial risk and assumes the seller will be able to buy the stock at a more
+                    favorable price than the price at which they sold short.
+                  </li>
+                  <li>
+                    ETFs are subject to risks similar to those of other diversified portfolios. Leveraged and Inverse
+                    ETFs may not be suitable for all investors and may increase exposure to volatility through the use
+                    of leverage, short sales of securities, derivatives and other complex investment strategies.
+                  </li>
+                  <li>
+                    CEFs involve unique risks. Unlike ETFs, CEFs trade on exchanges at market prices that may be
+                    higher ("premium") or lower ("discount") than their net asset value ("NAV"). Many CEFs employ
+                    structural or portfolio leverage, which magnifies both gains and losses.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Contact Information & Interest */}
         <Card className="backdrop-blur-sm bg-white/60 border-white/40 shadow-lg">
           <CardHeader>
