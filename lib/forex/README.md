@@ -1,15 +1,23 @@
-# Forex Live Tick Data with Dukascopy
+# Live Market Data with Dukascopy
 
-This module provides real-time and historical forex data using the Dukascopy Node.js library.
+This module provides real-time and historical market data for multiple asset classes using the Dukascopy Node.js library.
 
 ## Features
 
-- ✅ Real-time tick data for forex pairs
+- ✅ Real-time tick data for all supported instruments
 - ✅ Historical OHLC data
-- ✅ Support for 15+ forex instruments (EUR/USD, BTC/USD, Gold, etc.)
+- ✅ Support for 100+ instruments across 7 asset classes:
+  - **Forex** - 15+ major and cross pairs (EUR/USD, GBP/USD, etc.)
+  - **Crypto** - 10+ cryptocurrencies (BTC/USD, ETH/USD, SOL/USD, etc.)
+  - **Stocks** - 15+ major US stocks (AAPL.US/USD, MSFT.US/USD, TSLA.US/USD, etc.)
+  - **ETFs** - 10+ popular ETFs (SPY.US/USD, QQQ.US/USD, etc.)
+  - **Indices** - 8+ global indices (US500.IDX/USD, UK100.IDX/GBP, etc.)
+  - **Commodities** - 14+ commodities (Gold, Silver, Oil, Coffee, etc.)
+  - **Bonds** - 3 government bonds (US T-Bond, Euro Bund, UK Gilt)
 - ✅ Multiple timeframes (tick, 1s, 1m, 5m, 15m, 30m, 1h, 4h, 1d, 1mo)
 - ✅ Live chart component with auto-refresh
 - ✅ TypeScript support with full type safety
+- ✅ Free data source (no API key required)
 
 ## API Routes
 
@@ -20,7 +28,13 @@ GET /api/forex/realtime/[instrument]
 \`\`\`
 
 **Parameters:**
-- `instrument` - Forex pair (e.g., `eurusd`, `btcusd`, `xauusd`)
+- `instrument` - Any supported instrument:
+  - Forex: `eurusd`, `gbpusd`, `usdjpy`, etc.
+  - Crypto: `BTCUSD`, `ETHUSD`, `SOLUSD`, etc.
+  - Stocks: `AAPL.US/USD`, `MSFT.US/USD`, `TSLA.US/USD`, etc.
+  - ETFs: `SPY.US/USD`, `QQQ.US/USD`, etc.
+  - Indices: `US500.IDX/USD`, `UK100.IDX/GBP`, etc.
+  - Commodities: `xauusd`, `xagusd`, `wtiusd`, etc.
 - `timeframe` - Optional: `tick`, `s1`, `m1`, `m5`, `m15`, `m30`, `h1`, `h4`, `d1` (default: `tick`)
 - `format` - Optional: `json`, `array`, `csv` (default: `json`)
 - `priceType` - Optional: `bid`, `ask` (default: `bid`)
@@ -33,7 +47,13 @@ GET /api/forex/realtime/[instrument]
 curl http://localhost:3000/api/forex/realtime/eurusd?last=100&timeframe=tick
 
 # Get last 50 1-minute candles for BTC/USD
-curl http://localhost:3000/api/forex/realtime/btcusd?last=50&timeframe=m1
+curl http://localhost:3000/api/forex/realtime/BTCUSD?last=50&timeframe=m1
+
+# Get last 100 1-hour candles for Apple stock
+curl "http://localhost:3000/api/forex/realtime/AAPL.US/USD?last=100&timeframe=h1"
+
+# Get real-time S&P 500 index data
+curl "http://localhost:3000/api/forex/realtime/US500.IDX/USD?last=50&timeframe=m5"
 \`\`\`
 
 ### Get Historical Data
@@ -43,10 +63,10 @@ GET /api/forex/historical/[instrument]
 \`\`\`
 
 **Parameters:**
-- `instrument` - Forex pair
+- `instrument` - Any supported instrument (same format as real-time)
 - `from` - Start date (ISO string or timestamp)
 - `to` - Optional: End date (default: now)
-- `range` - Optional: Shorthand for date range (`1d`, `7d`, `1mo`, etc.)
+- `range` - Optional: Shorthand for date range (`1d`, `7d`, `1mo`, `1y`, etc.)
 - `timeframe` - Optional: Same as real-time (default: `d1`)
 - `format` - Optional: `json`, `array`, `csv` (default: `json`)
 - `priceType` - Optional: `bid`, `ask` (default: `bid`)
@@ -56,8 +76,11 @@ GET /api/forex/historical/[instrument]
 # Get 1 month of daily data for EUR/USD
 curl "http://localhost:3000/api/forex/historical/eurusd?range=1mo"
 
-# Get specific date range
-curl "http://localhost:3000/api/forex/historical/eurusd?from=2024-01-01&to=2024-01-31&timeframe=h1"
+# Get specific date range for Apple stock
+curl "http://localhost:3000/api/forex/historical/AAPL.US/USD?from=2024-01-01&to=2024-12-31&timeframe=d1"
+
+# Get 7 days of hourly Bitcoin data
+curl "http://localhost:3000/api/forex/historical/BTCUSD?range=7d&timeframe=h1"
 \`\`\`
 
 ### Get Supported Instruments
@@ -66,7 +89,48 @@ curl "http://localhost:3000/api/forex/historical/eurusd?from=2024-01-01&to=2024-
 GET /api/forex/instruments
 \`\`\`
 
-Returns list of all supported forex pairs and commodities.
+Returns list of all supported instruments across all asset classes.
+
+**Query Parameters:**
+- `category` - Optional: Filter by asset type (`forex`, `crypto`, `stocks`, `etfs`, `indices`, `commodities`, `bonds`)
+- `search` - Optional: Search instruments by symbol, name, or description
+
+**Examples:**
+\`\`\`bash
+# Get all instruments
+curl http://localhost:3000/api/forex/instruments
+
+# Get only stocks
+curl http://localhost:3000/api/forex/instruments?category=stocks
+
+# Search for "apple"
+curl http://localhost:3000/api/forex/instruments?search=apple
+\`\`\`
+
+**Response:**
+\`\`\`json
+{
+  "success": true,
+  "total": 97,
+  "data": [
+    {
+      "symbol": "AAPL.US/USD",
+      "name": "Apple Inc",
+      "description": "Apple Inc - Technology",
+      "category": "stocks"
+    }
+  ],
+  "grouped": {
+    "forex": [...],
+    "crypto": [...],
+    "stocks": [...],
+    "etfs": [...],
+    "indices": [...],
+    "commodities": [...],
+    "bonds": [...]
+  }
+}
+\`\`\`
 
 ## React Component Usage
 
@@ -75,11 +139,26 @@ Returns list of all supported forex pairs and commodities.
 \`\`\`tsx
 import { ForexLiveChart } from '@/components/dashboard/forex-live-chart';
 
-export default function ForexPage() {
+export default function TradingPage() {
   return (
     <div>
+      {/* Forex */}
       <ForexLiveChart
         instrument="eurusd"
+        autoRefresh={true}
+        refreshInterval={5000}
+      />
+
+      {/* Stocks */}
+      <ForexLiveChart
+        instrument="AAPL.US/USD"
+        autoRefresh={true}
+        refreshInterval={5000}
+      />
+
+      {/* Crypto */}
+      <ForexLiveChart
+        instrument="BTCUSD"
         autoRefresh={true}
         refreshInterval={5000}
       />
@@ -90,7 +169,7 @@ export default function ForexPage() {
 
 ### Props
 
-- `instrument` - Default forex pair to display (default: `"eurusd"`)
+- `instrument` - Default instrument to display. Supports any valid instrument symbol (default: `"eurusd"`)
 - `autoRefresh` - Enable auto-refresh (default: `true`)
 - `refreshInterval` - Refresh interval in milliseconds (default: `5000`)
 
