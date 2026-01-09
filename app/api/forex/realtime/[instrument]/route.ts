@@ -1,8 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getForexRealTimeData } from '@/lib/forex/dukascopy-client';
+import { getRealTimeData, getInstrumentBySymbol } from '@/lib/forex/dukascopy-client';
 
 export const runtime = 'nodejs';
 
+/**
+ * GET /api/forex/realtime/[instrument]
+ * Fetch real-time market data for any supported instrument
+ *
+ * Supports: Forex, Stocks, Crypto, ETFs, Indices, Commodities, Bonds
+ *
+ * Query parameters:
+ * - timeframe: tick, s1, m1, m5, m15, m30, h1, h4, d1 (default: tick)
+ * - format: json, array, csv (default: json)
+ * - priceType: bid, ask (default: bid)
+ * - last: number of candles/ticks (default: 10)
+ * - volumes: include volume data (default: true)
+ * - from, to: optional date range
+ *
+ * Examples:
+ * - /api/forex/realtime/eurusd?timeframe=m5&last=100
+ * - /api/forex/realtime/AAPL.US/USD?timeframe=h1&last=50
+ * - /api/forex/realtime/BTCUSD?timeframe=m15&last=200
+ */
 export async function GET(
   request: NextRequest,
   { params }: { params: { instrument: string } }
@@ -22,7 +41,10 @@ export async function GET(
     const from = searchParams.get('from');
     const to = searchParams.get('to');
 
-    const result = await getForexRealTimeData({
+    // Get instrument metadata if available
+    const instrumentMeta = getInstrumentBySymbol(instrument);
+
+    const result = await getRealTimeData({
       instrument: instrument as any,
       timeframe,
       format,
@@ -41,9 +63,13 @@ export async function GET(
       return NextResponse.json(result, { status: 500 });
     }
 
-    return NextResponse.json(result);
+    // Include instrument metadata in response
+    return NextResponse.json({
+      ...result,
+      instrument: instrumentMeta,
+    });
   } catch (error: any) {
-    console.error('Forex real-time API error:', error);
+    console.error('Market real-time API error:', error);
     return NextResponse.json(
       {
         success: false,

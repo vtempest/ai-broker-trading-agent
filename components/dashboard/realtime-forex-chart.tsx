@@ -22,15 +22,6 @@ const TIMEFRAMES = [
   { value: "h1", label: "1 Hour" },
 ]
 
-const FOREX_PAIRS = [
-  { value: "eurusd", label: "EUR/USD" },
-  { value: "gbpusd", label: "GBP/USD" },
-  { value: "usdjpy", label: "USD/JPY" },
-  { value: "btcusd", label: "BTC/USD" },
-  { value: "ethusd", label: "ETH/USD" },
-  { value: "xauusd", label: "XAU/USD (Gold)" },
-]
-
 export function RealtimeForexChart({
   instrument = "eurusd",
   timeframe = "m1",
@@ -43,11 +34,31 @@ export function RealtimeForexChart({
   const [isLive, setIsLive] = useState(true)
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
   const [currentPrice, setCurrentPrice] = useState<number | null>(null)
+  const [instruments, setInstruments] = useState<any[]>([])
+  const [instrumentsLoading, setInstrumentsLoading] = useState(true)
 
   const chartContainerRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<IChartApi | null>(null)
   const seriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null)
   const updateIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Fetch available instruments
+  useEffect(() => {
+    async function fetchInstruments() {
+      try {
+        const response = await fetch('/api/forex/instruments')
+        const result = await response.json()
+        if (result.success && result.data) {
+          setInstruments(result.data)
+        }
+      } catch (err) {
+        console.error('Failed to fetch instruments:', err)
+      } finally {
+        setInstrumentsLoading(false)
+      }
+    }
+    fetchInstruments()
+  }, [])
   const lastCandleRef = useRef<CandlestickData | null>(null)
 
   // Initialize chart
@@ -247,7 +258,7 @@ export function RealtimeForexChart({
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <CardTitle className="text-2xl">
-              {FOREX_PAIRS.find(p => p.value === selectedInstrument)?.label || selectedInstrument.toUpperCase()}
+              {instruments.find(i => i.symbol === selectedInstrument)?.name || selectedInstrument.toUpperCase()}
             </CardTitle>
 
             {currentPrice !== null && (
@@ -266,15 +277,39 @@ export function RealtimeForexChart({
 
           <div className="flex items-center gap-2 flex-wrap">
             <Select value={selectedInstrument} onValueChange={handleInstrumentChange}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-[180px]">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                {FOREX_PAIRS.map((pair) => (
-                  <SelectItem key={pair.value} value={pair.value}>
-                    {pair.label}
+              <SelectContent className="max-h-[400px]">
+                {instrumentsLoading ? (
+                  <SelectItem value="loading" disabled>
+                    Loading instruments...
                   </SelectItem>
-                ))}
+                ) : instruments.length > 0 ? (
+                  <>
+                    {/* Group instruments by category */}
+                    {['forex', 'crypto', 'stocks', 'etfs', 'indices', 'commodities', 'bonds'].map(category => {
+                      const categoryInstruments = instruments.filter(i => i.category === category)
+                      if (categoryInstruments.length === 0) return null
+                      return (
+                        <div key={category}>
+                          <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase">
+                            {category}
+                          </div>
+                          {categoryInstruments.map((inst) => (
+                            <SelectItem key={inst.symbol} value={inst.symbol}>
+                              {inst.name}
+                            </SelectItem>
+                          ))}
+                        </div>
+                      )
+                    })}
+                  </>
+                ) : (
+                  <SelectItem value="none" disabled>
+                    No instruments available
+                  </SelectItem>
+                )}
               </SelectContent>
             </Select>
 

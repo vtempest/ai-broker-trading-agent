@@ -27,15 +27,6 @@ const TIMEFRAMES = [
   { value: "d1", label: "1 Day" },
 ]
 
-const FOREX_PAIRS = [
-  { value: "eurusd", label: "EUR/USD" },
-  { value: "gbpusd", label: "GBP/USD" },
-  { value: "usdjpy", label: "USD/JPY" },
-  { value: "btcusd", label: "BTC/USD" },
-  { value: "ethusd", label: "ETH/USD" },
-  { value: "xauusd", label: "XAU/USD (Gold)" },
-]
-
 export function ForexLiveChart({
   instrument = "eurusd",
   autoRefresh = true,
@@ -48,7 +39,27 @@ export function ForexLiveChart({
   const [selectedTimeframe, setSelectedTimeframe] = useState("m1")
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
   const [isLive, setIsLive] = useState(autoRefresh)
+  const [instruments, setInstruments] = useState<any[]>([])
+  const [instrumentsLoading, setInstrumentsLoading] = useState(true)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Fetch available instruments
+  useEffect(() => {
+    async function fetchInstruments() {
+      try {
+        const response = await fetch('/api/forex/instruments')
+        const result = await response.json()
+        if (result.success && result.data) {
+          setInstruments(result.data)
+        }
+      } catch (err) {
+        console.error('Failed to fetch instruments:', err)
+      } finally {
+        setInstrumentsLoading(false)
+      }
+    }
+    fetchInstruments()
+  }, [])
 
   // Fetch real-time data
   const fetchRealTimeData = useCallback(async () => {
@@ -127,7 +138,7 @@ export function ForexLiveChart({
       <CardHeader>
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-2">
-            <CardTitle>Live Forex Data</CardTitle>
+            <CardTitle>Live Market Data</CardTitle>
             {isLive && (
               <Badge variant="default" className="animate-pulse">
                 <Activity className="w-3 h-3 mr-1" />
@@ -138,15 +149,39 @@ export function ForexLiveChart({
 
           <div className="flex items-center gap-2 flex-wrap">
             <Select value={selectedInstrument} onValueChange={setSelectedInstrument}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-[180px]">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
-                {FOREX_PAIRS.map((pair) => (
-                  <SelectItem key={pair.value} value={pair.value}>
-                    {pair.label}
+              <SelectContent className="max-h-[400px]">
+                {instrumentsLoading ? (
+                  <SelectItem value="loading" disabled>
+                    Loading instruments...
                   </SelectItem>
-                ))}
+                ) : instruments.length > 0 ? (
+                  <>
+                    {/* Group instruments by category */}
+                    {['forex', 'crypto', 'stocks', 'etfs', 'indices', 'commodities', 'bonds'].map(category => {
+                      const categoryInstruments = instruments.filter(i => i.category === category)
+                      if (categoryInstruments.length === 0) return null
+                      return (
+                        <div key={category}>
+                          <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase">
+                            {category}
+                          </div>
+                          {categoryInstruments.map((inst) => (
+                            <SelectItem key={inst.symbol} value={inst.symbol}>
+                              {inst.name}
+                            </SelectItem>
+                          ))}
+                        </div>
+                      )
+                    })}
+                  </>
+                ) : (
+                  <SelectItem value="none" disabled>
+                    No instruments available
+                  </SelectItem>
+                )}
               </SelectContent>
             </Select>
 
