@@ -1,4 +1,36 @@
-# Investing
+<p align="center">
+    <img width="400px" src="https://i.imgur.com/dE5Rfck.jpeg" />
+</p>
+<p align="center">
+    <a href="https://discord.gg/SJdBqBz3tV">
+        <img src="https://img.shields.io/discord/1110227955554209923.svg?label=Chat&logo=Discord&colorB=7289da&style=flat"
+            alt="Join Discord" />
+    </a>
+     <a href="https://github.com/vtempest/stock-prediction-agent/discussions">
+     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/vtempest/stock-prediction-agent" /></a>
+    <a href="https://github.com/vtempest/stock-prediction-agent/discussions">
+    <img alt="GitHub Discussions"
+        src="https://img.shields.io/github/discussions/vtempest/stock-prediction-agent" />
+    </a>
+    <!-- <a href="https://npmjs.org/package/stock-prediction-agent"><img src="https://img.shields.io/npm/v/stock-prediction-agent"/></a>    -->
+    <a href="https://github.com/vtempest/stock-prediction-agent/pulse" alt="Activity">
+        <img src="https://img.shields.io/github/commit-activity/m/vtempest/stock-prediction-agent" />
+    </a>
+    <img src="https://img.shields.io/github/last-commit/vtempest/stock-prediction-agent.svg" alt="GitHub last commit" />
+    <img src="https://img.shields.io/badge/Next.js-16.0-black" alt="Next.js" />
+
+</p>
+<p align="center">
+    <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">
+        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"
+            alt="PRs Welcome" />
+    </a>
+    <a href="https://codespaces.new/vtempest/stock-prediction-agent">
+    <img src="https://github.com/codespaces/badge.svg" width="150" height="20" />
+    </a>
+</p>
+
+# Investing Library
 
 A comprehensive TypeScript/JavaScript library for investment analysis, trading automation, and financial data processing. This package provides reusable utilities for building investment applications, trading bots, and financial analysis tools.
 
@@ -16,9 +48,9 @@ A comprehensive TypeScript/JavaScript library for investment analysis, trading a
 ## Installation
 
 ```bash
-npm install investing
+npm i investing
 # or
-yarn add investing
+bun i investing
 # or
 pnpm add investing
 ```
@@ -28,7 +60,7 @@ pnpm add investing
 ### Alpaca Trading Client
 
 ```typescript
-import { createAlpacaClient } from 'investing';
+import { createAlpacaClient } from "investing";
 
 // Create client with environment variables
 const alpaca = createAlpacaClient({
@@ -43,44 +75,44 @@ console.log(`Portfolio value: $${account.portfolio_value}`);
 
 // Place an order
 const order = await alpaca.createOrder({
-  symbol: 'AAPL',
+  symbol: "AAPL",
   qty: 10,
-  side: 'buy',
-  type: 'market',
-  time_in_force: 'day',
+  side: "buy",
+  type: "market",
+  time_in_force: "day",
 });
 ```
 
 ### Fetch Stock Data
 
 ```typescript
-import { getStockQuote, getHistoricalData } from 'investing';
+import { getStockQuote, getHistoricalData } from "investing";
 
 // Get real-time quote
-const quote = await getStockQuote('AAPL');
+const quote = await getStockQuote("AAPL");
 console.log(`AAPL: $${quote.regularMarketPrice}`);
 
 // Get historical data
-const history = await getHistoricalData('AAPL', {
-  period1: '2024-01-01',
-  period2: '2024-12-31',
-  interval: '1d',
+const history = await getHistoricalData("AAPL", {
+  period1: "2024-01-01",
+  period2: "2024-12-31",
+  interval: "1d",
 });
 ```
 
 ### Polymarket Prediction Markets
 
 ```typescript
-import { fetchMarkets, fetchLeaderboard } from 'investing';
+import { fetchMarkets, fetchLeaderboard } from "investing";
 
 // Get active prediction markets
-const markets = await fetchMarkets(50, 'volume24hr');
+const markets = await fetchMarkets(50, "volume24hr");
 console.log(`Top market: ${markets[0].question}`);
 
 // Get top traders
 const leaders = await fetchLeaderboard({
-  timePeriod: '7d',
-  orderBy: 'PNL',
+  timePeriod: "7d",
+  orderBy: "PNL",
   limit: 10,
 });
 ```
@@ -88,7 +120,7 @@ const leaders = await fetchLeaderboard({
 ### Trading Agents Framework
 
 ```typescript
-import { createTradingGraph, MarketAnalyst } from 'investing';
+import { createTradingGraph, MarketAnalyst } from "investing";
 
 // Create a trading agent system
 const tradingSystem = createTradingGraph({
@@ -99,15 +131,15 @@ const tradingSystem = createTradingGraph({
     new Trader(),
   ],
   config: {
-    ticker: 'AAPL',
+    ticker: "AAPL",
     budget: 10000,
   },
 });
 
 // Run analysis
 const result = await tradingSystem.invoke({
-  ticker: 'AAPL',
-  question: 'Should I buy AAPL stock?',
+  ticker: "AAPL",
+  question: "Should I buy AAPL stock?",
 });
 ```
 
@@ -116,7 +148,7 @@ const result = await tradingSystem.invoke({
 ### Alpaca Trading
 
 ```typescript
-import { createAlpacaClient, AlpacaConfig } from 'investing/alpaca';
+import { createAlpacaClient, AlpacaConfig } from "investing/alpaca";
 ```
 
 #### `createAlpacaClient(config?: AlpacaConfig)`
@@ -124,12 +156,14 @@ import { createAlpacaClient, AlpacaConfig } from 'investing/alpaca';
 Creates an Alpaca API client for trading operations.
 
 **Parameters:**
+
 - `config.paper` - Use paper trading (default: true)
 - `config.keyId` - Alpaca API key ID
 - `config.secretKey` - Alpaca secret key
 - `config.baseUrl` - Custom base URL (optional)
 
 **Environment Variables:**
+
 - `ALPACA_API_KEY` or `APCA_API_KEY_ID`
 - `ALPACA_SECRET` or `APCA_API_SECRET_KEY`
 - `ALPACA_BASE_URL` (optional)
@@ -142,7 +176,7 @@ import {
   getHistoricalData,
   getSECFilings,
   StockQuote,
-} from 'investing/stocks';
+} from "investing/stocks";
 ```
 
 #### `getStockQuote(symbol: string): Promise<StockQuote>`
@@ -164,7 +198,7 @@ import {
   fetchMarkets,
   fetchLeaderboard,
   PolymarketMarket,
-} from 'investing/prediction';
+} from "investing/prediction";
 ```
 
 #### `fetchMarkets(limit?: number, sortBy?: string)`
@@ -172,6 +206,7 @@ import {
 Fetch active prediction markets from Polymarket.
 
 **Parameters:**
+
 - `limit` - Number of markets to fetch (default: 50)
 - `sortBy` - Sort field: 'volume24hr', 'liquidity', etc.
 
@@ -180,6 +215,7 @@ Fetch active prediction markets from Polymarket.
 Get Polymarket leaderboard of top traders.
 
 **Options:**
+
 - `timePeriod` - '1d' | '7d' | '30d' | 'all'
 - `orderBy` - 'VOL' | 'PNL'
 - `limit` - Number of results (default: 20)
@@ -194,7 +230,7 @@ import {
   BullResearcher,
   BearResearcher,
   Trader,
-} from 'investing/trading-agents';
+} from "investing/trading-agents";
 ```
 
 #### `createTradingGraph(config)`
@@ -202,6 +238,7 @@ import {
 Creates a multi-agent trading system using LangGraph.
 
 **Agents:**
+
 - `MarketAnalyst` - Analyzes market conditions and trends
 - `BullResearcher` - Researches bullish arguments
 - `BearResearcher` - Researches bearish arguments
@@ -210,10 +247,11 @@ Creates a multi-agent trading system using LangGraph.
 ### Constants & Data
 
 ```typescript
-import { STOCK_INDEXES, SECTORS, CATEGORIES } from 'investing/constants';
+import { STOCK_INDEXES, SECTORS, CATEGORIES } from "investing/constants";
 ```
 
 Pre-loaded data files available:
+
 - `data/stock-indexes.json` - Major stock indexes (S&P 500, NASDAQ, etc.)
 - `data/sectors-industries.json` - Industry classifications
 - `data/sector-info.json` - Sector descriptions and metrics
@@ -223,7 +261,7 @@ Pre-loaded data files available:
 ### Utilities
 
 ```typescript
-import { cn, setStateInURL } from 'investing/utils';
+import { cn, setStateInURL } from "investing/utils";
 ```
 
 #### `cn(...inputs: ClassValue[])`
@@ -239,12 +277,12 @@ Sync application state to URL parameters for shareable links.
 Access pre-packaged data files:
 
 ```typescript
-import stockIndexes from 'investing/data/stock-indexes.json';
-import sectors from 'investing/data/sectors-industries.json';
-import stockNames from 'investing/data/stock-names.json';
+import stockIndexes from "investing/data/stock-indexes.json";
+import sectors from "investing/data/sectors-industries.json";
+import stockNames from "investing/data/stock-names.json";
 
 console.log(`Total stocks: ${stockNames.length}`);
-console.log(`S&P 500 stocks: ${stockIndexes['S&P 500'].length}`);
+console.log(`S&P 500 stocks: ${stockIndexes["S&P 500"].length}`);
 ```
 
 ## Environment Variables
@@ -278,7 +316,7 @@ import type {
   StockQuote,
   PolymarketMarket,
   TradingAgent,
-} from 'investing';
+} from "investing";
 ```
 
 ## Advanced Usage
@@ -286,10 +324,10 @@ import type {
 ### Custom Trading Strategy
 
 ```typescript
-import { createTradingGraph, BaseTradingAgent } from 'investing';
+import { createTradingGraph, BaseTradingAgent } from "investing";
 
 class MomentumTrader extends BaseTradingAgent {
-  name = 'momentum-trader';
+  name = "momentum-trader";
 
   async analyze(state: TradingState) {
     // Implement your strategy
@@ -297,24 +335,24 @@ class MomentumTrader extends BaseTradingAgent {
     const momentum = this.calculateMomentum(data);
 
     return {
-      signal: momentum > 0.5 ? 'buy' : 'sell',
+      signal: momentum > 0.5 ? "buy" : "sell",
       confidence: Math.abs(momentum),
     };
   }
 }
 
 const strategy = new MomentumTrader();
-const result = await strategy.analyze({ ticker: 'TSLA' });
+const result = await strategy.analyze({ ticker: "TSLA" });
 ```
 
 ### Multi-Agent Debate System
 
 ```typescript
-import { createDebateSystem } from 'investing';
+import { createDebateSystem } from "investing";
 
 const debate = await createDebateSystem({
-  ticker: 'NVDA',
-  agents: ['bull_researcher', 'bear_researcher', 'neutral_analyst'],
+  ticker: "NVDA",
+  agents: ["bull_researcher", "bear_researcher", "neutral_analyst"],
   rounds: 3,
 });
 
@@ -326,9 +364,9 @@ console.log(decision.reasoning);
 ### Batch Stock Analysis
 
 ```typescript
-import { getStockQuote } from 'investing';
+import { getStockQuote } from "investing";
 
-const tickers = ['AAPL', 'GOOGL', 'MSFT', 'AMZN'];
+const tickers = ["AAPL", "GOOGL", "MSFT", "AMZN"];
 const quotes = await Promise.all(tickers.map(getStockQuote));
 
 const summary = quotes.map((q, i) => ({
@@ -349,7 +387,7 @@ npm install drizzle-orm @libsql/client
 Then import database schemas:
 
 ```typescript
-import { db, stocksTable, positionsTable } from 'investing/db';
+import { db, stocksTable, positionsTable } from "investing/db";
 
 // Query your database
 const stocks = await db.select().from(stocksTable).limit(10);
@@ -382,6 +420,7 @@ rights.institute/prosper
 ## Support
 
 For issues and questions:
+
 - [GitHub Issues](https://github.com/vtempest/ai-broker-investment-agent/issues)
 - [Documentation](https://invest.vtempest.com/docs)
 

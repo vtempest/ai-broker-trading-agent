@@ -52,8 +52,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "dev": "vite build --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ship": "npm run build && npx standard-version --release-as patch; rm CHANGELOG.md; npm publish"
   },
   "keywords": [
     "investing",

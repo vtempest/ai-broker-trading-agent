@@ -1,11 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
-import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "sonner"
 import "./globals.css"
-import "../styles/themes-shadcn.css"
+import "./themes-shadcn.css"
 
 export const metadata: Metadata = {
   title: "AI Broker - LLM Agents Debate Stocks & Events",
@@ -15,8 +14,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-    generator: 'v0.app'
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 };
 
 export default async function RootLayout({
@@ -39,7 +37,6 @@ export default async function RootLayout({
           {children}
           <Toaster position="top-right" />
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   )

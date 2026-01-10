@@ -1,0 +1,28 @@
+<svg width="64" height="64" viewBox="0 0 64 64"
+     xmlns="http://www.w3.org/2000/svg"
+     fill="none"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <!-- Stock chart base -->
+  <path d="M8 46h48" stroke="#64748b"/>
+  <path d="M12 42l10-10 8 6 10-14 10 8" stroke="#22c55e"/>
+
+  <!-- Left AI agent -->
+  <circle cx="18" cy="22" r="6" stroke="#3b82f6"/>
+  <path d="M14 30h8" stroke="#3b82f6"/>
+  <circle cx="16" cy="21" r="1.2" fill="#3b82f6"/>
+  <circle cx="20" cy="21" r="1.2" fill="#3b82f6"/>
+
+  <!-- Right AI agent -->
+  <circle cx="46" cy="22" r="6" stroke="#ef4444"/>
+  <path d="M42 30h8" stroke="#ef4444"/>
+  <circle cx="44" cy="21" r="1.2" fill="#ef4444"/>
+  <circle cx="48" cy="21" r="1.2" fill="#ef4444"/>
+
+  <!-- Debate / dialogue arrows -->
+  <path d="M26 18h6l-2-2M32 18l-2 2" stroke="#facc15"/>
+  <path d="M38 26h-6l2 2M32 26l2-2" stroke="#facc15"/>
+
+</svg>

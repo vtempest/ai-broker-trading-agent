@@ -1,11 +1,10 @@
 import { grab, log } from "grab-url";
 import fs from "fs/promises";
-import { db } from "@/lib/db";
-import { nvstlyLeaders, nvstlyTrades } from "@/lib/db/schema";
+import { db } from "@/db";
+import { nvstlyLeaders, nvstlyTrades } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const LEADERS_FILE = "./data/leaders.json";
-
 
 interface Trader {
   /** The unique identifier of the trader. */
@@ -45,8 +44,6 @@ interface Trade {
   previousPrice?: number;
 }
 
-
-
 /**
  * NVSTLY API client for fetching trader rankings and trades.
  */
@@ -67,7 +64,7 @@ class LeadersAPI {
    * @param {number} [limit=100] - Maximum number of traders to fetch
    * @returns {Promise<Trader[]>} A promise that resolves to the trader rankings data.
    */
-  getTraderRankings = async (time = "1mo", limit = 100) : Promise<Trader[]> => {
+  getTraderRankings = async (time = "1mo", limit = 100): Promise<Trader[]> => {
     try {
       const response = await this.api(`/market/ranks`, {
         time,
@@ -75,10 +72,14 @@ class LeadersAPI {
         limit, // Request more traders
       });
 
-      console.log(`NVSTLY API Response: Fetched ${response?.data?.data?.length || 0} traders`);
+      console.log(
+        `NVSTLY API Response: Fetched ${
+          response?.data?.data?.length || 0
+        } traders`
+      );
 
       if (!response?.data?.data) {
-        console.error('Invalid response from NVSTLY API:', response);
+        console.error("Invalid response from NVSTLY API:", response);
         return [];
       }
 
@@ -93,13 +94,15 @@ class LeadersAPI {
         avgReturn: Math.floor(trader.avgReturn),
       }));
 
-      console.log(`Successfully parsed ${traders.length} traders from NVSTLY API`);
+      console.log(
+        `Successfully parsed ${traders.length} traders from NVSTLY API`
+      );
       return traders;
     } catch (error) {
-      console.error('Error fetching trader rankings:', error);
+      console.error("Error fetching trader rankings:", error);
       return [];
     }
-  }
+  };
 
   /**
    * Fetches trader order flow from the NVSTLY API.
@@ -108,7 +111,10 @@ class LeadersAPI {
    * @param {string} [time='1mo'] - The time frame for the trades (e.g., '1mo', '3mo', '1y').
    * @returns {Promise<Trade[]>} A promise that resolves to the trader rankings data.
    */
-  getTraderTrades = async (traderId: string, time: string = "1mo") : Promise<Trade[]> => {
+  getTraderTrades = async (
+    traderId: string,
+    time: string = "1mo"
+  ): Promise<Trade[]> => {
     try {
       const response = await this.api("/accounts/trades", {
         id: traderId,
@@ -139,18 +145,18 @@ class LeadersAPI {
       console.error(`Error fetching trades for trader ${traderId}:`, error);
       return [];
     }
-  }
+  };
 }
 
 export const myLeadersAPI = new LeadersAPI();
 
 export async function syncCopyTradingLeadersOrders() {
   // Fetch up to 100 traders to get all available leaders
-  console.log('Starting NVSTLY sync - fetching all available leaders...');
+  console.log("Starting NVSTLY sync - fetching all available leaders...");
   const traders = await myLeadersAPI.getTraderRankings("1mo", 100);
 
   if (!traders || traders.length === 0) {
-    console.log('Warning: No traders found from NVSTLY API');
+    console.log("Warning: No traders found from NVSTLY API");
     return [];
   }
 
@@ -160,7 +166,11 @@ export async function syncCopyTradingLeadersOrders() {
     const trader = traders[i];
     const traderId = trader.id;
 
-    console.log(`Processing trader ${i + 1}/${traders.length}: ${trader.name} (Rank #${trader.rank})`);
+    console.log(
+      `Processing trader ${i + 1}/${traders.length}: ${trader.name} (Rank #${
+        trader.rank
+      })`
+    );
 
     try {
       // Fetch trader's trades
@@ -236,9 +246,11 @@ export async function syncCopyTradingLeadersOrders() {
     await fs.writeFile(LEADERS_FILE, JSON.stringify(traders, null, 2));
     console.log(`✓ Saved ${traders.length} traders to ${LEADERS_FILE}`);
   } catch (error) {
-    console.error('Error saving to JSON file:', error);
+    console.error("Error saving to JSON file:", error);
   }
 
-  console.log(`\n✓ Successfully synced ${traders.length} NVSTLY traders to database`);
+  console.log(
+    `\n✓ Successfully synced ${traders.length} NVSTLY traders to database`
+  );
   return traders;
 }

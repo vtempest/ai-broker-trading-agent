@@ -1,0 +1,24 @@
+<svg width="64" height="64" viewBox="0 0 64 64"
+     xmlns="http://www.w3.org/2000/svg"
+     fill="none"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <!-- Chart axes -->
+  <path d="M8 10v46h48" stroke="#64748b"/>
+
+  <!-- Price chart line -->
+  <path d="M12 42l10-12 10 8 12-18 8 6" stroke="#22c55e"/>
+
+  <!-- Gear (algorithm) -->
+  <circle cx="46" cy="18" r="6" stroke="#3b82f6"/>
+  <path d="M46 8v4M46 24v4M36 18h4M52 18h4M40 12l3 3M52 24l-3-3M40 24l3-3M52 12l-3 3"
+        stroke="#3b82f6"/>
+
+  <!-- Lightning bolt (automation/speed) -->
+  <path d="M28 14l-6 10h6l-4 10 10-14h-6z"
+        stroke="#facc15"
+        fill="#facc15"/>
+
+</svg>

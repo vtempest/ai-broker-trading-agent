@@ -1,150 +1,169 @@
-import { db } from '@/lib/db'
-import { polymarketLeaders, polymarketPositions, polymarketCategories, polymarketMarkets, polymarketMarketPositions, polymarketDebates } from '@/lib/db/schema'
-import { eq, desc, asc, and, inArray } from 'drizzle-orm'
+import { db } from "../db";
+import {
+  polymarketLeaders,
+  polymarketPositions,
+  polymarketCategories,
+  polymarketMarkets,
+  polymarketMarketPositions,
+  polymarketDebates,
+} from "../db/schema";
+import { eq, desc, asc, and, inArray } from "drizzle-orm";
 
 // ============================================================================
 // Fetching Functions
 // ============================================================================
 
-export async function fetchMarkets(limit = 50, sortBy = 'volume24hr') {
-  const BASE = "https://gamma-api.polymarket.com"
-  const url = new URL(`${BASE}/markets`)
+export async function fetchMarkets(limit = 50, sortBy = "volume24hr") {
+  const BASE = "https://gamma-api.polymarket.com";
+  const url = new URL(`${BASE}/markets`);
 
-  url.searchParams.set("closed", "false")
-  url.searchParams.set("active", "true")
-  url.searchParams.set("limit", String(limit))
-  url.searchParams.set("order", sortBy)
-  url.searchParams.set("ascending", "false")
+  url.searchParams.set("closed", "false");
+  url.searchParams.set("active", "true");
+  url.searchParams.set("limit", String(limit));
+  url.searchParams.set("order", sortBy);
+  url.searchParams.set("ascending", "false");
 
   const resp = await fetch(url, {
     headers: { accept: "application/json" },
-    cache: 'no-store'
-  })
+    cache: "no-store",
+  });
 
-  if (!resp.ok) throw new Error(`markets fetch failed: ${resp.status}`)
-  return await resp.json()
+  if (!resp.ok) throw new Error(`markets fetch failed: ${resp.status}`);
+  return await resp.json();
 }
 
-export async function fetchLeaderboard(options: {
-  timePeriod?: 'all' | '1d' | '7d' | '30d'
-  orderBy?: 'VOL' | 'PNL'
-  limit?: number
-  offset?: number
-  category?: 'overall' | string
-} = {}) {
+export async function fetchLeaderboard(
+  options: {
+    timePeriod?: "all" | "1d" | "7d" | "30d";
+    orderBy?: "VOL" | "PNL";
+    limit?: number;
+    offset?: number;
+    category?: "overall" | string;
+  } = {}
+) {
   const {
-    timePeriod = 'all',
-    orderBy = 'VOL',
+    timePeriod = "all",
+    orderBy = "VOL",
     limit = 20,
     offset = 0,
-    category = 'overall'
-  } = options
+    category = "overall",
+  } = options;
 
-  const url = new URL('https://data-api.polymarket.com/v1/leaderboard')
-  url.searchParams.set('timePeriod', timePeriod)
-  url.searchParams.set('orderBy', orderBy)
-  url.searchParams.set('limit', String(limit))
-  url.searchParams.set('offset', String(offset))
-  url.searchParams.set('category', category)
+  const url = new URL("https://data-api.polymarket.com/v1/leaderboard");
+  url.searchParams.set("timePeriod", timePeriod);
+  url.searchParams.set("orderBy", orderBy);
+  url.searchParams.set("limit", String(limit));
+  url.searchParams.set("offset", String(offset));
+  url.searchParams.set("category", category);
 
   const resp = await fetch(url, {
     headers: { accept: "application/json" },
-    cache: 'no-store'
-  })
+    cache: "no-store",
+  });
 
-  if (!resp.ok) throw new Error(`leaderboard fetch failed: ${resp.status}`)
-  return await resp.json()
+  if (!resp.ok) throw new Error(`leaderboard fetch failed: ${resp.status}`);
+  return await resp.json();
 }
 
 export async function fetchTopTraders(limit = 50) {
-  const resp = await fetch('https://polymarketanalytics.com/api/traders-tag-performance', {
-    method: 'POST',
-    headers: {
-      accept: '*/*',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      tag: 'Overall',
-      sortColumn: 'overall_gain',
-      sortDirection: 'DESC',
-      minPnL: -4534159.552280787,
-      maxPnL: 3203232.91229432,
-      minActivePositions: 0,
-      maxActivePositions: 38642,
-      minWinAmount: 0,
-      maxWinAmount: 20316723.043360095,
-      minLossAmount: -20494980.369057264,
-      maxLossAmount: 0,
-      minWinRate: 0,
-      maxWinRate: 100,
-      minCurrentValue: 0,
-      maxCurrentValue: 1000000000000,
-      minTotalPositions: 1,
-      maxTotalPositions: 56928,
-    }),
-  })
-  
-  if (!resp.ok) throw new Error(`leaders fetch failed: ${resp.status}`)
-  const data = await resp.json()
-  
+  const resp = await fetch(
+    "https://polymarketanalytics.com/api/traders-tag-performance",
+    {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        tag: "Overall",
+        sortColumn: "overall_gain",
+        sortDirection: "DESC",
+        minPnL: -4534159.552280787,
+        maxPnL: 3203232.91229432,
+        minActivePositions: 0,
+        maxActivePositions: 38642,
+        minWinAmount: 0,
+        maxWinAmount: 20316723.043360095,
+        minLossAmount: -20494980.369057264,
+        maxLossAmount: 0,
+        minWinRate: 0,
+        maxWinRate: 100,
+        minCurrentValue: 0,
+        maxCurrentValue: 1000000000000,
+        minTotalPositions: 1,
+        maxTotalPositions: 56928,
+      }),
+    }
+  );
+
+  if (!resp.ok) throw new Error(`leaders fetch failed: ${resp.status}`);
+  const data = await resp.json();
+
   // Handle both array (direct) and object { data: [...] } formats
-  let traders = []
+  let traders = [];
   if (Array.isArray(data)) {
-    traders = data
+    traders = data;
   } else if (data && Array.isArray(data.data)) {
-    traders = data.data
+    traders = data.data;
   } else {
-    console.error('Polymarket API returned non-array:', JSON.stringify(data))
-    return []
+    console.error("Polymarket API returned non-array:", JSON.stringify(data));
+    return [];
   }
-  
-  return traders.slice(0, limit)
+
+  return traders.slice(0, limit);
 }
 
 export async function fetchTraderPositions(traderId: string) {
-  const resp = await fetch('https://polymarketanalytics.com/api/traders-positions', {
-    method: 'POST',
-    headers: {
-      accept: '*/*',
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({ trader_id: traderId }),
-  })
+  const resp = await fetch(
+    "https://polymarketanalytics.com/api/traders-positions",
+    {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ trader_id: traderId }),
+    }
+  );
 
-  if (!resp.ok) throw new Error(`positions fetch failed: ${resp.status}`)
-  return await resp.json()
+  if (!resp.ok) throw new Error(`positions fetch failed: ${resp.status}`);
+  return await resp.json();
 }
 
 export async function fetchMarketOrderBook(marketId: string) {
-  const BASE = "https://gamma-api.polymarket.com"
-  const url = new URL(`${BASE}/markets/${marketId}/order-book`)
+  const BASE = "https://gamma-api.polymarket.com";
+  const url = new URL(`${BASE}/markets/${marketId}/order-book`);
 
   const resp = await fetch(url, {
     headers: { accept: "application/json" },
-    cache: 'no-store'
-  })
+    cache: "no-store",
+  });
 
   if (!resp.ok) {
-    console.error(`Order book fetch failed for market ${marketId}: ${resp.status}`)
-    return null
+    console.error(
+      `Order book fetch failed for market ${marketId}: ${resp.status}`
+    );
+    return null;
   }
-  return await resp.json()
+  return await resp.json();
 }
 
 export async function fetchMarketDetails(marketId: string) {
-  const BASE = "https://gamma-api.polymarket.com"
-  const url = new URL(`${BASE}/markets/${marketId}`)
+  const BASE = "https://gamma-api.polymarket.com";
+  const url = new URL(`${BASE}/markets/${marketId}`);
 
   const resp = await fetch(url, {
     headers: { accept: "application/json" },
-    cache: 'no-store'
-  })
+    cache: "no-store",
+  });
 
   if (!resp.ok) {
-    console.error(`Market details fetch failed for market ${marketId}: ${resp.status}`)
-    return null
+    console.error(
+      `Market details fetch failed for market ${marketId}: ${resp.status}`
+    );
+    return null;
   }
-  return await resp.json()
+  return await resp.json();
 }
 
 export async function searchPublic(options: {
@@ -205,10 +224,11 @@ export async function searchPublic(options: {
 // ============================================================================
 
 export async function saveLeaders(leadersData: any[]) {
-  const now = Date.now()
+  const now = Date.now();
 
   for (const leader of leadersData) {
-    await db.insert(polymarketLeaders)
+    await db
+      .insert(polymarketLeaders)
       .values({
         trader: leader.trader,
         overallGain: leader.overall_gain || 0,
@@ -232,15 +252,16 @@ export async function saveLeaders(leadersData: any[]) {
           lossAmount: leader.loss_amount || 0,
           updatedAt: new Date(now),
         },
-      })
+      });
   }
 }
 
 export async function saveLeaderboardData(leaderboardData: any[]) {
-  const now = Date.now()
+  const now = Date.now();
 
   for (const entry of leaderboardData) {
-    await db.insert(polymarketLeaders)
+    await db
+      .insert(polymarketLeaders)
       .values({
         trader: entry.proxyWallet,
         rank: parseInt(entry.rank),
@@ -264,23 +285,24 @@ export async function saveLeaderboardData(leaderboardData: any[]) {
           pnl: entry.pnl || 0,
           updatedAt: new Date(now),
         },
-      })
+      });
   }
 }
 
 export async function savePositions(traderId: string, positionsData: any[]) {
-  const now = Date.now()
-  
+  const now = Date.now();
+
   for (const pos of positionsData) {
-    const tags = JSON.stringify(pos.tags || pos.market_tags || [])
-    const posId = `${traderId}-${pos.market_id || pos.id || Math.random()}`
-    
-    await db.insert(polymarketPositions)
+    const tags = JSON.stringify(pos.tags || pos.market_tags || []);
+    const posId = `${traderId}-${pos.market_id || pos.id || Math.random()}`;
+
+    await db
+      .insert(polymarketPositions)
       .values({
         id: posId,
         traderId: traderId,
         marketId: pos.market_id || pos.id,
-        marketTitle: pos.market_title || pos.title || '',
+        marketTitle: pos.market_title || pos.title || "",
         cashPnl: pos.cashPnl || pos.cash_pnl || 0,
         realizedPnl: pos.realizedPnl || pos.realized_pnl || 0,
         tags: tags,
@@ -293,30 +315,30 @@ export async function savePositions(traderId: string, positionsData: any[]) {
           realizedPnl: pos.realizedPnl || pos.realized_pnl || 0,
           tags: tags,
         },
-      })
+      });
   }
 }
 
 export async function saveCategories(categoriesData: any[]) {
-  const now = Date.now()
+  const now = Date.now();
 
-  await db.delete(polymarketCategories)
+  await db.delete(polymarketCategories);
 
   for (const cat of categoriesData) {
-    await db.insert(polymarketCategories)
-      .values({
-        tag: cat.tag,
-        pnl: cat.pnl,
-        updatedAt: new Date(now),
-      })
+    await db.insert(polymarketCategories).values({
+      tag: cat.tag,
+      pnl: cat.pnl,
+      updatedAt: new Date(now),
+    });
   }
 }
 
 export async function saveMarkets(marketsData: any[]) {
-  const now = Date.now()
+  const now = Date.now();
 
   for (const market of marketsData) {
-    await db.insert(polymarketMarkets)
+    await db
+      .insert(polymarketMarkets)
       .values({
         id: market.id,
         question: market.question,
@@ -354,69 +376,79 @@ export async function saveMarkets(marketsData: any[]) {
           enableOrderBook: market.enableOrderBook ?? false,
           updatedAt: new Date(now),
         },
-      })
+      });
   }
 }
 
-export async function saveMarketPositions(marketId: string, orderBookData: any) {
-  const now = Date.now()
+export async function saveMarketPositions(
+  marketId: string,
+  orderBookData: any
+) {
+  const now = Date.now();
 
   // Clear existing positions for this market
-  await db.delete(polymarketMarketPositions)
-    .where(eq(polymarketMarketPositions.marketId, marketId))
+  await db
+    .delete(polymarketMarketPositions)
+    .where(eq(polymarketMarketPositions.marketId, marketId));
 
   if (!orderBookData || !orderBookData.bids || !orderBookData.asks) {
-    return
+    return;
   }
 
   // Save buy orders (bids)
   for (const bid of orderBookData.bids || []) {
-    const posId = `${marketId}-buy-${bid.price}-${Date.now()}-${Math.random()}`
+    const posId = `${marketId}-buy-${bid.price}-${Date.now()}-${Math.random()}`;
     await db.insert(polymarketMarketPositions).values({
       id: posId,
       marketId: marketId,
-      outcome: bid.outcome || 'Yes',
+      outcome: bid.outcome || "Yes",
       price: bid.price || 0,
       size: bid.size || 0,
-      side: 'buy',
+      side: "buy",
       totalValue: (bid.price || 0) * (bid.size || 0),
       createdAt: new Date(now),
-    })
+    });
   }
 
   // Save sell orders (asks)
   for (const ask of orderBookData.asks || []) {
-    const posId = `${marketId}-sell-${ask.price}-${Date.now()}-${Math.random()}`
+    const posId = `${marketId}-sell-${
+      ask.price
+    }-${Date.now()}-${Math.random()}`;
     await db.insert(polymarketMarketPositions).values({
       id: posId,
       marketId: marketId,
-      outcome: ask.outcome || 'No',
+      outcome: ask.outcome || "No",
       price: ask.price || 0,
       size: ask.size || 0,
-      side: 'sell',
+      side: "sell",
       totalValue: (ask.price || 0) * (ask.size || 0),
       createdAt: new Date(now),
-    })
+    });
   }
 }
 
-export async function saveDebateAnalysis(marketId: string, debateData: {
-  question: string
-  yesArguments: string[]
-  noArguments: string[]
-  yesSummary: string
-  noSummary: string
-  keyFactors: string[]
-  uncertainties: string[]
-  currentYesPrice: number
-  currentNoPrice: number
-  llmProvider?: string
-  model?: string
-}) {
-  const now = Date.now()
-  const debateId = `debate-${marketId}`
+export async function saveDebateAnalysis(
+  marketId: string,
+  debateData: {
+    question: string;
+    yesArguments: string[];
+    noArguments: string[];
+    yesSummary: string;
+    noSummary: string;
+    keyFactors: string[];
+    uncertainties: string[];
+    currentYesPrice: number;
+    currentNoPrice: number;
+    llmProvider?: string;
+    model?: string;
+  }
+) {
+  const now = Date.now();
+  const debateId = `debate-${marketId}`;
 
-  await db.insert(polymarketDebates)
+  await db
+    .insert(polymarketDebates)
     .values({
       id: debateId,
       marketId: marketId,
@@ -450,135 +482,149 @@ export async function saveDebateAnalysis(marketId: string, debateData: {
         model: debateData.model || null,
         updatedAt: new Date(now),
       },
-    })
+    });
 }
 
 // ============================================================================
 // Query Functions
 // ============================================================================
 
-export async function getLeaders(orderBy: 'vol' | 'pnl' | 'overallGain' = 'vol', limit = 50) {
-  const orderByColumn = orderBy === 'vol'
-    ? polymarketLeaders.vol
-    : orderBy === 'pnl'
-    ? polymarketLeaders.pnl
-    : polymarketLeaders.overallGain
+export async function getLeaders(
+  orderBy: "vol" | "pnl" | "overallGain" = "vol",
+  limit = 50
+) {
+  const orderByColumn =
+    orderBy === "vol"
+      ? polymarketLeaders.vol
+      : orderBy === "pnl"
+      ? polymarketLeaders.pnl
+      : polymarketLeaders.overallGain;
 
-  return await db.select()
+  return await db
+    .select()
     .from(polymarketLeaders)
     .orderBy(desc(orderByColumn))
-    .limit(limit)
+    .limit(limit);
 }
 
 export async function getTraderPositions(traderId: string) {
-  return await db.select()
+  return await db
+    .select()
     .from(polymarketPositions)
-    .where(eq(polymarketPositions.traderId, traderId))
+    .where(eq(polymarketPositions.traderId, traderId));
 }
 
 export async function getCategories() {
-  const best = await db.select()
+  const best = await db
+    .select()
     .from(polymarketCategories)
     .orderBy(desc(polymarketCategories.pnl))
-    .limit(20)
+    .limit(20);
 
-  const worst = await db.select()
+  const worst = await db
+    .select()
     .from(polymarketCategories)
     .orderBy(asc(polymarketCategories.pnl))
-    .limit(20)
+    .limit(20);
 
-  return { best, worst }
+  return { best, worst };
 }
 
-export async function getMarkets(options: {
-  limit?: number
-  sortBy?: 'volume24hr' | 'volumeTotal' | 'createdAt'
-  category?: string
-  activeOnly?: boolean
-} = {}) {
+export async function getMarkets(
+  options: {
+    limit?: number;
+    sortBy?: "volume24hr" | "volumeTotal" | "createdAt";
+    category?: string;
+    activeOnly?: boolean;
+  } = {}
+) {
   const {
     limit = 50,
-    sortBy = 'volume24hr',
+    sortBy = "volume24hr",
     category,
-    activeOnly = true
-  } = options
+    activeOnly = true,
+  } = options;
 
-  let query = db.select().from(polymarketMarkets)
+  let query = db.select().from(polymarketMarkets);
 
   // Filter by active status
   if (activeOnly) {
-    query = query.where(eq(polymarketMarkets.active, true)) as any
+    query = query.where(eq(polymarketMarkets.active, true)) as any;
   }
 
   // Sort
-  const orderByColumn = sortBy === 'volume24hr'
-    ? polymarketMarkets.volume24hr
-    : sortBy === 'volumeTotal'
-    ? polymarketMarkets.volumeTotal
-    : polymarketMarkets.createdAt
+  const orderByColumn =
+    sortBy === "volume24hr"
+      ? polymarketMarkets.volume24hr
+      : sortBy === "volumeTotal"
+      ? polymarketMarkets.volumeTotal
+      : polymarketMarkets.createdAt;
 
-  query = query.orderBy(desc(orderByColumn)) as any
+  query = query.orderBy(desc(orderByColumn)) as any;
 
   // Apply limit
-  query = query.limit(limit) as any
+  query = query.limit(limit) as any;
 
-  const results = await query
+  const results = await query;
 
   // Filter by category if specified
   if (category) {
     return results.filter((market: any) => {
       try {
-        const tags = JSON.parse(market.tags || '[]')
-        return tags.includes(category)
+        const tags = JSON.parse(market.tags || "[]");
+        return tags.includes(category);
       } catch {
-        return false
+        return false;
       }
-    })
+    });
   }
 
-  return results
+  return results;
 }
 
 export async function getMarketsByCategory() {
-  const markets = await db.select()
+  const markets = await db
+    .select()
     .from(polymarketMarkets)
     .where(eq(polymarketMarkets.active, true))
     .orderBy(desc(polymarketMarkets.volume24hr))
-    .limit(100)
+    .limit(100);
 
-  const categorized: Record<string, any[]> = {}
+  const categorized: Record<string, any[]> = {};
 
   for (const market of markets) {
     try {
-      const tags = JSON.parse(market.tags || '[]')
+      const tags = JSON.parse(market.tags || "[]");
       for (const tag of tags) {
         if (!categorized[tag]) {
-          categorized[tag] = []
+          categorized[tag] = [];
         }
-        categorized[tag].push(market)
+        categorized[tag].push(market);
       }
     } catch {
       // Skip markets with invalid tags
     }
   }
 
-  return categorized
+  return categorized;
 }
 
 export async function getMarketPositions(marketId: string) {
-  return await db.select()
+  return await db
+    .select()
     .from(polymarketMarketPositions)
     .where(eq(polymarketMarketPositions.marketId, marketId))
-    .orderBy(desc(polymarketMarketPositions.totalValue))
+    .orderBy(desc(polymarketMarketPositions.totalValue));
 }
 
 export async function getMarketDebate(marketId: string) {
-  const results = await db.select()
+  const results = await db
+    .select()
     .from(polymarketDebates)
     .where(eq(polymarketDebates.marketId, marketId))
-    .limit(1)
+    .limit(1);
 
-  return results.length > 0 ? results[0] : null
+  return results.length > 0 ? results[0] : null;
 }
 
 // ============================================================================
@@ -586,34 +632,36 @@ export async function getMarketDebate(marketId: string) {
 // ============================================================================
 
 export function analyzeCategories(allPositions: any[]) {
-  const tagPnl = new Map()
-  
+  const tagPnl = new Map();
+
   for (const pos of allPositions) {
-    const pnl = Number(pos.cash_pnl || pos.cashPnl || pos.realized_pnl || pos.realizedPnl || 0)
-    if (!pnl) continue
-    
-    let tags = pos.tags || pos.market_tags || []
-    if (typeof tags === 'string') {
+    const pnl = Number(
+      pos.cash_pnl || pos.cashPnl || pos.realized_pnl || pos.realizedPnl || 0
+    );
+    if (!pnl) continue;
+
+    let tags = pos.tags || pos.market_tags || [];
+    if (typeof tags === "string") {
       try {
-        tags = JSON.parse(tags)
+        tags = JSON.parse(tags);
       } catch {
-        tags = []
+        tags = [];
       }
     }
-    
+
     for (const tag of tags) {
-      const prev = tagPnl.get(tag) || 0
-      tagPnl.set(tag, prev + pnl)
+      const prev = tagPnl.get(tag) || 0;
+      tagPnl.set(tag, prev + pnl);
     }
   }
-  
-  const arr = Array.from(tagPnl.entries()).map(([tag, pnl]) => ({ tag, pnl }))
-  arr.sort((a, b) => b.pnl - a.pnl)
-  
-  const best = arr.slice(0, 20)
-  const worst = [...arr].sort((a, b) => a.pnl - b.pnl).slice(0, 20)
-  
-  return { best, worst }
+
+  const arr = Array.from(tagPnl.entries()).map(([tag, pnl]) => ({ tag, pnl }));
+  arr.sort((a, b) => b.pnl - a.pnl);
+
+  const best = arr.slice(0, 20);
+  const worst = [...arr].sort((a, b) => a.pnl - b.pnl).slice(0, 20);
+
+  return { best, worst };
 }
 
 // ============================================================================
@@ -621,65 +669,72 @@ export function analyzeCategories(allPositions: any[]) {
 // ============================================================================
 
 export async function syncMarkets(limit = 100) {
-  console.log('Starting Polymarket markets sync...')
+  console.log("Starting Polymarket markets sync...");
 
-  await db.delete(polymarketMarkets)
+  await db.delete(polymarketMarkets);
 
-  const markets = await fetchMarkets(limit, 'volume24hr')
-  await saveMarkets(markets)
-  console.log(`Saved ${markets.length} markets`)
+  const markets = await fetchMarkets(limit, "volume24hr");
+  await saveMarkets(markets);
+  console.log(`Saved ${markets.length} markets`);
 
-  return { markets: markets.length }
+  return { markets: markets.length };
 }
 
-export async function syncLeaderboard(options: {
-  timePeriod?: 'all' | '1d' | '7d' | '30d'
-  orderBy?: 'VOL' | 'PNL'
-  limit?: number
-} = {}) {
-  console.log('Starting Polymarket leaderboard sync...')
+export async function syncLeaderboard(
+  options: {
+    timePeriod?: "all" | "1d" | "7d" | "30d";
+    orderBy?: "VOL" | "PNL";
+    limit?: number;
+  } = {}
+) {
+  console.log("Starting Polymarket leaderboard sync...");
 
-  const leaderboard = await fetchLeaderboard(options)
-  await saveLeaderboardData(leaderboard)
-  console.log(`Saved ${leaderboard.length} leaderboard entries`)
+  const leaderboard = await fetchLeaderboard(options);
+  await saveLeaderboardData(leaderboard);
+  console.log(`Saved ${leaderboard.length} leaderboard entries`);
 
-  return { leaders: leaderboard.length }
+  return { leaders: leaderboard.length };
 }
 
 export async function syncLeadersAndCategories() {
-  console.log('Starting Polymarket sync...')
+  console.log("Starting Polymarket sync...");
 
-  const leaders = await fetchTopTraders(50)
-  await saveLeaders(leaders)
-  console.log(`Saved ${leaders.length} leaders`)
+  const leaders = await fetchTopTraders(50);
+  await saveLeaders(leaders);
+  console.log(`Saved ${leaders.length} leaders`);
 
-  const allPositions = []
+  const allPositions = [];
   for (const trader of leaders) {
-    const traderId = trader.trader
-    const positions = await fetchTraderPositions(traderId)
-    await savePositions(traderId, positions)
-    allPositions.push(...positions)
-    console.log(`Saved positions for trader ${traderId}`)
+    const traderId = trader.trader;
+    const positions = await fetchTraderPositions(traderId);
+    await savePositions(traderId, positions);
+    allPositions.push(...positions);
+    console.log(`Saved positions for trader ${traderId}`);
   }
 
-  const categories = analyzeCategories(allPositions)
-  await saveCategories([...categories.best, ...categories.worst])
-  console.log(`Saved ${categories.best.length + categories.worst.length} categories`)
+  const categories = analyzeCategories(allPositions);
+  await saveCategories([...categories.best, ...categories.worst]);
+  console.log(
+    `Saved ${categories.best.length + categories.worst.length} categories`
+  );
 
-  return { leaders: leaders.length, positions: allPositions.length }
+  return { leaders: leaders.length, positions: allPositions.length };
 }
 
 export async function syncAll() {
-  console.log('Starting full Polymarket sync...')
+  console.log("Starting full Polymarket sync...");
 
-  const marketsResult = await syncMarkets()
-  const leaderboardResult = await syncLeaderboard({ limit: 100, orderBy: 'VOL' })
-  const leadersResult = await syncLeadersAndCategories()
+  const marketsResult = await syncMarkets();
+  const leaderboardResult = await syncLeaderboard({
+    limit: 100,
+    orderBy: "VOL",
+  });
+  const leadersResult = await syncLeadersAndCategories();
 
   return {
     markets: marketsResult.markets,
     leaderboard: leaderboardResult.leaders,
     leaders: leadersResult.leaders,
-    positions: leadersResult.positions
-  }
+    positions: leadersResult.positions,
+  };
 }
