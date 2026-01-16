@@ -33,6 +33,12 @@
     <a href="https://docs.autoinvestment.broker/"> 📑 Docs </a> <a href="https://autoinvestment.broker/api/docs"> 🎯 API </a>
  <a href="https://autoinvestment.broker"> 🚀 Demo</a></h3>
 
+<p align="center">
+    <a href="https://play.google.com/store/apps/details?id=com.autoinvestment.broker.app">
+        <img src="public/images/download-google-play.png" alt="Get it on Google Play" height="60" />
+    </a>
+</p>
+
 # Investment Prediction Agent
 
 > AI-powered multi-agent trading system for comprehensive stock & prediction markets analysis and automated trading decisions.
