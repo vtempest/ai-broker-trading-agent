@@ -74,8 +74,12 @@ export function DynamicStockChart({
           return
         }
 
-        if (json.success && json.data && Array.isArray(json.data)) {
-          const transformedData: ChartData[] = json.data.map((d: any) => ({
+        // Handle both nested data structure (data.data) and flat structure (data)
+        const dataArray = Array.isArray(json.data?.data) ? json.data.data :
+                         Array.isArray(json.data) ? json.data : null;
+
+        if (json.success && dataArray) {
+          const transformedData: ChartData[] = dataArray.map((d: any) => ({
             date: d.date || d.time,
             open: d.open,
             high: d.high,
@@ -156,7 +160,10 @@ export function DynamicStockChart({
           const res = await fetch(`/api/stocks/historical/${tag.value}?range=${rangeParam}&interval=${intervalParam}`)
           const json = await res.json()
           if (json.success) {
-            return { symbol: tag.value, data: json.data }
+            // Handle both nested data structure (data.data) and flat structure (data)
+            const dataArray = Array.isArray(json.data?.data) ? json.data.data :
+                             Array.isArray(json.data) ? json.data : null;
+            return { symbol: tag.value, data: dataArray }
           }
           return null
         })
@@ -212,8 +219,12 @@ export function DynamicStockChart({
       const res = await fetch(`/api/stocks/historical/${symbol}?interval=1d&period1=${startDateTimestamp}&period2=${endDate}`);
       const json = await res.json();
 
-      if (json.success && json.data && json.data.length > 0) {
-        const newPoints: ChartData[] = json.data.map((d: any) => ({
+      // Handle both nested data structure (data.data) and flat structure (data)
+      const dataArray = Array.isArray(json.data?.data) ? json.data.data :
+                       Array.isArray(json.data) ? json.data : null;
+
+      if (json.success && dataArray && dataArray.length > 0) {
+        const newPoints: ChartData[] = dataArray.map((d: any) => ({
           date: d.date || d.time,
           open: d.open,
           high: d.high,
