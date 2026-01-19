@@ -1,7 +1,7 @@
 // Finnhub API Wrapper for TypeScript
 // Uses Finnhub as primary source with Alpaca API as fallback for historical data
 
-import { createAlpacaClient } from "@/lib/alpaca/client";
+import { createAlpacaClient } from "../alpaca/client";
 
 const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY || "";
 const FINNHUB_BASE_URL = "https://finnhub.io/api/v1";
@@ -122,7 +122,7 @@ function toUnixTimestamp(date: string | Date): number {
 
 async function finnhubFetch<T>(
   endpoint: string,
-  params: Record<string, string> = {}
+  params: Record<string, string> = {},
 ): Promise<T> {
   const url = new URL(`${FINNHUB_BASE_URL}${endpoint}`);
   url.searchParams.set("token", FINNHUB_API_KEY);
@@ -135,7 +135,7 @@ async function finnhubFetch<T>(
 
   if (!response.ok) {
     throw new Error(
-      `Finnhub API error: ${response.status} ${response.statusText}`
+      `Finnhub API error: ${response.status} ${response.statusText}`,
     );
   }
 
@@ -151,7 +151,7 @@ export class FinnhubWrapper {
     const { symbol, period1, period2, interval = "1d" } = options;
 
     console.log(
-      `[Historical] Fetching data for ${symbol}, interval: ${interval}, period: ${period1} to ${period2}`
+      `[Historical] Fetching data for ${symbol}, interval: ${interval}, period: ${period1} to ${period2}`,
     );
 
     // Try Finnhub first (if API key is configured)
@@ -162,7 +162,7 @@ export class FinnhubWrapper {
         const to = toUnixTimestamp(period2);
 
         console.log(
-          `[Finnhub] Requesting candles for ${symbol}, resolution: ${resolution}, from: ${from}, to: ${to}`
+          `[Finnhub] Requesting candles for ${symbol}, resolution: ${resolution}, from: ${from}, to: ${to}`,
         );
 
         const candles = await finnhubFetch<FinnhubCandle>("/stock/candle", {
@@ -174,7 +174,7 @@ export class FinnhubWrapper {
 
         if (candles.s === "no_data") {
           console.log(
-            `[Finnhub] Returned no_data for ${symbol}, trying Alpaca...`
+            `[Finnhub] Returned no_data for ${symbol}, trying Alpaca...`,
           );
         } else if (candles.t && candles.t.length > 0) {
           // Transform to standard format
@@ -188,7 +188,7 @@ export class FinnhubWrapper {
           }));
 
           console.log(
-            `[Finnhub] Successfully fetched ${quotes.length} candles for ${symbol}`
+            `[Finnhub] Successfully fetched ${quotes.length} candles for ${symbol}`,
           );
 
           return {
@@ -212,12 +212,12 @@ export class FinnhubWrapper {
           };
         } else {
           console.log(
-            `[Finnhub] Returned empty data for ${symbol} (status: ${candles.s}), trying Alpaca...`
+            `[Finnhub] Returned empty data for ${symbol} (status: ${candles.s}), trying Alpaca...`,
           );
         }
       } catch (finnhubError: any) {
         console.log(
-          `[Finnhub] API failed for ${symbol}: ${finnhubError.message}, trying Alpaca...`
+          `[Finnhub] API failed for ${symbol}: ${finnhubError.message}, trying Alpaca...`,
         );
       }
     } else {
@@ -227,13 +227,13 @@ export class FinnhubWrapper {
     // Fallback to Alpaca API
     try {
       console.log(
-        `[Alpaca] Attempting to fetch historical data for ${symbol}...`
+        `[Alpaca] Attempting to fetch historical data for ${symbol}...`,
       );
       const result = await this.getHistoricalDataFromAlpaca(
         symbol,
         period1,
         period2,
-        interval
+        interval,
       );
       if (
         result.success &&
@@ -241,7 +241,7 @@ export class FinnhubWrapper {
         result.data.quotes.length > 0
       ) {
         console.log(
-          `[Alpaca] Successfully fetched ${result.data.quotes.length} bars for ${symbol}`
+          `[Alpaca] Successfully fetched ${result.data.quotes.length} bars for ${symbol}`,
         );
         return {
           ...result,
@@ -251,12 +251,12 @@ export class FinnhubWrapper {
       console.log(`[Alpaca] Returned no data for ${symbol}`);
     } catch (alpacaError: any) {
       console.log(
-        `[Alpaca] API fallback failed for ${symbol}: ${alpacaError.message}`
+        `[Alpaca] API fallback failed for ${symbol}: ${alpacaError.message}`,
       );
     }
 
     console.error(
-      `[Historical] Failed to fetch data for ${symbol} from both Finnhub and Alpaca`
+      `[Historical] Failed to fetch data for ${symbol} from both Finnhub and Alpaca`,
     );
 
     return {
@@ -274,7 +274,7 @@ export class FinnhubWrapper {
     symbol: string,
     period1: string | Date,
     period2: string | Date,
-    interval: string = "1d"
+    interval: string = "1d",
   ) {
     // Map interval to Alpaca timeframe format
     const timeframe = (() => {
@@ -308,7 +308,7 @@ export class FinnhubWrapper {
         symbol,
         startDate,
         endDate,
-        timeframe
+        timeframe,
       );
       if (
         result.success &&
@@ -316,7 +316,7 @@ export class FinnhubWrapper {
         result.data.quotes.length > 0
       ) {
         console.log(
-          `Alpaca HTTP API succeeded for ${symbol}: ${result.data.quotes.length} bars`
+          `Alpaca HTTP API succeeded for ${symbol}: ${result.data.quotes.length} bars`,
         );
         return result;
       }
@@ -333,7 +333,7 @@ export class FinnhubWrapper {
       const formatDate = (d: Date) => d.toISOString().split("T")[0];
 
       console.log(
-        `Trying Alpaca SDK for ${symbol} from ${formatDate(startDate)} to ${formatDate(endDate)}`
+        `Trying Alpaca SDK for ${symbol} from ${formatDate(startDate)} to ${formatDate(endDate)}`,
       );
 
       const bars = alpaca.getBarsV2(symbol.toUpperCase(), {
@@ -367,7 +367,7 @@ export class FinnhubWrapper {
 
       if (quotes.length > 0) {
         console.log(
-          `Alpaca SDK succeeded for ${symbol}: ${quotes.length} bars`
+          `Alpaca SDK succeeded for ${symbol}: ${quotes.length} bars`,
         );
         return {
           success: true,
@@ -407,7 +407,7 @@ export class FinnhubWrapper {
     symbol: string,
     startDate: Date,
     endDate: Date,
-    timeframe: string
+    timeframe: string,
   ) {
     // Check multiple environment variable names for API credentials
     const apiKey =
@@ -423,7 +423,7 @@ export class FinnhubWrapper {
 
     if (!apiKey || !secretKey) {
       throw new Error(
-        "Alpaca API credentials not configured. Set ALPACA_API_KEY and ALPACA_SECRET environment variables."
+        "Alpaca API credentials not configured. Set ALPACA_API_KEY and ALPACA_SECRET environment variables.",
       );
     }
 
@@ -448,7 +448,7 @@ export class FinnhubWrapper {
       try {
         do {
           const url = new URL(
-            `https://data.alpaca.markets/v2/stocks/${symbol.toUpperCase()}/bars`
+            `https://data.alpaca.markets/v2/stocks/${symbol.toUpperCase()}/bars`,
           );
           url.searchParams.set("start", formatDate(startDate));
           url.searchParams.set("end", formatDate(endDate));
@@ -463,7 +463,7 @@ export class FinnhubWrapper {
 
           if (pageCount === 0) {
             console.log(
-              `[Alpaca HTTP] Requesting ${symbol} with ${feed} feed: ${url.toString().replace(/apikey=[^&]+/gi, "apikey=***")}`
+              `[Alpaca HTTP] Requesting ${symbol} with ${feed} feed: ${url.toString().replace(/apikey=[^&]+/gi, "apikey=***")}`,
             );
           }
 
@@ -480,15 +480,15 @@ export class FinnhubWrapper {
             // If subscription issue (403), try next feed
             if (response.status === 403 && feed === "sip") {
               console.log(
-                `[Alpaca HTTP] SIP feed not available (subscription required), trying IEX...`
+                `[Alpaca HTTP] SIP feed not available (subscription required), trying IEX...`,
               );
               throw new Error("SIP_NOT_AVAILABLE");
             }
             console.error(
-              `[Alpaca HTTP] Error response: ${response.status} ${response.statusText} - ${errorText}`
+              `[Alpaca HTTP] Error response: ${response.status} ${response.statusText} - ${errorText}`,
             );
             throw new Error(
-              `Alpaca API error: ${response.status} ${response.statusText} - ${errorText}`
+              `Alpaca API error: ${response.status} ${response.statusText} - ${errorText}`,
             );
           }
 
@@ -504,7 +504,7 @@ export class FinnhubWrapper {
 
           if (nextPageToken) {
             console.log(
-              `[Alpaca HTTP] Page ${pageCount}: fetched ${bars.length} bars, more pages available...`
+              `[Alpaca HTTP] Page ${pageCount}: fetched ${bars.length} bars, more pages available...`,
             );
           }
         } while (nextPageToken && pageCount < maxPages);
@@ -512,7 +512,7 @@ export class FinnhubWrapper {
         // If we got data, break out of feed loop
         if (allBars.length > 0) {
           console.log(
-            `[Alpaca HTTP] Successfully fetched ${allBars.length} bars for ${symbol} using ${feed} feed (${pageCount} page(s))`
+            `[Alpaca HTTP] Successfully fetched ${allBars.length} bars for ${symbol} using ${feed} feed (${pageCount} page(s))`,
           );
           break;
         }
@@ -522,7 +522,7 @@ export class FinnhubWrapper {
         }
         lastError = feedError;
         console.log(
-          `[Alpaca HTTP] ${feed} feed failed for ${symbol}: ${feedError.message}`
+          `[Alpaca HTTP] ${feed} feed failed for ${symbol}: ${feedError.message}`,
         );
       }
     }
@@ -713,7 +713,7 @@ export class FinnhubWrapper {
     try {
       const result = await finnhubFetch<{ count: number; result: any[] }>(
         "/search",
-        { q: query }
+        { q: query },
       );
 
       return {
@@ -765,7 +765,7 @@ export class FinnhubWrapper {
         "/stock/recommendation",
         {
           symbol: symbol.toUpperCase(),
-        }
+        },
       );
 
       // Transform to Yahoo Finance-like structure

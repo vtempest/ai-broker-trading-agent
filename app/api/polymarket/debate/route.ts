@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getMarketDebate, saveDebateAnalysis, getMarkets } from '@/lib/prediction/polymarket'
-import { generateDebateAnalysis } from '@/lib/llm/debate-generator'
+import { getMarketDebate, saveDebateAnalysis, getMarkets } from '@/packages/investing/src/prediction/polymarket'
+import { generateDebateAnalysis } from '@/packages/investing/src/llm/debate-generator'
 
 export const dynamic = 'force-dynamic'
 

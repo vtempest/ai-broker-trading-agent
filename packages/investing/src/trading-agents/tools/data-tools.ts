@@ -9,7 +9,7 @@ import {
   FundamentalsData,
   NewsItem,
 } from "../types";
-import { yfinance } from "@/lib/stocks/yfinance-wrapper";
+import { yfinance } from "../../stocks/yfinance-wrapper";
 
 /**
  * Get historical stock data for a symbol

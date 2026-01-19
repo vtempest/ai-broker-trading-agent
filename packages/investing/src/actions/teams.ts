@@ -1,20 +1,20 @@
 "use server";
 
-import { db } from "@/db";
+import { db } from "../../../../lib/db";
 import {
   organizations,
   teams,
   teamMembers,
   users,
   userInvitations,
-} from "@/db/schema";
+} from "../../../../lib/db/schema";
 import { eq, and, or, like } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { randomUUID } from "crypto";
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
-import { sendTeamInvitationEmail } from "@/lib/email/send-invitation";
-import { plans } from "@/lib/payments/plans";
+import { auth } from "../../../../lib/auth";
+import { sendTeamInvitationEmail } from "../../../../lib/email/send-invitation";
+import { plans } from "../../../../lib/payments/plans";
 
 export async function createTeam(
   name: string,
@@ -409,7 +409,7 @@ export async function deleteTeam(teamId: string) {
 }
 
 // Needed to check for organizationMembers table import above, realized I missed importing it in the top block
-import { organizationMembers } from "@/db/schema";
+import { organizationMembers } from "../../../../lib/db/schema";
 
 /**
  * Check if user has Pro access through team membership
