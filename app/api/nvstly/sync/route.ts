@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { syncCopyTradingLeadersOrders } from '@/lib/leaders/nvsty-leaders'
+import { syncCopyTradingLeadersOrders } from '@/packages/investing/src/leaders/nvsty-leaders'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
 

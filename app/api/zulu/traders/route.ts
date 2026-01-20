@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getZuluTraders } from '@/lib/leaders/zulu'
+import { getZuluTraders } from '@/packages/investing/src/leaders/zulu'
 
 export async function GET(request: NextRequest) {
   try {

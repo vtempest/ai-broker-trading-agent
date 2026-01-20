@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getZuluTraderById, fetchZuluTraderDetail, saveZuluTraders } from '@/lib/leaders/zulu'
+import { getZuluTraderById, fetchZuluTraderDetail, saveZuluTraders } from '@/packages/investing/src/leaders/zulu'
 
 export async function GET(
   request: NextRequest,

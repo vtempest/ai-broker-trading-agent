@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { syncZuluTraders } from '@/lib/leaders/zulu'
+import { syncZuluTraders } from '@/packages/investing/src/leaders/zulu'
 
 export async function POST() {
   try {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { syncZuluTraders, syncZuluTraderDetails, getZuluTopByRank } from '@/lib/leaders/zulu'
+import { syncZuluTraders, syncZuluTraderDetails, getZuluTopByRank } from '@/packages/investing/src/leaders/zulu'
 import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
 
