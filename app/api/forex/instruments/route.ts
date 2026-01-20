@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import {
   ALL_INSTRUMENTS,
   FOREX_INSTRUMENTS,
@@ -11,9 +11,9 @@ import {
   getInstrumentsByCategory,
   searchInstruments,
   type AssetCategory,
-} from '@/lib/forex/dukascopy-client';
+} from "@/packages/investing/src/live-data/dukascopy-client";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 /**
  * GET /api/forex/instruments
@@ -31,8 +31,8 @@ export const runtime = 'nodejs';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const category = searchParams.get('category') as AssetCategory | null;
-    const searchQuery = searchParams.get('search');
+    const category = searchParams.get("category") as AssetCategory | null;
+    const searchQuery = searchParams.get("search");
 
     let instruments = ALL_INSTRUMENTS;
 
@@ -48,13 +48,13 @@ export async function GET(request: Request) {
 
     // Group by category for easier client consumption
     const grouped = {
-      forex: instruments.filter(i => i.category === 'forex'),
-      crypto: instruments.filter(i => i.category === 'crypto'),
-      stocks: instruments.filter(i => i.category === 'stocks'),
-      etfs: instruments.filter(i => i.category === 'etfs'),
-      indices: instruments.filter(i => i.category === 'indices'),
-      commodities: instruments.filter(i => i.category === 'commodities'),
-      bonds: instruments.filter(i => i.category === 'bonds'),
+      forex: instruments.filter((i) => i.category === "forex"),
+      crypto: instruments.filter((i) => i.category === "crypto"),
+      stocks: instruments.filter((i) => i.category === "stocks"),
+      etfs: instruments.filter((i) => i.category === "etfs"),
+      indices: instruments.filter((i) => i.category === "indices"),
+      commodities: instruments.filter((i) => i.category === "commodities"),
+      bonds: instruments.filter((i) => i.category === "bonds"),
     };
 
     return NextResponse.json({
@@ -67,9 +67,9 @@ export async function GET(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Failed to fetch instruments',
+        error: error.message || "Failed to fetch instruments",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

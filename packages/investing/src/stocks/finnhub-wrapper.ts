@@ -2,152 +2,46 @@
 // Uses Finnhub as primary source with Alpaca API as fallback for historical data
 
 import { createAlpacaClient } from "../alpaca/client";
+import type {
+  HistoricalDataOptions,
+  QuoteOptions,
+  FinnhubQuote,
+  FinnhubCandle,
+  FinnhubProfile,
+  FinnhubMetrics,
+  HistoricalDataResponse,
+  FinnhubQuoteSummaryResponse,
+  FinnhubSearchResponse,
+  PeersResponse,
+  RecommendationsResponse,
+  FinancialsResponse,
+  NewsResponse,
+  ForexResponse,
+  FinnhubQuoteData,
+  FinnhubQuoteResponse,
+} from "./types";
+import {
+  mapInterval,
+  toUnixTimestamp,
+  finnhubFetch,
+  mapIntervalToAlpacaTimeframe,
+  getAlpacaCredentials,
+  formatDateRFC3339,
+  formatDateYYYYMMDD,
+  getFinnhubApiKey,
+} from "./finnhub-utils";
 
-const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY || "";
-const FINNHUB_BASE_URL = "https://finnhub.io/api/v1";
-
-export interface HistoricalDataOptions {
-  symbol: string;
-  period1: string | Date;
-  period2: string | Date;
-  interval?: "1" | "5" | "15" | "30" | "60" | "D" | "W" | "M"; // Finnhub resolution
-}
-
-export interface QuoteOptions {
-  symbol: string;
-  modules?: string[];
-}
-
-interface FinnhubQuote {
-  c: number; // Current price
-  d: number; // Change
-  dp: number; // Percent change
-  h: number; // High price of the day
-  l: number; // Low price of the day
-  o: number; // Open price of the day
-  pc: number; // Previous close price
-  t: number; // Timestamp
-}
-
-interface FinnhubCandle {
-  c: number[]; // Close prices
-  h: number[]; // High prices
-  l: number[]; // Low prices
-  o: number[]; // Open prices
-  s: string; // Status
-  t: number[]; // Timestamps
-  v: number[]; // Volumes
-}
-
-interface FinnhubProfile {
-  country: string;
-  currency: string;
-  exchange: string;
-  ipo: string;
-  marketCapitalization: number;
-  name: string;
-  phone: string;
-  shareOutstanding: number;
-  ticker: string;
-  weburl: string;
-  logo: string;
-  finnhubIndustry: string;
-}
-
-interface FinnhubMetrics {
-  metric: {
-    "10DayAverageTradingVolume": number;
-    "52WeekHigh": number;
-    "52WeekLow": number;
-    beta: number;
-    currentRatio: number;
-    dividendYieldIndicatedAnnual: number;
-    epsBasicExclExtraItemsTTM: number;
-    epsGrowth3Y: number;
-    epsGrowth5Y: number;
-    epsGrowthTTMYoy: number;
-    freeCashFlowPerShareTTM: number;
-    grossMarginTTM: number;
-    netProfitMarginTTM: number;
-    operatingMarginTTM: number;
-    pbAnnual: number;
-    peBasicExclExtraTTM: number;
-    peExclExtraHighTTM: number;
-    peNormalizedAnnual: number;
-    pfcfShareTTM: number;
-    "priceRelativeToS&P50052Week": number;
-    psTTM: number;
-    revenueGrowth3Y: number;
-    revenueGrowth5Y: number;
-    revenueGrowthTTMYoy: number;
-    roaeTTM: number;
-    roeTTM: number;
-    roicTTM: number;
-    totalDebtToEquity: number;
-    [key: string]: number;
-  };
-  series: {
-    annual: {
-      [key: string]: { period: string; v: number }[];
-    };
-  };
-}
-
-// Map interval from Yahoo Finance format to Finnhub format
-function mapInterval(interval?: string): string {
-  const mapping: { [key: string]: string } = {
-    "1m": "1",
-    "5m": "5",
-    "15m": "15",
-    "30m": "30",
-    "60m": "60",
-    "1h": "60",
-    "1d": "D",
-    "1wk": "W",
-    "1mo": "M",
-    D: "D",
-    W: "W",
-    M: "M",
-  };
-  return mapping[interval || "1d"] || "D";
-}
-
-// Convert date to Unix timestamp
-function toUnixTimestamp(date: string | Date): number {
-  if (typeof date === "string") {
-    return Math.floor(new Date(date).getTime() / 1000);
-  }
-  return Math.floor(date.getTime() / 1000);
-}
-
-async function finnhubFetch<T>(
-  endpoint: string,
-  params: Record<string, string> = {},
-): Promise<T> {
-  const url = new URL(`${FINNHUB_BASE_URL}${endpoint}`);
-  url.searchParams.set("token", FINNHUB_API_KEY);
-
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, value);
-  }
-
-  const response = await fetch(url.toString());
-
-  if (!response.ok) {
-    throw new Error(
-      `Finnhub API error: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  return response.json();
-}
+export type {
+  HistoricalDataOptions,
+  QuoteOptions,
+};
 
 export class FinnhubWrapper {
   /**
    * Get historical price data for a symbol (candles)
    * Uses Finnhub as primary source, falls back to Alpaca API if Finnhub fails
    */
-  async getHistoricalData(options: HistoricalDataOptions) {
+  async getHistoricalData(options: HistoricalDataOptions): Promise<HistoricalDataResponse> {
     const { symbol, period1, period2, interval = "1d" } = options;
 
     console.log(
@@ -155,7 +49,7 @@ export class FinnhubWrapper {
     );
 
     // Try Finnhub first (if API key is configured)
-    if (FINNHUB_API_KEY) {
+    if (getFinnhubApiKey()) {
       try {
         const resolution = mapInterval(interval);
         const from = toUnixTimestamp(period1);
@@ -178,7 +72,7 @@ export class FinnhubWrapper {
           );
         } else if (candles.t && candles.t.length > 0) {
           // Transform to standard format
-          const quotes = candles.t.map((timestamp, i) => ({
+          const quotes: FinnhubQuoteData[] = candles.t.map((timestamp, i) => ({
             date: new Date(timestamp * 1000),
             open: candles.o[i],
             high: candles.h[i],
@@ -275,29 +169,9 @@ export class FinnhubWrapper {
     period1: string | Date,
     period2: string | Date,
     interval: string = "1d",
-  ) {
+  ): Promise<HistoricalDataResponse> {
     // Map interval to Alpaca timeframe format
-    const timeframe = (() => {
-      const mapping: { [key: string]: string } = {
-        "1": "1Min",
-        "5": "5Min",
-        "15": "15Min",
-        "30": "30Min",
-        "60": "1Hour",
-        "1m": "1Min",
-        "5m": "5Min",
-        "15m": "15Min",
-        "30m": "30Min",
-        "1h": "1Hour",
-        D: "1Day",
-        W: "1Week",
-        M: "1Month",
-        "1d": "1Day",
-        "1wk": "1Week",
-        "1mo": "1Month",
-      };
-      return mapping[interval] || "1Day";
-    })();
+    const timeframe = mapIntervalToAlpacaTimeframe(interval);
 
     const startDate = typeof period1 === "string" ? new Date(period1) : period1;
     const endDate = typeof period2 === "string" ? new Date(period2) : period2;
@@ -329,29 +203,27 @@ export class FinnhubWrapper {
     try {
       const alpaca = createAlpacaClient();
 
-      // Format dates as YYYY-MM-DD for SDK (simpler format works better)
-      const formatDate = (d: Date) => d.toISOString().split("T")[0];
-
       console.log(
-        `Trying Alpaca SDK for ${symbol} from ${formatDate(startDate)} to ${formatDate(endDate)}`,
+        `Trying Alpaca SDK for ${symbol} from ${formatDateYYYYMMDD(startDate)} to ${formatDateYYYYMMDD(endDate)}`,
       );
 
       const bars = alpaca.getBarsV2(symbol.toUpperCase(), {
-        start: formatDate(startDate),
-        end: formatDate(endDate),
+        start: formatDateYYYYMMDD(startDate),
+        end: formatDateYYYYMMDD(endDate),
         timeframe,
         feed: "iex",
       });
 
-      const quotes: any[] = [];
+      const quotes: FinnhubQuoteData[] = [];
       for await (const bar of bars) {
         // Handle both SDK format (PascalCase) and raw format (lowercase)
-        const timestamp = bar.Timestamp || bar.t;
-        const open = bar.OpenPrice ?? bar.o;
-        const high = bar.HighPrice ?? bar.h;
-        const low = bar.LowPrice ?? bar.l;
-        const close = bar.ClosePrice ?? bar.c;
-        const volume = bar.Volume ?? bar.v;
+        const barData = bar as any;
+        const timestamp = barData.Timestamp || barData.t;
+        const open = barData.OpenPrice ?? barData.o;
+        const high = barData.HighPrice ?? barData.h;
+        const low = barData.LowPrice ?? barData.l;
+        const close = barData.ClosePrice ?? barData.c;
+        const volume = barData.Volume ?? barData.v;
 
         if (timestamp && open !== undefined) {
           quotes.push({
@@ -408,27 +280,15 @@ export class FinnhubWrapper {
     startDate: Date,
     endDate: Date,
     timeframe: string,
-  ) {
+  ): Promise<HistoricalDataResponse> {
     // Check multiple environment variable names for API credentials
-    const apiKey =
-      process.env.ALPACA_API_KEY ||
-      process.env.ALPACA_KEY_ID ||
-      process.env.APCA_API_KEY_ID ||
-      "";
-    const secretKey =
-      process.env.ALPACA_SECRET ||
-      process.env.ALPACA_SECRET_KEY ||
-      process.env.APCA_API_SECRET_KEY ||
-      "";
+    const { apiKey, secretKey } = getAlpacaCredentials();
 
     if (!apiKey || !secretKey) {
       throw new Error(
         "Alpaca API credentials not configured. Set ALPACA_API_KEY and ALPACA_SECRET environment variables.",
       );
     }
-
-    // Format dates as RFC-3339 (ISO 8601)
-    const formatDate = (d: Date) => d.toISOString();
 
     // Collect all bars with pagination support
     const allBars: any[] = [];
@@ -450,8 +310,8 @@ export class FinnhubWrapper {
           const url = new URL(
             `https://data.alpaca.markets/v2/stocks/${symbol.toUpperCase()}/bars`,
           );
-          url.searchParams.set("start", formatDate(startDate));
-          url.searchParams.set("end", formatDate(endDate));
+          url.searchParams.set("start", formatDateRFC3339(startDate));
+          url.searchParams.set("end", formatDateRFC3339(endDate));
           url.searchParams.set("timeframe", timeframe);
           url.searchParams.set("feed", feed);
           url.searchParams.set("limit", "10000");
@@ -576,7 +436,7 @@ export class FinnhubWrapper {
   /**
    * Get quote summary for a symbol
    */
-  async getQuote(options: QuoteOptions) {
+  async getQuote(options: QuoteOptions): Promise<FinnhubQuoteSummaryResponse> {
     const { symbol } = options;
 
     try {
@@ -593,7 +453,7 @@ export class FinnhubWrapper {
       ]);
 
       // Transform to Yahoo Finance-like structure
-      const data: any = {
+      const data: FinnhubQuoteResponse = {
         price: {
           regularMarketPrice: quote.c,
           regularMarketChange: quote.d,
@@ -709,7 +569,7 @@ export class FinnhubWrapper {
   /**
    * Search for stocks by query
    */
-  async search(query: string) {
+  async search(query: string): Promise<FinnhubSearchResponse> {
     try {
       const result = await finnhubFetch<{ count: number; result: any[] }>(
         "/search",
@@ -737,7 +597,7 @@ export class FinnhubWrapper {
   /**
    * Get peer companies for a symbol
    */
-  async getPeers(symbol: string) {
+  async getPeers(symbol: string): Promise<PeersResponse> {
     try {
       const peers = await finnhubFetch<string[]>("/stock/peers", {
         symbol: symbol.toUpperCase(),
@@ -759,7 +619,7 @@ export class FinnhubWrapper {
   /**
    * Get analyst recommendations for a symbol
    */
-  async getRecommendations(symbol: string) {
+  async getRecommendations(symbol: string): Promise<RecommendationsResponse> {
     try {
       const recommendations = await finnhubFetch<any[]>(
         "/stock/recommendation",
@@ -769,7 +629,7 @@ export class FinnhubWrapper {
       );
 
       // Transform to Yahoo Finance-like structure
-      const data: any = {
+      const data = {
         recommendationTrend: {
           trend: recommendations.map((rec) => ({
             period: rec.period,
@@ -798,7 +658,7 @@ export class FinnhubWrapper {
   /**
    * Get basic financials (metrics) for a symbol
    */
-  async getFinancials(symbol: string) {
+  async getFinancials(symbol: string): Promise<FinancialsResponse> {
     try {
       const metrics = await finnhubFetch<FinnhubMetrics>("/stock/metric", {
         symbol: symbol.toUpperCase(),
@@ -806,7 +666,7 @@ export class FinnhubWrapper {
       });
 
       // Transform to Yahoo Finance-like structure
-      const data: any = {
+      const data = {
         earnings: {
           earningsChart: {},
           financialsChart: {},
@@ -834,7 +694,7 @@ export class FinnhubWrapper {
   /**
    * Get company news
    */
-  async getNews(symbol: string, from?: string, to?: string) {
+  async getNews(symbol: string, from?: string, to?: string): Promise<NewsResponse> {
     try {
       const today = new Date();
       const defaultFrom = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
@@ -870,7 +730,7 @@ export class FinnhubWrapper {
   /**
    * Get forex rates
    */
-  async getForexRate(baseCurrency: string, quoteCurrency: string) {
+  async getForexRate(baseCurrency: string, quoteCurrency: string): Promise<ForexResponse> {
     try {
       // Finnhub uses different endpoint for forex
       const rates = await finnhubFetch<{

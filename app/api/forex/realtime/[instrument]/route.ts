@@ -1,7 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getRealTimeData, getInstrumentBySymbol } from '@/lib/forex/dukascopy-client';
+import { NextRequest, NextResponse } from "next/server";
+import {
+  getRealTimeData,
+  getInstrumentBySymbol,
+} from "@/packages/investing/src/live-data/dukascopy-client";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 /**
  * GET /api/forex/realtime/[instrument]
@@ -24,22 +27,22 @@ export const runtime = 'nodejs';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { instrument: string } }
+  { params }: { params: { instrument: string } },
 ) {
   try {
     const { instrument } = params;
     const searchParams = request.nextUrl.searchParams;
 
     // Get parameters
-    const timeframe = (searchParams.get('timeframe') || 'tick') as any;
-    const format = (searchParams.get('format') || 'json') as any;
-    const priceType = (searchParams.get('priceType') || 'bid') as any;
-    const last = parseInt(searchParams.get('last') || '10');
-    const volumes = searchParams.get('volumes') !== 'false';
+    const timeframe = (searchParams.get("timeframe") || "tick") as any;
+    const format = (searchParams.get("format") || "json") as any;
+    const priceType = (searchParams.get("priceType") || "bid") as any;
+    const last = parseInt(searchParams.get("last") || "10");
+    const volumes = searchParams.get("volumes") !== "false";
 
     // Optional date range (if not provided, uses 'last' parameter)
-    const from = searchParams.get('from');
-    const to = searchParams.get('to');
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
 
     // Get instrument metadata if available
     const instrumentMeta = getInstrumentBySymbol(instrument);
@@ -69,13 +72,13 @@ export async function GET(
       instrument: instrumentMeta,
     });
   } catch (error: any) {
-    console.error('Market real-time API error:', error);
+    console.error("Market real-time API error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Internal server error',
+        error: error.message || "Internal server error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

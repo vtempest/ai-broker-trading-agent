@@ -1,7 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getHistoricalData, getInstrumentBySymbol } from '@/lib/forex/dukascopy-client';
+import { NextRequest, NextResponse } from "next/server";
+import {
+  getHistoricalData,
+  getInstrumentBySymbol,
+} from "@/packages/investing/src/live-data/dukascopy-client";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 /**
  * GET /api/forex/historical/[instrument]
@@ -25,22 +28,22 @@ export const runtime = 'nodejs';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { instrument: string } }
+  { params }: { params: { instrument: string } },
 ) {
   try {
     const { instrument } = params;
     const searchParams = request.nextUrl.searchParams;
 
     // Get date range
-    const from = searchParams.get('from');
-    const to = searchParams.get('to');
-    const range = searchParams.get('range'); // e.g., '1d', '7d', '1mo'
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
+    const range = searchParams.get("range"); // e.g., '1d', '7d', '1mo'
 
     // Get other parameters
-    const timeframe = (searchParams.get('timeframe') || 'd1') as any;
-    const format = (searchParams.get('format') || 'json') as any;
-    const priceType = (searchParams.get('priceType') || 'bid') as any;
-    const volumes = searchParams.get('volumes') !== 'false';
+    const timeframe = (searchParams.get("timeframe") || "d1") as any;
+    const format = (searchParams.get("format") || "json") as any;
+    const priceType = (searchParams.get("priceType") || "bid") as any;
+    const volumes = searchParams.get("volumes") !== "false";
 
     // Calculate date range
     let fromDate: Date;
@@ -53,8 +56,8 @@ export async function GET(
       const rangeMatch = range.match(/^(\d+)([dmyhw])$/);
       if (!rangeMatch) {
         return NextResponse.json(
-          { success: false, error: 'Invalid range format' },
-          { status: 400 }
+          { success: false, error: "Invalid range format" },
+          { status: 400 },
         );
       }
 
@@ -63,19 +66,19 @@ export async function GET(
       fromDate = new Date(now);
 
       switch (unit) {
-        case 'd':
+        case "d":
           fromDate.setDate(now.getDate() - parseInt(value));
           break;
-        case 'w':
+        case "w":
           fromDate.setDate(now.getDate() - parseInt(value) * 7);
           break;
-        case 'm':
+        case "m":
           fromDate.setMonth(now.getMonth() - parseInt(value));
           break;
-        case 'y':
+        case "y":
           fromDate.setFullYear(now.getFullYear() - parseInt(value));
           break;
-        case 'h':
+        case "h":
           fromDate.setHours(now.getHours() - parseInt(value));
           break;
       }
@@ -114,13 +117,13 @@ export async function GET(
       instrument: instrumentMeta,
     });
   } catch (error: any) {
-    console.error('Market historical API error:', error);
+    console.error("Market historical API error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Internal server error',
+        error: error.message || "Internal server error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
