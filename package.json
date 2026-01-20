@@ -100,6 +100,7 @@
     "drizzle-orm": "^0.45.1",
     "dukascopy-node": "^1.46.3",
     "embla-carousel-react": "8.6.0",
+    "entities": "^6.0.1",
     "ethers": "^6.16.0",
     "fancy-canvas": "latest",
     "framer-motion": "^12.27.5",

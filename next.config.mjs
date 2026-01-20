@@ -43,11 +43,12 @@ const nextConfig = {
     },
   },
   webpack: (config, { isServer }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'entities/escape': path.resolve(__dirname, 'node_modules/entities/escape.js'),
+    }
     if (isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'fumadocs-mdx:collections/server': path.resolve(__dirname, '.source/server.ts'),
-      }
+      config.resolve.alias['fumadocs-mdx:collections/server'] = path.resolve(__dirname, '.source/server.ts')
     }
     return config
   },
