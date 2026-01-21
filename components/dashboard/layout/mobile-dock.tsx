@@ -13,34 +13,32 @@ import Dock from "@/components/ui/dock"
 
 export function MobileDock() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const currentTab = searchParams.get('tab') || 'overview'
 
   const dockItems = [
     {
       icon: LayoutDashboard,
       label: "Overview",
-      onClick: () => router.push("/dashboard?tab=overview")
+      onClick: () => router.push("/dashboard")
     },
     {
       icon: Zap,
       label: "Strategies",
-      onClick: () => router.push("/dashboard?tab=strategies")
+      onClick: () => router.push("/stock")
     },
     {
       icon: BarChart3,
       label: "Scanner",
-      onClick: () => router.push("/dashboard?tab=scanner")
+      onClick: () => router.push("/markets")
     },
     {
       icon: Copy,
       label: "Copy Trade",
-      onClick: () => router.push("/dashboard?tab=copy-trading")
+      onClick: () => router.push("/leaders")
     },
     {
       icon: Target,
       label: "Markets",
-      onClick: () => router.push("/dashboard?tab=prediction-markets")
+      onClick: () => router.push("/predict")
     },
     {
       icon: Shield,

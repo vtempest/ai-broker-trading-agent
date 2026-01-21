@@ -91,13 +91,17 @@ async function getYearlyChange(symbol: string): Promise<{ change: number; change
 }
 
 /**
- * GET /api/stocks/quotes?symbols=AAPL,MSFT,GOOGL
+ * GET /api/stocks/quotes?symbols=AAPL,MSFT,GOOGL&live=true
  * Get real-time quotes for multiple stock symbols with monthly change data
+ * @param symbols - Comma-separated list of stock symbols
+ * @param live - Optional: set to 'true' to bypass cache and get fresh data (default: false, uses cache)
  */
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const symbolsParam = searchParams.get("symbols");
+    const liveParam = searchParams.get("live");
+    const useCache = liveParam !== "true"; // Use cache by default, bypass if live=true
 
     if (!symbolsParam) {
       return NextResponse.json(
@@ -109,7 +113,7 @@ export async function GET(request: NextRequest) {
     const symbols = symbolsParam.split(",").map((s) => s.trim().toUpperCase());
 
     // Use unified quote service with fallback
-    const result = await getQuotes(symbols);
+    const result = await getQuotes(symbols, { useCache });
 
     if (!result.success || !result.data) {
       return NextResponse.json(

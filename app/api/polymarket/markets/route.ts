@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
       id: m.id,
       question: m.question,
       slug: m.slug,
+      eventSlug: m.eventSlug,
       volume24hr: Math.floor(m.volume24hr),
       volumeTotal: Math.floor(m.volumeTotal),
       active: m.active,
@@ -70,7 +71,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const limit = body.limit || 100
+    const limit = body.limit || 200
 
     const result = await syncMarkets(limit)
 

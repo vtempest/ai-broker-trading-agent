@@ -38,6 +38,16 @@ export interface HistoricalQuote {
 
 export class QuoteCacheService {
   /**
+   * Round price to 2 decimal places for caching
+   */
+  private roundPrice(value: number | null | undefined): number | null {
+    if (value === null || value === undefined || isNaN(value)) {
+      return null;
+    }
+    return Math.round(value * 100) / 100;
+  }
+
+  /**
    * Get cached quote if available and fresh
    */
   async getCachedQuote(symbol: string): Promise<CachedQuote | null> {
@@ -94,43 +104,46 @@ export class QuoteCacheService {
       const now = new Date();
       const symbol = quote.symbol.toUpperCase();
 
+      // Round all price values to 2 decimal places
+      const roundedData = {
+        symbol,
+        price: this.roundPrice(quote.price) || 0,
+        change: this.roundPrice(quote.change),
+        changePercent: this.roundPrice(quote.changePercent),
+        open: this.roundPrice(quote.open),
+        high: this.roundPrice(quote.high),
+        low: this.roundPrice(quote.low),
+        previousClose: this.roundPrice(quote.previousClose),
+        volume: quote.volume,
+        marketCap: quote.marketCap,
+        currency: quote.currency || "USD",
+        name: quote.name,
+        exchange: quote.exchange,
+        source: quote.source,
+        lastFetched: now,
+        createdAt: now,
+        updatedAt: now,
+      };
+
       await db
         .insert(schema.stockQuoteCache)
-        .values({
-          symbol,
-          price: quote.price,
-          change: quote.change,
-          changePercent: quote.changePercent,
-          open: quote.open,
-          high: quote.high,
-          low: quote.low,
-          previousClose: quote.previousClose,
-          volume: quote.volume,
-          marketCap: quote.marketCap,
-          currency: quote.currency || "USD",
-          name: quote.name,
-          exchange: quote.exchange,
-          source: quote.source,
-          lastFetched: now,
-          createdAt: now,
-          updatedAt: now,
-        })
+        .values(roundedData)
         .onConflictDoUpdate({
           target: schema.stockQuoteCache.symbol,
           set: {
-            price: quote.price,
-            change: quote.change,
-            changePercent: quote.changePercent,
-            open: quote.open,
-            high: quote.high,
-            low: quote.low,
-            previousClose: quote.previousClose,
-            volume: quote.volume,
-            marketCap: quote.marketCap,
-            currency: quote.currency || "USD",
-            name: quote.name,
-            exchange: quote.exchange,
-            source: quote.source,
+            price: roundedData.price,
+            change: roundedData.change,
+            changePercent: roundedData.changePercent,
+            open: roundedData.open,
+            high: roundedData.high,
+            low: roundedData.low,
+            previousClose: roundedData.previousClose,
+            volume: roundedData.volume,
+            marketCap: roundedData.marketCap,
+            currency: roundedData.currency,
+            name: roundedData.name,
+            exchange: roundedData.exchange,
+            source: roundedData.source,
             lastFetched: now,
             updatedAt: now,
           },
@@ -163,12 +176,12 @@ export class QuoteCacheService {
         id: `${symbolUpper}-${quote.date}`,
         symbol: symbolUpper,
         date: quote.date,
-        open: quote.open,
-        high: quote.high,
-        low: quote.low,
-        close: quote.close,
+        open: this.roundPrice(quote.open) || 0,
+        high: this.roundPrice(quote.high) || 0,
+        low: this.roundPrice(quote.low) || 0,
+        close: this.roundPrice(quote.close) || 0,
         volume: quote.volume,
-        adjustedClose: quote.adjustedClose,
+        adjustedClose: this.roundPrice(quote.adjustedClose),
         createdAt: now,
       }));
 
@@ -251,43 +264,46 @@ export class QuoteCacheService {
       const now = new Date();
       const symbolUpper = symbol.toUpperCase();
 
+      // Round price-related fundamentals to 2 decimal places
+      const roundedFundamentals = {
+        symbol: symbolUpper,
+        peRatio: this.roundPrice(fundamentals.peRatio),
+        eps: this.roundPrice(fundamentals.eps),
+        dividendYield: this.roundPrice(fundamentals.dividendYield),
+        beta: this.roundPrice(fundamentals.beta),
+        fiftyTwoWeekHigh: this.roundPrice(fundamentals.fiftyTwoWeekHigh),
+        fiftyTwoWeekLow: this.roundPrice(fundamentals.fiftyTwoWeekLow),
+        fiftyDayAverage: this.roundPrice(fundamentals.fiftyDayAverage),
+        twoHundredDayAverage: this.roundPrice(fundamentals.twoHundredDayAverage),
+        sharesOutstanding: fundamentals.sharesOutstanding,
+        bookValue: this.roundPrice(fundamentals.bookValue),
+        priceToBook: this.roundPrice(fundamentals.priceToBook),
+        trailingPE: this.roundPrice(fundamentals.trailingPE),
+        forwardPE: this.roundPrice(fundamentals.forwardPE),
+        lastFetched: now,
+        createdAt: now,
+        updatedAt: now,
+      };
+
       await db
         .insert(schema.stockFundamentals)
-        .values({
-          symbol: symbolUpper,
-          peRatio: fundamentals.peRatio,
-          eps: fundamentals.eps,
-          dividendYield: fundamentals.dividendYield,
-          beta: fundamentals.beta,
-          fiftyTwoWeekHigh: fundamentals.fiftyTwoWeekHigh,
-          fiftyTwoWeekLow: fundamentals.fiftyTwoWeekLow,
-          fiftyDayAverage: fundamentals.fiftyDayAverage,
-          twoHundredDayAverage: fundamentals.twoHundredDayAverage,
-          sharesOutstanding: fundamentals.sharesOutstanding,
-          bookValue: fundamentals.bookValue,
-          priceToBook: fundamentals.priceToBook,
-          trailingPE: fundamentals.trailingPE,
-          forwardPE: fundamentals.forwardPE,
-          lastFetched: now,
-          createdAt: now,
-          updatedAt: now,
-        })
+        .values(roundedFundamentals)
         .onConflictDoUpdate({
           target: schema.stockFundamentals.symbol,
           set: {
-            peRatio: fundamentals.peRatio,
-            eps: fundamentals.eps,
-            dividendYield: fundamentals.dividendYield,
-            beta: fundamentals.beta,
-            fiftyTwoWeekHigh: fundamentals.fiftyTwoWeekHigh,
-            fiftyTwoWeekLow: fundamentals.fiftyTwoWeekLow,
-            fiftyDayAverage: fundamentals.fiftyDayAverage,
-            twoHundredDayAverage: fundamentals.twoHundredDayAverage,
-            sharesOutstanding: fundamentals.sharesOutstanding,
-            bookValue: fundamentals.bookValue,
-            priceToBook: fundamentals.priceToBook,
-            trailingPE: fundamentals.trailingPE,
-            forwardPE: fundamentals.forwardPE,
+            peRatio: roundedFundamentals.peRatio,
+            eps: roundedFundamentals.eps,
+            dividendYield: roundedFundamentals.dividendYield,
+            beta: roundedFundamentals.beta,
+            fiftyTwoWeekHigh: roundedFundamentals.fiftyTwoWeekHigh,
+            fiftyTwoWeekLow: roundedFundamentals.fiftyTwoWeekLow,
+            fiftyDayAverage: roundedFundamentals.fiftyDayAverage,
+            twoHundredDayAverage: roundedFundamentals.twoHundredDayAverage,
+            sharesOutstanding: roundedFundamentals.sharesOutstanding,
+            bookValue: roundedFundamentals.bookValue,
+            priceToBook: roundedFundamentals.priceToBook,
+            trailingPE: roundedFundamentals.trailingPE,
+            forwardPE: roundedFundamentals.forwardPE,
             lastFetched: now,
             updatedAt: now,
           },

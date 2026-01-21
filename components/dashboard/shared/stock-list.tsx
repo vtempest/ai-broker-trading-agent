@@ -271,7 +271,7 @@ export function StockList({
                     />
                   </div>
                   <div className="grid gap-0.5">
-                     <Link href={`/dashboard?tab=strategies&symbol=${stock.symbol}`} className="font-bold hover:underline">
+                     <Link href={`/stock/${stock.symbol}`} className="font-bold hover:underline">
                       {stock.symbol}
                      </Link>
                      <span className="text-xs text-muted-foreground truncate max-w-[100px]" title={stock.name}>

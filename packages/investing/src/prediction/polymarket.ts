@@ -488,12 +488,18 @@ export async function saveMarkets(marketsData: any[]) {
   const now = Date.now();
 
   for (const market of marketsData) {
+    // Extract event slug from the events array (if available)
+    const eventSlug = market.events && market.events.length > 0
+      ? market.events[0].slug
+      : null;
+
     await db
       .insert(polymarketMarkets)
       .values({
         id: market.id,
         question: market.question,
         slug: market.slug,
+        eventSlug: eventSlug,
         description: market.description || null,
         image: market.imageUrl || market.image || null,
         volume24hr: market.volume24hr || 0,
@@ -513,6 +519,7 @@ export async function saveMarkets(marketsData: any[]) {
         target: polymarketMarkets.id,
         set: {
           question: market.question,
+          eventSlug: eventSlug,
           description: market.description || null,
           image: market.imageUrl || market.image || null,
           volume24hr: market.volume24hr || 0,
@@ -888,10 +895,10 @@ export function analyzeCategories(allPositions: any[]) {
 /**
  * Syncs markets from Polymarket API to the database.
  * Clears existing markets and fetches fresh data sorted by 24h volume.
- * @param limit - Maximum number of markets to sync (default: 100)
+ * @param limit - Maximum number of markets to sync (default: 200)
  * @returns Object with count of synced markets
  */
-export async function syncMarkets(limit = 100) {
+export async function syncMarkets(limit = 200) {
   console.log("Starting Polymarket markets sync...");
 
   await db.delete(polymarketMarkets);

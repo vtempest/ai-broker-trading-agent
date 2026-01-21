@@ -171,7 +171,7 @@ function SidebarSearch() {
     if (state === "expanded") {
       toggleSidebar()
     }
-    router.push(`/dashboard?tab=strategies&symbol=${symbol}`)
+    router.push(`/stock/${symbol}`)
   }
 
   if (state === "collapsed") {
@@ -229,22 +229,22 @@ const navigationGroups = [
   {
     title: "Market",
     items: [
-      { name: "Analyze Strategy", tab: "strategies", icon: Zap },
-      { name: "Market Scanner", tab: "scanner", icon: BarChart3 },
+      { name: "Analyze Strategy", href: "/stock", icon: Zap },
+      { name: "Market Scanner", href: "/markets", icon: BarChart3 },
     ],
   },
   {
     title: "Trading",
     items: [
-      { name: "Copy Trade Leaders", tab: "copy-trading", icon: Copy },
+      { name: "Copy Trade Leaders", href: "/leaders", icon: Copy },
       // { name: "Orders", tab: "orders", icon: TrendingUp },
-      { name: "Prediction Markets", tab: "prediction-markets", icon: Target },
+      { name: "Prediction Markets", href: "/predict", icon: Target },
     ],
   },
   {
     title: "Risk & Portfolio",
     items: [
-      { name: "Overview", tab: "overview", icon: LayoutDashboard },
+      { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
       { name: "Risk Management", tab: "risk", icon: Shield },
     ],
   },
@@ -354,10 +354,10 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenuItem key={item.name}>
                     <SidebarMenuButton
                       asChild
-                      isActive={isActive(item.tab)}
+                      isActive={isActive((item as any).tab, (item as any).href)}
                       tooltip={item.name}
                     >
-                      <Link href={`/dashboard?tab=${item.tab}`}>
+                      <Link href={(item as any).href || `/dashboard?tab=${(item as any).tab}`}>
                         <item.icon />
                         <span className="group-data-[collapsible=icon]:hidden">{item.name}</span>
                       </Link>

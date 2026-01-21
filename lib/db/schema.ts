@@ -331,6 +331,7 @@ export const polymarketMarkets = sqliteTable("polymarket_markets", {
   id: text("id").primaryKey(),
   question: text("question").notNull(),
   slug: text("slug").notNull(),
+  eventSlug: text("event_slug"), // Event slug for constructing polymarket.com URLs
   description: text("description"),
   image: text("image"),
 

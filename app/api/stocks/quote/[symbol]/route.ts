@@ -1,5 +1,6 @@
-// Stock Quote API Route - Using Finnhub API
+// Stock Quote API Route - Using Unified Quote Service
 import { NextRequest, NextResponse } from "next/server";
+import { getQuote } from "@/packages/investing/src/stocks/unified-quote-service";
 import { finnhub } from "@/packages/investing/src/stocks/finnhub-wrapper";
 
 export async function GET(
@@ -8,11 +9,14 @@ export async function GET(
 ) {
   try {
     const { symbol } = await params;
+    const searchParams = request.nextUrl.searchParams;
+    const liveParam = searchParams.get("live");
+    const useCache = liveParam !== "true"; // Use cache by default, bypass if live=true
 
-    // Fetch quote data from Finnhub
-    const quoteResult = await finnhub.getQuote({ symbol });
+    // Fetch quote data using unified service (with cache support)
+    const quoteResult = await getQuote(symbol, { useCache });
 
-    if (!quoteResult.success) {
+    if (!quoteResult.success || !quoteResult.data) {
       return NextResponse.json(
         {
           success: false,
@@ -23,6 +27,8 @@ export async function GET(
         { status: 500 },
       );
     }
+
+    const quote = quoteResult.data;
 
     // Fetch peers/related stocks
     let peers: string[] = [];
@@ -38,7 +44,28 @@ export async function GET(
     return NextResponse.json({
       success: true,
       symbol,
-      data: { ...quoteResult.data, peers },
+      data: {
+        price: {
+          regularMarketPrice: quote.price,
+          regularMarketChange: quote.change,
+          regularMarketChangePercent: quote.changePercent,
+          regularMarketTime: quote.timestamp,
+          marketCap: quote.marketCap,
+          currency: quote.currency,
+          longName: quote.name,
+          shortName: quote.name,
+          exchange: quote.exchange,
+        },
+        summaryDetail: {
+          open: quote.open,
+          dayHigh: quote.high,
+          dayLow: quote.low,
+          previousClose: quote.previousClose,
+          regularMarketVolume: quote.volume,
+        },
+        peers,
+      },
+      source: quote.source,
       timestamp: new Date().toISOString(),
     });
   } catch (error: any) {

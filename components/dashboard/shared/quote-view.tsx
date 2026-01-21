@@ -89,6 +89,36 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
   const [watchlistLoading, setWatchlistLoading] = useState(false)
   const [tradeModalOpen, setTradeModalOpen] = useState(false)
   const [peerStockInfo, setPeerStockInfo] = useState<Map<string, { name: string; marketCap: number }>>(new Map())
+  const [industryInfo, setIndustryInfo] = useState<{ emoji: string; number: number } | null>(null)
+
+  // Fetch industry emoji and number from sectors-industries.json
+  useEffect(() => {
+    if (!data?.summaryProfile?.industry) return
+
+    const loadIndustryInfo = async () => {
+      try {
+        // Import sectors-industries data
+        const sectorsIndustriesData = await import('investing/stock-names-data/sectors-industries.json')
+        const industries = sectorsIndustriesData.industries as Array<[number, string, string, number]>
+
+        // Find the industry by matching the industry name
+        const industryMatch = industries.find(
+          (industry) => industry[1] === data.summaryProfile?.industry
+        )
+
+        if (industryMatch) {
+          setIndustryInfo({
+            number: industryMatch[0], // Industry number
+            emoji: industryMatch[2],  // Emoji
+          })
+        }
+      } catch (error) {
+        console.error('Error loading industry info:', error)
+      }
+    }
+
+    loadIndustryInfo()
+  }, [data?.summaryProfile?.industry])
 
   // Fetch peer stock information from stock-names.json
   useEffect(() => {
@@ -505,7 +535,13 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
                 </div>
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Industry</div>
-                  <div className="text-lg font-bold">{data.summaryProfile?.industry || "N/A"}</div>
+                  <div className="text-lg font-bold flex items-center gap-2">
+                    {industryInfo?.emoji && <span>{industryInfo.emoji}</span>}
+                    {data.summaryProfile?.industry || "N/A"}
+                    {industryInfo?.number && (
+                      <span className="text-sm text-muted-foreground">#{industryInfo.number}</span>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Description</div>
@@ -527,7 +563,7 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
                   {data.peers.slice(0, 10).map((peerSymbol: string) => {
                     const stockInfo = peerStockInfo.get(peerSymbol)
                     return (
-                      <Link key={peerSymbol} href={`/dashboard?symbol=${peerSymbol}`}>
+                      <Link key={peerSymbol} href={`/stock/${peerSymbol}`}>
                         <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer">
                           <div className="flex items-center gap-3">
                             <img

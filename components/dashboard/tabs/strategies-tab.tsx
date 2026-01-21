@@ -74,12 +74,19 @@ interface BacktestResult {
   signals: TradeSignal[]
 }
 
-export function StrategiesTab() {
+interface StrategiesTabProps {
+  symbol?: string;
+}
+
+export function StrategiesTab({ symbol: symbolProp }: StrategiesTabProps = {}) {
   const searchParams = useSearchParams()
   const symbolFromUrl = searchParams.get('symbol')
 
+  // Priority: prop > URL param > default
+  const initialSymbol = symbolProp || symbolFromUrl || 'AAPL'
+
   // -- Shared State --
-  const [selectedStock, setSelectedStock] = useState<string>(symbolFromUrl || 'AAPL')
+  const [selectedStock, setSelectedStock] = useState<string>(initialSymbol)
   const [activeTab, setActiveTab] = useState("debate-analyst")
 
   // -- Strategies Tab State --
@@ -109,19 +116,20 @@ export function StrategiesTab() {
   const [errorAgent, setErrorAgent] = useState<string | null>(null)
 
 
-  // Update local state when URL parameter changes
+  // Update local state when prop or URL parameter changes
   useEffect(() => {
-    if (symbolFromUrl) {
-      setSelectedStock(symbolFromUrl)
+    const newSymbol = symbolProp || symbolFromUrl
+    if (newSymbol) {
+      setSelectedStock(newSymbol)
     }
-  }, [symbolFromUrl])
+  }, [symbolProp, symbolFromUrl])
 
-  // Sync selected stock to URL
+  // Sync selected stock to URL (only if not using prop-based routing)
   useEffect(() => {
-    if (selectedStock) {
+    if (selectedStock && !symbolProp) {
       setStateInURL({ symbol: selectedStock })
     }
-  }, [selectedStock])
+  }, [selectedStock, symbolProp])
 
   // Load strategies on mount
   useEffect(() => {

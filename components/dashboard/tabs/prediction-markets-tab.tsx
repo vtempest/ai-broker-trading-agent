@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,7 @@ interface PolymarketMarket {
   id: string
   question: string
   slug: string
+  eventSlug?: string
   volume24hr: number
   volumeTotal: number
   active: boolean
@@ -36,10 +37,42 @@ export function PredictionMarketsTab() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [availableCategories, setAvailableCategories] = useState<string[]>([])
   const [hideHighProb, setHideHighProb] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const observerTarget = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetchMarkets()
   }, [limit, timeWindow, selectedCategory])
+
+  // Infinite scroll observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading && !loadingMore && markets.length >= limit) {
+          loadMore()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    const currentTarget = observerTarget.current
+    if (currentTarget) {
+      observer.observe(currentTarget)
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget)
+      }
+    }
+  }, [loading, loadingMore, markets.length, limit])
+
+  const loadMore = useCallback(() => {
+    if (!loadingMore && markets.length >= limit) {
+      setLoadingMore(true)
+      setLimit(prev => prev + 20)
+    }
+  }, [loadingMore, markets.length, limit])
 
   useEffect(() => {
     // Extract unique categories from markets
@@ -67,6 +100,7 @@ export function PredictionMarketsTab() {
       console.error('Error fetching markets:', error)
     } finally {
       setLoading(false)
+      setLoadingMore(false)
     }
   }
 
@@ -154,35 +188,35 @@ export function PredictionMarketsTab() {
             </Button>
           </div>
 
+        </div>
+
+        <div className="flex items-center gap-2">
+          <div className="flex items-center space-x-2 mr-4 bg-muted/30 px-3 py-1.5 rounded-md border">
+            <Checkbox
+              id="hide-probs"
+              checked={hideHighProb}
+              onCheckedChange={(checked) => setHideHighProb(checked as boolean)}
+            />
+            <Label htmlFor="hide-probs" className="text-sm font-medium cursor-pointer">
+              Hide &gt; 95%
+            </Label>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="flex items-center space-x-2 mr-4 bg-muted/30 px-3 py-1.5 rounded-md border">
-              <Checkbox 
-                id="hide-probs" 
-                checked={hideHighProb}
-                onCheckedChange={(checked) => setHideHighProb(checked as boolean)}
-              />
-              <Label htmlFor="hide-probs" className="text-sm font-medium cursor-pointer">
-                Hide &gt; 95%
-              </Label>
-            </div>
-
-            <Filter className="h-4 w-4 text-muted-foreground" />
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Filter by category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {availableCategories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <Filter className="h-4 w-4 text-muted-foreground" />
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filter by category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              {availableCategories.map((category) => (
+                <SelectItem key={category} value={category}>
+                  {category}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
       </div>
 
@@ -208,7 +242,7 @@ export function PredictionMarketsTab() {
                         #{index + 1}
                       </Badge>
                     </div>
-                    
+
                     {market.tags && market.tags.length > 0 && (
                       <div className="flex gap-2 flex-wrap mt-2">
                         {market.tags.slice(0, 3).map((tag) => (
@@ -232,24 +266,22 @@ export function PredictionMarketsTab() {
                         return (
                           <div
                             key={idx}
-                            className={`p-4 rounded-lg border-2 ${
-                              isYes
-                                ? 'bg-green-50 dark:bg-green-950/20 border-green-300 dark:border-green-800'
-                                : isNo
+                            className={`p-4 rounded-lg border-2 ${isYes
+                              ? 'bg-green-50 dark:bg-green-950/20 border-green-300 dark:border-green-800'
+                              : isNo
                                 ? 'bg-red-50 dark:bg-red-950/20 border-red-300 dark:border-red-800'
                                 : 'bg-muted border-border'
-                            }`}
+                              }`}
                           >
                             <div className="text-xs font-medium text-muted-foreground mb-1">
                               {outcome}
                             </div>
-                            <div className={`text-3xl font-bold ${
-                              isYes
-                                ? 'text-green-600 dark:text-green-400'
-                                : isNo
+                            <div className={`text-3xl font-bold ${isYes
+                              ? 'text-green-600 dark:text-green-400'
+                              : isNo
                                 ? 'text-red-600 dark:text-red-400'
                                 : 'text-primary'
-                            }`}>
+                              }`}>
                               {percentage.toFixed(1)}%
                             </div>
                             <Progress
@@ -279,17 +311,7 @@ export function PredictionMarketsTab() {
                     </div>
                     <div className="text-lg font-bold">{formatVolume(market.volumeTotal)}</div>
                   </div>
-                  <div>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
-                      <TrendingUp className="h-3 w-3" />
-                      Status
-                    </div>
-                    <div className="text-sm font-semibold">
-                      <Badge variant={market.active ? 'default' : 'secondary'}>
-                        {market.active ? 'Active' : 'Inactive'}
-                      </Badge>
-                    </div>
-                  </div>
+
                   {market.endDate && (
                     <div>
                       <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
@@ -312,28 +334,36 @@ export function PredictionMarketsTab() {
                     currentNoPrice={market.outcomePrices && market.outcomePrices[1] ? parseFloat(market.outcomePrices[1]) : 0.5}
                   />
                 </div>
+
+                {/* Polymarket Embed */}
+                <div className="mt-4">
+                  <div className="rounded-lg overflow-hidden border border-border bg-background">
+                    <iframe
+                      src={`https://embed.polymarket.com/market.html?market=${market.slug}&features=volume,price`}
+                      width="100%"
+                      height="200"
+                      className="w-full dark:[color-scheme:dark] light:[color-scheme:light]"
+                      style={{ border: 'none' }}
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Action Buttons */}
               <div className="lg:w-48 flex lg:flex-col gap-2">
-                <Button 
-                  className="flex-1" 
-                  asChild
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open(
+                    market.eventSlug
+                      ? `https://polymarket.com/event/${market.eventSlug}/${market.slug}`
+                      : `https://polymarket.com/event/${market.slug}`,
+                    '_blank'
+                  )}
                 >
-                  {/* <a 
-                    href={`https://polymarket.com/event/${market.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Trade
-                  </a> */}
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => window.open(`https://polymarket.com/events/${market.slug}`, '_blank')}
-                >
-                  View Market
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  View on Polymarket
                 </Button>
               </div>
             </div>
@@ -341,19 +371,17 @@ export function PredictionMarketsTab() {
         ))}
       </div>
 
-      {/* Load More */}
-      {markets.length >= limit && (
-        <div className="text-center">
-          <Button
-            variant="outline"
-            onClick={() => setLimit(limit + 20)}
-          >
-            Load More Markets
-          </Button>
-        </div>
-      )}
+      {/* Infinite scroll trigger */}
+      <div ref={observerTarget} className="h-10 flex items-center justify-center">
+        {loadingMore && (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>Loading more markets...</span>
+          </div>
+        )}
+      </div>
 
-      {markets.length === 0 && (
+      {markets.length === 0 && !loading && (
         <Card className="p-12 text-center">
           <Activity className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-xl font-bold mb-2">No Markets Found</h3>
