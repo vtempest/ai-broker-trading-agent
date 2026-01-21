@@ -435,8 +435,8 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
                 <div className="grid grid-cols-3 gap-2 text-sm">
                   <div>
                     <div className="text-xs text-muted-foreground">D</div>
-                    <div className={`font-bold ${performance.day && performance.day >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                      {performance.day ? formatPercent(Number(performance.day) / 100) : '-'}
+                    <div className={`font-bold ${price.regularMarketChangePercent >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                      {price.regularMarketChangePercent ? formatPercent(price.regularMarketChangePercent / 100) : '-'}
                     </div>
                   </div>
                   <div>
