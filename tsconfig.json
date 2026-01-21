@@ -26,6 +26,15 @@
       "@/*": [
         "./*"
       ],
+      "investing/stocks": [
+        "./packages/investing/src/stocks/stock-names-client.ts"
+      ],
+      "investing": [
+        "./packages/investing/src/index.ts"
+      ],
+      "investing/*": [
+        "./packages/investing/src/*"
+      ],
       "fumadocs-mdx:collections/server": [
         "./.source/server.ts"
       ]

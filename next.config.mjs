@@ -1,10 +1,10 @@
-import { createMDX } from 'fumadocs-mdx/next'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { createMDX } from "fumadocs-mdx/next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const withMDX = createMDX()
+const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,43 +15,53 @@ const nextConfig = {
     unoptimized: true,
   },
   transpilePackages: [
-    'indicatorts',
-    '@scalar/api-reference',
-    '@scalar/api-reference-react',
-    '@scalar/api-client-react',
-    '@scalar/components',
-    '@scalar/code-highlight',
+    "indicatorts",
+    "@scalar/api-reference",
+    "@scalar/api-reference-react",
+    "@scalar/api-client-react",
+    "@scalar/components",
+    "@scalar/code-highlight",
   ],
   serverExternalPackages: [
-    'dukascopy-node',
-    'fastest-validator',
-    'ts-morph',
-    'typescript',
-    'oxc-transform',
-    'twoslash',
-    'twoslash-protocol',
-    'shiki',
-    'entities',
-    'parse5',
+    "dukascopy-node",
+    "fastest-validator",
+    "ts-morph",
+    "typescript",
+    "oxc-transform",
+    "twoslash",
+    "twoslash-protocol",
+    "shiki",
+    "entities",
+    "parse5",
   ],
   reactStrictMode: true,
-  experimental: {
-    turbo: {
-      resolveAlias: {
-        'fumadocs-mdx:collections/server': path.resolve(__dirname, '.source/server.ts'),
-      },
-    },
-  },
+
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      'entities/escape': path.resolve(__dirname, 'node_modules/entities/escape.js'),
-    }
+      "entities/escape": path.resolve(
+        __dirname,
+        "node_modules/entities/escape.js",
+      ),
+      "investing/stocks": path.resolve(
+        __dirname,
+        isServer
+          ? "packages/investing/src/stocks/index.ts"
+          : "packages/investing/src/stocks/stock-names-client.ts",
+      ),
+      "investing": path.resolve(
+        __dirname,
+        "packages/investing/src/index.ts",
+      ),
+    };
     if (isServer) {
-      config.resolve.alias['fumadocs-mdx:collections/server'] = path.resolve(__dirname, '.source/server.ts')
+      config.resolve.alias["fumadocs-mdx:collections/server"] = path.resolve(
+        __dirname,
+        ".source/server.ts",
+      );
     }
-    return config
+    return config;
   },
-}
+};
 
-export default withMDX(nextConfig)
+export default withMDX(nextConfig);

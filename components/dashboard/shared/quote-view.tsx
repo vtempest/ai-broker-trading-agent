@@ -13,6 +13,14 @@ import { useSession } from "@/lib/auth-client"
 import { DynamicStockChart } from "@/components/dashboard/charts/dynamic-stock-chart"
 import { TradeModal } from "@/components/dashboard/trading/trade-modal"
 
+// Helper function to get stock logo URLs
+function getStockLogoUrl(symbol: string, useGithub: boolean = true): string {
+  // if (useGithub) {
+  //   return `https://github.com/nvstly/icons/blob/main/ticker_icons/${symbol}.png?raw=true`
+  // }
+  return `https://img.logo.dev/ticker/${symbol}?token=pk_TttrZhYwSReZxFePkXo-Bg&size=38&retina=true`
+}
+
 interface QuoteData {
   symbol: string
   price: {
@@ -88,17 +96,17 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
 
     const loadStockInfo = async () => {
       try {
-        // Import stock names dynamically to avoid bundling large JSON
-        const { default: stockNamesData } = await import('@/packages/investing/src/stock-names-data/stock-names.json')
+        // Import stock names and clean function from investing package
+        const { stockNames: stockNamesData, cleanCompanyName } = await import('investing/stocks')
         const infoMap = new Map<string, { name: string; marketCap: number }>()
 
         data.peers.slice(0, 10).forEach((peerSymbol: string) => {
-          const stockData = (stockNamesData as any[]).find(
+          const stockData = stockNamesData.find(
             (stock) => stock[0] === peerSymbol.toUpperCase()
           )
           if (stockData) {
             infoMap.set(peerSymbol, {
-              name: stockData[1],
+              name: cleanCompanyName(stockData[1]),
               marketCap: stockData[3], // Market cap is in millions
             })
           }
@@ -309,7 +317,7 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
     if (!num) return "N/A"
     return new Intl.NumberFormat('en-US', {
       notation: "compact",
-      maximumFractionDigits: 2
+      maximumFractionDigits: 0
     }).format(num)
   }
 
@@ -572,6 +580,20 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
                       <Link key={peerSymbol} href={`/dashboard?symbol=${peerSymbol}`}>
                         <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer">
                           <div className="flex items-center gap-3">
+                            <img
+                              src={getStockLogoUrl(peerSymbol, true)}
+                              alt={`${peerSymbol} logo`}
+                              className="w-6 h-6 rounded object-contain flex-shrink-0 bg-white"
+                              onError={(e) => {
+                                // Fallback to img.logo.dev if GitHub icon fails to load
+                                const target = e.target as HTMLImageElement
+                                if (target.src.includes('github.com')) {
+                                  target.src = getStockLogoUrl(peerSymbol, false)
+                                } else {
+                                  target.style.display = 'none'
+                                }
+                              }}
+                            />
                             <Badge variant="outline" className="font-mono">
                               {peerSymbol}
                             </Badge>

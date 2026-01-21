@@ -1,0 +1,1540 @@
+[
+  {
+    "sector": "Overall US Public Stocks",
+    "totalCompanies": 10415,
+    "totalMarketCap": 91543825,
+    "top10Companies": [
+      {
+        "symbol": "NVDA",
+        "name": "NVIDIA Corporation",
+        "marketCap": 4327101
+      },
+      {
+        "symbol": "GOOG",
+        "name": "Alphabet Inc. Class C",
+        "marketCap": 3887505
+      },
+      {
+        "symbol": "GOOGL",
+        "name": "Alphabet Inc. Class A",
+        "marketCap": 3885574
+      },
+      {
+        "symbol": "AAPL",
+        "name": "Apple Inc.",
+        "marketCap": 3625978
+      },
+      {
+        "symbol": "MSFT",
+        "name": "Microsoft Corporation",
+        "marketCap": 3378164
+      },
+      {
+        "symbol": "AMZN",
+        "name": "Amazon.com Inc.",
+        "marketCap": 2469440
+      },
+      {
+        "symbol": "TSM",
+        "name": "Taiwan Semiconductor Manufacturing Company Ltd.",
+        "marketCap": 1696831
+      },
+      {
+        "symbol": "AVGO",
+        "name": "Broadcom Inc.",
+        "marketCap": 1576948
+      },
+      {
+        "symbol": "META",
+        "name": "Meta Platforms Inc. Class A",
+        "marketCap": 1522701
+      },
+      {
+        "symbol": "TSLA",
+        "name": "Tesla Inc.",
+        "marketCap": 1394350
+      }
+    ]
+  },
+  {
+    "sector": "Technology",
+    "totalCompanies": 666,
+    "totalMarketCap": 33135071,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Semiconductors",
+        "totalCompanies": 102,
+        "totalMarketCap": 9977483,
+        "leader": {
+          "symbol": "NVDA",
+          "name": "NVIDIA Corporation"
+        }
+      },
+      {
+        "name": "Computer Software: Programming Data Processing",
+        "totalCompanies": 74,
+        "totalMarketCap": 9799023,
+        "leader": {
+          "symbol": "GOOG",
+          "name": "Alphabet Inc. Class C"
+        }
+      },
+      {
+        "name": "Computer Software: Prepackaged Software",
+        "totalCompanies": 241,
+        "totalMarketCap": 7006574,
+        "leader": {
+          "symbol": "MSFT",
+          "name": "Microsoft Corporation"
+        }
+      },
+      {
+        "name": "Computer Manufacturing",
+        "totalCompanies": 9,
+        "totalMarketCap": 4011652,
+        "leader": {
+          "symbol": "AAPL",
+          "name": "Apple Inc."
+        }
+      },
+      {
+        "name": "EDP Services",
+        "totalCompanies": 157,
+        "totalMarketCap": 1059206,
+        "leader": {
+          "symbol": "NEE",
+          "name": "NextEra Energy Inc."
+        }
+      },
+      {
+        "name": "Electronic Components",
+        "totalCompanies": 21,
+        "totalMarketCap": 587581,
+        "leader": {
+          "symbol": "KLAC",
+          "name": "KLA Corporation"
+        }
+      },
+      {
+        "name": "Radio And Television Broadcasting And Communications Equipment",
+        "totalCompanies": 24,
+        "totalMarketCap": 361189,
+        "leader": {
+          "symbol": "QCOM",
+          "name": "QUALCOMM Incorporated"
+        }
+      },
+      {
+        "name": "Computer peripheral equipment",
+        "totalCompanies": 15,
+        "totalMarketCap": 201826,
+        "leader": {
+          "symbol": "PANW",
+          "name": "Palo Alto Networks Inc."
+        }
+      },
+      {
+        "name": "Retail: Computer Software & Peripheral Equipment",
+        "totalCompanies": 10,
+        "totalMarketCap": 66957,
+        "leader": {
+          "symbol": "HPE",
+          "name": "Hewlett Packard Enterprise Company"
+        }
+      },
+      {
+        "name": "Office Equipment/Supplies/Services",
+        "totalCompanies": 13,
+        "totalMarketCap": 63580,
+        "leader": {
+          "symbol": "GWW",
+          "name": "W.W. Grainger Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Consumer Discretionary",
+    "totalCompanies": 1006,
+    "totalMarketCap": 12642869,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Catalog/Specialty Distribution",
+        "totalCompanies": 31,
+        "totalMarketCap": 2562635,
+        "leader": {
+          "symbol": "AMZN",
+          "name": "Amazon.com Inc."
+        }
+      },
+      {
+        "name": "Department/Specialty Retail Stores",
+        "totalCompanies": 15,
+        "totalMarketCap": 1560325,
+        "leader": {
+          "symbol": "WMT",
+          "name": "Walmart Inc."
+        }
+      },
+      {
+        "name": "Aerospace",
+        "totalCompanies": 29,
+        "totalMarketCap": 771377,
+        "leader": {
+          "symbol": "RTX",
+          "name": "RTX Corporation"
+        }
+      },
+      {
+        "name": "Package Goods/Cosmetics",
+        "totalCompanies": 24,
+        "totalMarketCap": 759992,
+        "leader": {
+          "symbol": "PG",
+          "name": "Procter & Gamble Company (The)"
+        }
+      },
+      {
+        "name": "RETAIL: Building Materials",
+        "totalCompanies": 16,
+        "totalMarketCap": 727244,
+        "leader": {
+          "symbol": "HD",
+          "name": "Home Depot Inc. (The)"
+        }
+      },
+      {
+        "name": "Restaurants",
+        "totalCompanies": 57,
+        "totalMarketCap": 570505,
+        "leader": {
+          "symbol": "MCD",
+          "name": "McDonald's Corporation"
+        }
+      },
+      {
+        "name": "Services-Misc. Amusement & Recreation",
+        "totalCompanies": 52,
+        "totalMarketCap": 543580,
+        "leader": {
+          "symbol": "DIS",
+          "name": "Walt Disney Company (The)"
+        }
+      },
+      {
+        "name": "Diversified Commercial Services",
+        "totalCompanies": 35,
+        "totalMarketCap": 467852,
+        "leader": {
+          "symbol": "ADP",
+          "name": "Automatic Data Processing Inc."
+        }
+      },
+      {
+        "name": "Marine Transportation",
+        "totalCompanies": 74,
+        "totalMarketCap": 388551,
+        "leader": {
+          "symbol": "GD",
+          "name": "General Dynamics Corporation"
+        }
+      },
+      {
+        "name": "Consumer Electronics/Video Chains",
+        "totalCompanies": 5,
+        "totalMarketCap": 385449,
+        "leader": {
+          "symbol": "NFLX",
+          "name": "Netflix Inc."
+        }
+      },
+      {
+        "name": "Industrial Specialties",
+        "totalCompanies": 57,
+        "totalMarketCap": 376872,
+        "leader": {
+          "symbol": "ISRG",
+          "name": "Intuitive Surgical Inc."
+        }
+      },
+      {
+        "name": "Hotels/Resorts",
+        "totalCompanies": 38,
+        "totalMarketCap": 340249,
+        "leader": {
+          "symbol": "MAR",
+          "name": "Marriott International Class A"
+        }
+      },
+      {
+        "name": "Clothing/Shoe/Accessory Stores",
+        "totalCompanies": 26,
+        "totalMarketCap": 280958,
+        "leader": {
+          "symbol": "TJX",
+          "name": "TJX Companies Inc. (The)"
+        }
+      },
+      {
+        "name": "Air Freight/Delivery Services",
+        "totalCompanies": 20,
+        "totalMarketCap": 261061,
+        "leader": {
+          "symbol": "FDX",
+          "name": "FedEx Corporation"
+        }
+      },
+      {
+        "name": "Transportation Services",
+        "totalCompanies": 23,
+        "totalMarketCap": 252670,
+        "leader": {
+          "symbol": "BKNG",
+          "name": "Booking Holdings Inc."
+        }
+      },
+      {
+        "name": "Retail-Auto Dealers and Gas Stations",
+        "totalCompanies": 21,
+        "totalMarketCap": 228731,
+        "leader": {
+          "symbol": "CVNA",
+          "name": "Carvana Co. Class A"
+        }
+      },
+      {
+        "name": "Auto Parts:O.E.M.",
+        "totalCompanies": 41,
+        "totalMarketCap": 205991,
+        "leader": {
+          "symbol": "TT",
+          "name": "Trane Technologies plc"
+        }
+      },
+      {
+        "name": "Homebuilding",
+        "totalCompanies": 35,
+        "totalMarketCap": 205497,
+        "leader": {
+          "symbol": "DHI",
+          "name": "D.R. Horton Inc."
+        }
+      },
+      {
+        "name": "Engineering & Construction",
+        "totalCompanies": 22,
+        "totalMarketCap": 204995,
+        "leader": {
+          "symbol": "PWR",
+          "name": "Quanta Services Inc."
+        }
+      },
+      {
+        "name": "Shoe Manufacturing",
+        "totalCompanies": 9,
+        "totalMarketCap": 153035,
+        "leader": {
+          "symbol": "NKE",
+          "name": "Nike Inc."
+        }
+      },
+      {
+        "name": "Containers/Packaging",
+        "totalCompanies": 18,
+        "totalMarketCap": 151727,
+        "leader": {
+          "symbol": "KMB",
+          "name": "Kimberly-Clark Corporation"
+        }
+      },
+      {
+        "name": "Auto & Home Supply Stores",
+        "totalCompanies": 6,
+        "totalMarketCap": 142919,
+        "leader": {
+          "symbol": "ORLY",
+          "name": "O'Reilly Automotive Inc."
+        }
+      },
+      {
+        "name": "Other Specialty Stores",
+        "totalCompanies": 45,
+        "totalMarketCap": 125329,
+        "leader": {
+          "symbol": "JD",
+          "name": "JD.com Inc."
+        }
+      },
+      {
+        "name": "Apparel",
+        "totalCompanies": 30,
+        "totalMarketCap": 106101,
+        "leader": {
+          "symbol": "TPR",
+          "name": "Tapestry Inc."
+        }
+      },
+      {
+        "name": "Oil and Gas Field Machinery",
+        "totalCompanies": 16,
+        "totalMarketCap": 99545,
+        "leader": {
+          "symbol": "BKR",
+          "name": "Baker Hughes Company Class A"
+        }
+      },
+      {
+        "name": "Food Distributors",
+        "totalCompanies": 11,
+        "totalMarketCap": 88597,
+        "leader": {
+          "symbol": "SYY",
+          "name": "Sysco Corporation"
+        }
+      },
+      {
+        "name": "Motor Vehicles",
+        "totalCompanies": 9,
+        "totalMarketCap": 74754,
+        "leader": {
+          "symbol": "PCAR",
+          "name": "PACCAR Inc."
+        }
+      },
+      {
+        "name": "Professional Services",
+        "totalCompanies": 49,
+        "totalMarketCap": 69794,
+        "leader": {
+          "symbol": "GIB",
+          "name": "CGI Inc."
+        }
+      },
+      {
+        "name": "Home Furnishings",
+        "totalCompanies": 23,
+        "totalMarketCap": 69408,
+        "leader": {
+          "symbol": "WSM",
+          "name": "Williams-Sonoma Inc."
+        }
+      },
+      {
+        "name": "Specialty Chemicals",
+        "totalCompanies": 7,
+        "totalMarketCap": 67820,
+        "leader": {
+          "symbol": "KVUE",
+          "name": "Kenvue Inc."
+        }
+      },
+      {
+        "name": "Publishing",
+        "totalCompanies": 14,
+        "totalMarketCap": 62040,
+        "leader": {
+          "symbol": "TRI",
+          "name": "Thomson Reuters Corporation"
+        }
+      },
+      {
+        "name": "Paints/Coatings",
+        "totalCompanies": 3,
+        "totalMarketCap": 45379,
+        "leader": {
+          "symbol": "PPG",
+          "name": "PPG Industries Inc."
+        }
+      },
+      {
+        "name": "Newspapers/Magazines",
+        "totalCompanies": 8,
+        "totalMarketCap": 44679,
+        "leader": {
+          "symbol": "NWS",
+          "name": "News Corporation Class B"
+        }
+      },
+      {
+        "name": "Recreational Games/Products/Toys",
+        "totalCompanies": 22,
+        "totalMarketCap": 35254,
+        "leader": {
+          "symbol": "HAS",
+          "name": "Hasbro Inc."
+        }
+      },
+      {
+        "name": "Miscellaneous manufacturing industries",
+        "totalCompanies": 15,
+        "totalMarketCap": 29146,
+        "leader": {
+          "symbol": "AMCR",
+          "name": "Amcor plc"
+        }
+      },
+      {
+        "name": "Advertising",
+        "totalCompanies": 26,
+        "totalMarketCap": 26884,
+        "leader": {
+          "symbol": "OMC",
+          "name": "Omnicom Group Inc."
+        }
+      },
+      {
+        "name": "Automotive Aftermarket",
+        "totalCompanies": 8,
+        "totalMarketCap": 26162,
+        "leader": {
+          "symbol": "GPC",
+          "name": "Genuine Parts Company"
+        }
+      },
+      {
+        "name": "Rental/Leasing Companies",
+        "totalCompanies": 5,
+        "totalMarketCap": 24713,
+        "leader": {
+          "symbol": "UHAL",
+          "name": "U-Haul Holding Company"
+        }
+      },
+      {
+        "name": "Building Products",
+        "totalCompanies": 13,
+        "totalMarketCap": 18727,
+        "leader": {
+          "symbol": "AYI",
+          "name": "Acuity Inc."
+        }
+      },
+      {
+        "name": "Movies/Entertainment",
+        "totalCompanies": 13,
+        "totalMarketCap": 12122,
+        "leader": {
+          "symbol": "FUBO",
+          "name": "FuboTV Inc. Class A"
+        }
+      },
+      {
+        "name": "Books",
+        "totalCompanies": 4,
+        "totalMarketCap": 12064,
+        "leader": {
+          "symbol": "PSO",
+          "name": "Pearson Plc"
+        }
+      },
+      {
+        "name": "Durable Goods",
+        "totalCompanies": 3,
+        "totalMarketCap": 11514,
+        "leader": {
+          "symbol": "CNM",
+          "name": "Core & Main Inc. Class A"
+        }
+      },
+      {
+        "name": "Consumer Specialties",
+        "totalCompanies": 12,
+        "totalMarketCap": 9711,
+        "leader": {
+          "symbol": "SIG",
+          "name": "Signet Jewelers Limited"
+        }
+      },
+      {
+        "name": "Electronics Distribution",
+        "totalCompanies": 1,
+        "totalMarketCap": 9453,
+        "leader": {
+          "symbol": "GME",
+          "name": "GameStop Corporation"
+        }
+      },
+      {
+        "name": "Tools/Hardware",
+        "totalCompanies": 1,
+        "totalMarketCap": 8609,
+        "leader": {
+          "symbol": "TTC",
+          "name": "Toro Company (The)"
+        }
+      },
+      {
+        "name": "Professional and commerical equipment",
+        "totalCompanies": 2,
+        "totalMarketCap": 6364,
+        "leader": {
+          "symbol": "SITE",
+          "name": "SiteOne Landscape Supply Inc."
+        }
+      },
+      {
+        "name": "Wholesale Distributors",
+        "totalCompanies": 2,
+        "totalMarketCap": 5947,
+        "leader": {
+          "symbol": "REZI",
+          "name": "Resideo Technologies Inc."
+        }
+      },
+      {
+        "name": "General Bldg Contractors - Nonresidential Bldgs",
+        "totalCompanies": 3,
+        "totalMarketCap": 4732,
+        "leader": {
+          "symbol": "TPC",
+          "name": "Tutor Perini Corporation"
+        }
+      },
+      {
+        "name": "Textiles",
+        "totalCompanies": 6,
+        "totalMarketCap": 3565,
+        "leader": {
+          "symbol": "AIN",
+          "name": "Albany International Corporation"
+        }
+      },
+      {
+        "name": "Tobacco",
+        "totalCompanies": 1,
+        "totalMarketCap": 2241,
+        "leader": {
+          "symbol": "TPB",
+          "name": "Turning Point Brands Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Finance",
+    "totalCompanies": 1380,
+    "totalMarketCap": 11309291,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Major Banks",
+        "totalCompanies": 298,
+        "totalMarketCap": 3716934,
+        "leader": {
+          "symbol": "JPM",
+          "name": "JP Morgan Chase & Co."
+        }
+      },
+      {
+        "name": "Commercial Banks",
+        "totalCompanies": 38,
+        "totalMarketCap": 2053900,
+        "leader": {
+          "symbol": "RY",
+          "name": "Royal Bank Of Canada"
+        }
+      },
+      {
+        "name": "Investment Bankers/Brokers/Service",
+        "totalCompanies": 73,
+        "totalMarketCap": 1618881,
+        "leader": {
+          "symbol": "MS",
+          "name": "Morgan Stanley"
+        }
+      },
+      {
+        "name": "Finance: Consumer Services",
+        "totalCompanies": 167,
+        "totalMarketCap": 1110924,
+        "leader": {
+          "symbol": "AXP",
+          "name": "American Express Company"
+        }
+      },
+      {
+        "name": "Property-Casualty Insurers",
+        "totalCompanies": 82,
+        "totalMarketCap": 740375,
+        "leader": {
+          "symbol": "PGR",
+          "name": "Progressive Corporation (The)"
+        }
+      },
+      {
+        "name": "Investment Managers",
+        "totalCompanies": 180,
+        "totalMarketCap": 716791,
+        "leader": {
+          "symbol": "BX",
+          "name": "Blackstone Inc."
+        }
+      },
+      {
+        "name": "Life Insurance",
+        "totalCompanies": 33,
+        "totalMarketCap": 402543,
+        "leader": {
+          "symbol": "MFC",
+          "name": "Manulife Financial Corporation"
+        }
+      },
+      {
+        "name": "Specialty Insurers",
+        "totalCompanies": 33,
+        "totalMarketCap": 378145,
+        "leader": {
+          "symbol": "MRSH",
+          "name": "Marsh"
+        }
+      },
+      {
+        "name": "Savings Institutions",
+        "totalCompanies": 37,
+        "totalMarketCap": 311345,
+        "leader": {
+          "symbol": "HSBC",
+          "name": "HSBC Holdings plc."
+        }
+      },
+      {
+        "name": "Accident &Health Insurance",
+        "totalCompanies": 5,
+        "totalMarketCap": 97194,
+        "leader": {
+          "symbol": "AFL",
+          "name": "AFLAC Incorporated"
+        }
+      },
+      {
+        "name": "Diversified Financial Services",
+        "totalCompanies": 6,
+        "totalMarketCap": 43204,
+        "leader": {
+          "symbol": "IX",
+          "name": "ORIX Corporation"
+        }
+      },
+      {
+        "name": "Finance/Investors Services",
+        "totalCompanies": 89,
+        "totalMarketCap": 40650,
+        "leader": {
+          "symbol": "CET",
+          "name": "Central Securities Corporation"
+        }
+      },
+      {
+        "name": "Trusts Except Educational Religious and Charitable",
+        "totalCompanies": 108,
+        "totalMarketCap": 32730,
+        "leader": {
+          "symbol": "PDI",
+          "name": "PIMCO Dynamic Income Fund"
+        }
+      },
+      {
+        "name": "Finance Companies",
+        "totalCompanies": 73,
+        "totalMarketCap": 29334,
+        "leader": {
+          "symbol": "OXLCZ",
+          "name": "Oxford Lane Capital Corp. 5.00% Notes due 2027"
+        }
+      },
+      {
+        "name": "Banks",
+        "totalCompanies": 25,
+        "totalMarketCap": 14922,
+        "leader": {
+          "symbol": "FLG",
+          "name": "Flagstar Bank N.A."
+        }
+      },
+      {
+        "name": "Blank Checks",
+        "totalCompanies": 133,
+        "totalMarketCap": 1419,
+        "leader": {
+          "symbol": "TACO",
+          "name": "Berto Acquisition Corp."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Health Care",
+    "totalCompanies": 1018,
+    "totalMarketCap": 8321469,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Biotechnology: Pharmaceutical Preparations",
+        "totalCompanies": 520,
+        "totalMarketCap": 4739542,
+        "leader": {
+          "symbol": "LLY",
+          "name": "Eli Lilly and Company"
+        }
+      },
+      {
+        "name": "Medical Specialities",
+        "totalCompanies": 45,
+        "totalMarketCap": 723279,
+        "leader": {
+          "symbol": "UNH",
+          "name": "UnitedHealth Group Incorporated"
+        }
+      },
+      {
+        "name": "Medical/Dental Instruments",
+        "totalCompanies": 120,
+        "totalMarketCap": 705828,
+        "leader": {
+          "symbol": "SYK",
+          "name": "Stryker Corporation"
+        }
+      },
+      {
+        "name": "Biotechnology: Biological Products (No Diagnostic Substances)",
+        "totalCompanies": 156,
+        "totalMarketCap": 651441,
+        "leader": {
+          "symbol": "AMGN",
+          "name": "Amgen Inc."
+        }
+      },
+      {
+        "name": "Medicinal Chemicals and Botanical Products",
+        "totalCompanies": 26,
+        "totalMarketCap": 506368,
+        "leader": {
+          "symbol": "PM",
+          "name": "Philip Morris International Inc"
+        }
+      },
+      {
+        "name": "Other Pharmaceuticals",
+        "totalCompanies": 11,
+        "totalMarketCap": 221847,
+        "leader": {
+          "symbol": "MCK",
+          "name": "McKesson Corporation"
+        }
+      },
+      {
+        "name": "Hospital/Nursing Management",
+        "totalCompanies": 15,
+        "totalMarketCap": 175575,
+        "leader": {
+          "symbol": "HCA",
+          "name": "HCA Healthcare Inc."
+        }
+      },
+      {
+        "name": "Biotechnology: Electromedical & Electrotherapeutic Apparatus",
+        "totalCompanies": 32,
+        "totalMarketCap": 157696,
+        "leader": {
+          "symbol": "MDT",
+          "name": "Medtronic plc."
+        }
+      },
+      {
+        "name": "Biotechnology: Commercial Physical & Biological Resarch",
+        "totalCompanies": 13,
+        "totalMarketCap": 103321,
+        "leader": {
+          "symbol": "IQV",
+          "name": "IQVIA Holdings Inc."
+        }
+      },
+      {
+        "name": "Medical Electronics",
+        "totalCompanies": 6,
+        "totalMarketCap": 80262,
+        "leader": {
+          "symbol": "GEHC",
+          "name": "GE HealthCare Technologies Inc."
+        }
+      },
+      {
+        "name": "Biotechnology: In Vitro & In Vivo Diagnostic Substances",
+        "totalCompanies": 19,
+        "totalMarketCap": 73923,
+        "leader": {
+          "symbol": "IDXX",
+          "name": "IDEXX Laboratories Inc."
+        }
+      },
+      {
+        "name": "Medical/Nursing Services",
+        "totalCompanies": 31,
+        "totalMarketCap": 69613,
+        "leader": {
+          "symbol": "BTSGU",
+          "name": "BrightSpring Health Services Inc. Tangible Equity Unit"
+        }
+      },
+      {
+        "name": "Ophthalmic Goods",
+        "totalCompanies": 8,
+        "totalMarketCap": 67831,
+        "leader": {
+          "symbol": "ALC",
+          "name": "Alcon Inc."
+        }
+      },
+      {
+        "name": "Misc Health and Biotechnology Services",
+        "totalCompanies": 12,
+        "totalMarketCap": 28187,
+        "leader": {
+          "symbol": "FMS",
+          "name": "Fresenius Medical Care AG"
+        }
+      },
+      {
+        "name": "Precision Instruments",
+        "totalCompanies": 2,
+        "totalMarketCap": 16289,
+        "leader": {
+          "symbol": "ULS",
+          "name": "UL Solutions Inc. Class A"
+        }
+      },
+      {
+        "name": "Pharmaceuticals and Biotechnology",
+        "totalCompanies": 1,
+        "totalMarketCap": 457,
+        "leader": {
+          "symbol": "EPRX",
+          "name": "Eupraxia Pharmaceuticals Inc."
+        }
+      },
+      {
+        "name": "Managed Health Care",
+        "totalCompanies": 1,
+        "totalMarketCap": 10,
+        "leader": {
+          "symbol": "BRTX",
+          "name": "BioRestorative Therapies Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Industrials",
+    "totalCompanies": 419,
+    "totalMarketCap": 6005693,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Auto Manufacturing",
+        "totalCompanies": 31,
+        "totalMarketCap": 2060865,
+        "leader": {
+          "symbol": "TSLA",
+          "name": "Tesla Inc."
+        }
+      },
+      {
+        "name": "Military/Government/Technical",
+        "totalCompanies": 38,
+        "totalMarketCap": 492716,
+        "leader": {
+          "symbol": "LMT",
+          "name": "Lockheed Martin Corporation"
+        }
+      },
+      {
+        "name": "Major Chemicals",
+        "totalCompanies": 69,
+        "totalMarketCap": 465479,
+        "leader": {
+          "symbol": "LIN",
+          "name": "Linde plc"
+        }
+      },
+      {
+        "name": "Railroads",
+        "totalCompanies": 10,
+        "totalMarketCap": 426400,
+        "leader": {
+          "symbol": "UNP",
+          "name": "Union Pacific Corporation"
+        }
+      },
+      {
+        "name": "Metal Fabrications",
+        "totalCompanies": 45,
+        "totalMarketCap": 363025,
+        "leader": {
+          "symbol": "PH",
+          "name": "Parker-Hannifin Corporation"
+        }
+      },
+      {
+        "name": "Construction/Ag Equipment/Trucks",
+        "totalCompanies": 15,
+        "totalMarketCap": 318180,
+        "leader": {
+          "symbol": "CAT",
+          "name": "Caterpillar Inc."
+        }
+      },
+      {
+        "name": "Broadcasting",
+        "totalCompanies": 25,
+        "totalMarketCap": 276663,
+        "leader": {
+          "symbol": "SPOT",
+          "name": "Spotify Technology S.A."
+        }
+      },
+      {
+        "name": "Mining & Quarrying of Nonmetallic Minerals (No Fuels)",
+        "totalCompanies": 22,
+        "totalMarketCap": 246542,
+        "leader": {
+          "symbol": "ELVR",
+          "name": "Elevra Lithium Limited American Depository Shares"
+        }
+      },
+      {
+        "name": "Steel/Iron Ore",
+        "totalCompanies": 28,
+        "totalMarketCap": 221702,
+        "leader": {
+          "symbol": "NUE",
+          "name": "Nucor Corporation"
+        }
+      },
+      {
+        "name": "Trucking Freight/Courier Services",
+        "totalCompanies": 21,
+        "totalMarketCap": 207633,
+        "leader": {
+          "symbol": "UPS",
+          "name": "United Parcel Service Inc."
+        }
+      },
+      {
+        "name": "Biotechnology: Laboratory Analytical Instruments",
+        "totalCompanies": 22,
+        "totalMarketCap": 192646,
+        "leader": {
+          "symbol": "BRKRP",
+          "name": "Bruker Corporation 6.375% Mandatory Convertible"
+        }
+      },
+      {
+        "name": "Building Materials",
+        "totalCompanies": 11,
+        "totalMarketCap": 151720,
+        "leader": {
+          "symbol": "CRH",
+          "name": "CRH PLC"
+        }
+      },
+      {
+        "name": "Garments and Clothing",
+        "totalCompanies": 6,
+        "totalMarketCap": 113224,
+        "leader": {
+          "symbol": "CTAS",
+          "name": "Cintas Corporation"
+        }
+      },
+      {
+        "name": "Fluid Controls",
+        "totalCompanies": 8,
+        "totalMarketCap": 88733,
+        "leader": {
+          "symbol": "XYL",
+          "name": "Xylem Inc."
+        }
+      },
+      {
+        "name": "Agricultural Chemicals",
+        "totalCompanies": 12,
+        "totalMarketCap": 66918,
+        "leader": {
+          "symbol": "NTR",
+          "name": "Nutrien Ltd."
+        }
+      },
+      {
+        "name": "Ordnance And Accessories",
+        "totalCompanies": 7,
+        "totalMarketCap": 54042,
+        "leader": {
+          "symbol": "AXON",
+          "name": "Axon Enterprise Inc."
+        }
+      },
+      {
+        "name": "Integrated Freight & Logistics",
+        "totalCompanies": 15,
+        "totalMarketCap": 51400,
+        "leader": {
+          "symbol": "EXPD",
+          "name": "Expeditors International of Washington Inc."
+        }
+      },
+      {
+        "name": "Miscellaneous",
+        "totalCompanies": 3,
+        "totalMarketCap": 48919,
+        "leader": {
+          "symbol": "FERG",
+          "name": "Ferguson Enterprises Inc."
+        }
+      },
+      {
+        "name": "Misc Corporate Leasing Services",
+        "totalCompanies": 5,
+        "totalMarketCap": 43208,
+        "leader": {
+          "symbol": "FTAI",
+          "name": "FTAI Aviation Ltd."
+        }
+      },
+      {
+        "name": "Water Sewer Pipeline Comm & Power Line Construction",
+        "totalCompanies": 7,
+        "totalMarketCap": 42671,
+        "leader": {
+          "symbol": "MTZ",
+          "name": "MasTec Inc."
+        }
+      },
+      {
+        "name": "Plastic Products",
+        "totalCompanies": 12,
+        "totalMarketCap": 38268,
+        "leader": {
+          "symbol": "ENTG",
+          "name": "Entegris Inc."
+        }
+      },
+      {
+        "name": "Aluminum",
+        "totalCompanies": 2,
+        "totalMarketCap": 20555,
+        "leader": {
+          "symbol": "AA",
+          "name": "Alcoa Corporation"
+        }
+      },
+      {
+        "name": "Pollution Control Equipment",
+        "totalCompanies": 4,
+        "totalMarketCap": 14169,
+        "leader": {
+          "symbol": "DCI",
+          "name": "Donaldson Company Inc."
+        }
+      },
+      {
+        "name": "Other Transportation",
+        "totalCompanies": 1,
+        "totalMarketCap": 15,
+        "leader": {
+          "symbol": "WETO",
+          "name": "Webus International Limited"
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Real Estate",
+    "totalCompanies": 494,
+    "totalMarketCap": 4836591,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Real Estate",
+        "totalCompanies": 166,
+        "totalMarketCap": 2761718,
+        "leader": {
+          "symbol": "V",
+          "name": "Visa Inc."
+        }
+      },
+      {
+        "name": "Real Estate Investment Trusts",
+        "totalCompanies": 234,
+        "totalMarketCap": 1645746,
+        "leader": {
+          "symbol": "WELL",
+          "name": "Welltower Inc."
+        }
+      },
+      {
+        "name": "Other Consumer Services",
+        "totalCompanies": 86,
+        "totalMarketCap": 278380,
+        "leader": {
+          "symbol": "BAM",
+          "name": "Brookfield Asset Management Inc Class A Limited Voting Shares"
+        }
+      },
+      {
+        "name": "Building operators",
+        "totalCompanies": 8,
+        "totalMarketCap": 150747,
+        "leader": {
+          "symbol": "BN",
+          "name": "Brookfield Corporation Class A Limited Voting Shares"
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Energy",
+    "totalCompanies": 219,
+    "totalMarketCap": 3434940,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Integrated oil Companies",
+        "totalCompanies": 17,
+        "totalMarketCap": 1475753,
+        "leader": {
+          "symbol": "XOM",
+          "name": "Exxon Mobil Corporation"
+        }
+      },
+      {
+        "name": "Oil & Gas Production",
+        "totalCompanies": 118,
+        "totalMarketCap": 1223408,
+        "leader": {
+          "symbol": "SHEL",
+          "name": "Shell PLC"
+        }
+      },
+      {
+        "name": "Electrical Products",
+        "totalCompanies": 39,
+        "totalMarketCap": 422549,
+        "leader": {
+          "symbol": "APH",
+          "name": "Amphenol Corporation"
+        }
+      },
+      {
+        "name": "Coal Mining",
+        "totalCompanies": 13,
+        "totalMarketCap": 189830,
+        "leader": {
+          "symbol": "BHP",
+          "name": "BHP Group Limited"
+        }
+      },
+      {
+        "name": "Oilfield Services/Equipment",
+        "totalCompanies": 21,
+        "totalMarketCap": 116671,
+        "leader": {
+          "symbol": "SLB",
+          "name": "SLB Limited"
+        }
+      },
+      {
+        "name": "Oil Refining/Marketing",
+        "totalCompanies": 11,
+        "totalMarketCap": 6729,
+        "leader": {
+          "symbol": "GEL",
+          "name": "Genesis Energy L.P. Common"
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Miscellaneous",
+    "totalCompanies": 212,
+    "totalMarketCap": 2882674,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Industrial Machinery/Components",
+        "totalCompanies": 201,
+        "totalMarketCap": 2866991,
+        "leader": {
+          "symbol": "ASML",
+          "name": "ASML Holding N.V. New York Registry Shares"
+        }
+      },
+      {
+        "name": "Multi-Sector Companies",
+        "totalCompanies": 11,
+        "totalMarketCap": 15683,
+        "leader": {
+          "symbol": "IDCC",
+          "name": "InterDigital Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Utilities",
+    "totalCompanies": 162,
+    "totalMarketCap": 2740150,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Electric Utilities: Central",
+        "totalCompanies": 66,
+        "totalMarketCap": 1004008,
+        "leader": {
+          "symbol": "CEG",
+          "name": "Constellation Energy Corporation"
+        }
+      },
+      {
+        "name": "Natural Gas Distribution",
+        "totalCompanies": 30,
+        "totalMarketCap": 779675,
+        "leader": {
+          "symbol": "ENB",
+          "name": "Enbridge Inc"
+        }
+      },
+      {
+        "name": "Power Generation",
+        "totalCompanies": 26,
+        "totalMarketCap": 505915,
+        "leader": {
+          "symbol": "DUK",
+          "name": "Duke Energy Corporation (Holding Company)"
+        }
+      },
+      {
+        "name": "Environmental Services",
+        "totalCompanies": 12,
+        "totalMarketCap": 232755,
+        "leader": {
+          "symbol": "WM",
+          "name": "Waste Management Inc."
+        }
+      },
+      {
+        "name": "Oil/Gas Transmission",
+        "totalCompanies": 14,
+        "totalMarketCap": 151681,
+        "leader": {
+          "symbol": "LNG",
+          "name": "Cheniere Energy Inc."
+        }
+      },
+      {
+        "name": "Water Supply",
+        "totalCompanies": 14,
+        "totalMarketCap": 66116,
+        "leader": {
+          "symbol": "AWK",
+          "name": "American Water Works Company Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Consumer Staples",
+    "totalCompanies": 168,
+    "totalMarketCap": 2288578,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Beverages (Production/Distribution)",
+        "totalCompanies": 34,
+        "totalMarketCap": 1023724,
+        "leader": {
+          "symbol": "KO",
+          "name": "Coca-Cola Company (The)"
+        }
+      },
+      {
+        "name": "Consumer Electronics/Appliances",
+        "totalCompanies": 23,
+        "totalMarketCap": 629859,
+        "leader": {
+          "symbol": "GE",
+          "name": "GE Aerospace"
+        }
+      },
+      {
+        "name": "Packaged Foods",
+        "totalCompanies": 46,
+        "totalMarketCap": 275101,
+        "leader": {
+          "symbol": "MDLZ",
+          "name": "Mondelez International Inc. Class A"
+        }
+      },
+      {
+        "name": "Retail-Drug Stores and Proprietary Stores",
+        "totalCompanies": 5,
+        "totalMarketCap": 103623,
+        "leader": {
+          "symbol": "CVS",
+          "name": "CVS Health Corporation"
+        }
+      },
+      {
+        "name": "Meat/Poultry/Fish",
+        "totalCompanies": 6,
+        "totalMarketCap": 66606,
+        "leader": {
+          "symbol": "TSN",
+          "name": "Tyson Foods Inc."
+        }
+      },
+      {
+        "name": "Farming/Seeds/Milling",
+        "totalCompanies": 30,
+        "totalMarketCap": 66493,
+        "leader": {
+          "symbol": "CTVA",
+          "name": "Corteva Inc."
+        }
+      },
+      {
+        "name": "Food Chains",
+        "totalCompanies": 13,
+        "totalMarketCap": 65812,
+        "leader": {
+          "symbol": "KR",
+          "name": "Kroger Company (The)"
+        }
+      },
+      {
+        "name": "Specialty Foods",
+        "totalCompanies": 10,
+        "totalMarketCap": 57358,
+        "leader": {
+          "symbol": "HSY",
+          "name": "The Hershey Company"
+        }
+      },
+      {
+        "name": "Diversified Electronic Products",
+        "totalCompanies": 1,
+        "totalMarketCap": 2,
+        "leader": {
+          "symbol": "RIME",
+          "name": "Algorhythm Holdings Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Telecommunications",
+    "totalCompanies": 120,
+    "totalMarketCap": 2017775,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Telecommunications Equipment",
+        "totalCompanies": 88,
+        "totalMarketCap": 1122189,
+        "leader": {
+          "symbol": "TMUS",
+          "name": "T-Mobile US Inc."
+        }
+      },
+      {
+        "name": "Computer Communications Equipment",
+        "totalCompanies": 14,
+        "totalMarketCap": 471151,
+        "leader": {
+          "symbol": "CSCO",
+          "name": "Cisco Systems Inc."
+        }
+      },
+      {
+        "name": "Cable & Other Pay Television Services",
+        "totalCompanies": 18,
+        "totalMarketCap": 424435,
+        "leader": {
+          "symbol": "CCZ",
+          "name": "Comcast Holdings ZONES"
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Basic Materials",
+    "totalCompanies": 127,
+    "totalMarketCap": 1523153,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Precious Metals",
+        "totalCompanies": 66,
+        "totalMarketCap": 819189,
+        "leader": {
+          "symbol": "NEM",
+          "name": "Newmont Corporation"
+        }
+      },
+      {
+        "name": "Metal Mining",
+        "totalCompanies": 35,
+        "totalMarketCap": 559266,
+        "leader": {
+          "symbol": "SCCO",
+          "name": "Southern Copper Corporation"
+        }
+      },
+      {
+        "name": "Other Metals and Minerals",
+        "totalCompanies": 10,
+        "totalMarketCap": 75113,
+        "leader": {
+          "symbol": "CCJ",
+          "name": "Cameco Corporation"
+        }
+      },
+      {
+        "name": "Paper",
+        "totalCompanies": 8,
+        "totalMarketCap": 38205,
+        "leader": {
+          "symbol": "IP",
+          "name": "International Paper Company"
+        }
+      },
+      {
+        "name": "Forest Products",
+        "totalCompanies": 8,
+        "totalMarketCap": 31380,
+        "leader": {
+          "symbol": "FBIN",
+          "name": "Fortune Brands Innovations Inc."
+        }
+      }
+    ]
+  },
+  {
+    "sector": "Unknown",
+    "totalCompanies": 4424,
+    "totalMarketCap": 405571,
+    "top10Companies": [],
+    "industries": [
+      {
+        "name": "Unknown",
+        "totalCompanies": 4424,
+        "totalMarketCap": 405571,
+        "leader": {
+          "symbol": "GEV",
+          "name": "GE Vernova Inc."
+        }
+      }
+    ]
+  }
+]
