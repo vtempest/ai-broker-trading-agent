@@ -388,9 +388,6 @@ export function PredictionMarketsTab() {
           <p className="text-muted-foreground">
             Unable to load prediction markets at this time.
           </p>
-          <Button className="mt-4" onClick={fetchMarkets}>
-            Retry
-          </Button>
         </Card>
       )}
     </div>

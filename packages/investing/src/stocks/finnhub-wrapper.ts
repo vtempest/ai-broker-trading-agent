@@ -31,17 +31,16 @@ import {
   getFinnhubApiKey,
 } from "./finnhub-utils";
 
-export type {
-  HistoricalDataOptions,
-  QuoteOptions,
-};
+export type { HistoricalDataOptions, QuoteOptions };
 
 export class FinnhubWrapper {
   /**
    * Get historical price data for a symbol (candles)
    * Uses Finnhub as primary source, falls back to Alpaca API if Finnhub fails
    */
-  async getHistoricalData(options: HistoricalDataOptions): Promise<HistoricalDataResponse> {
+  async getHistoricalData(
+    options: HistoricalDataOptions,
+  ): Promise<HistoricalDataResponse> {
     const { symbol, period1, period2, interval = "1d" } = options;
 
     console.log(
@@ -353,12 +352,13 @@ export class FinnhubWrapper {
           }
 
           const data = await response.json();
+          //@ts-ignore
           const bars = data.bars || [];
 
           if (Array.isArray(bars)) {
             allBars.push(...bars);
           }
-
+          //@ts-ignore
           nextPageToken = data.next_page_token || null;
           pageCount++;
 
@@ -694,7 +694,11 @@ export class FinnhubWrapper {
   /**
    * Get company news
    */
-  async getNews(symbol: string, from?: string, to?: string): Promise<NewsResponse> {
+  async getNews(
+    symbol: string,
+    from?: string,
+    to?: string,
+  ): Promise<NewsResponse> {
     try {
       const today = new Date();
       const defaultFrom = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
@@ -730,7 +734,10 @@ export class FinnhubWrapper {
   /**
    * Get forex rates
    */
-  async getForexRate(baseCurrency: string, quoteCurrency: string): Promise<ForexResponse> {
+  async getForexRate(
+    baseCurrency: string,
+    quoteCurrency: string,
+  ): Promise<ForexResponse> {
     try {
       // Finnhub uses different endpoint for forex
       const rates = await finnhubFetch<{

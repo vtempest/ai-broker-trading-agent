@@ -1,5 +1,6 @@
-import { createOpenAPI } from "fumadocs-openapi/server";
+// @ts-ignore
 import { generateFiles } from "fumadocs-openapi/generator";
+import { createOpenAPI } from "fumadocs-openapi/server";
 import { join } from "node:path";
 
 async function main() {

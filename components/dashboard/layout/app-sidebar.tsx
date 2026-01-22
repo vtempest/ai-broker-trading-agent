@@ -229,22 +229,22 @@ const navigationGroups = [
   {
     title: "Market",
     items: [
-      { name: "Analyze Strategy", href: "/stock", icon: Zap },
-      { name: "Market Scanner", href: "/markets", icon: BarChart3 },
+      { name: "Analyze Strategy", href: "/stock", icon: "/icons/icon-indicators.png" },
+      { name: "Market Scanner", href: "/markets", icon: "/icons/icon-market-screener.svg" },
     ],
   },
   {
     title: "Trading",
     items: [
-      { name: "Copy Trade Leaders", href: "/leaders", icon: Copy },
+      { name: "Copy Trade Leaders", href: "/leaders", icon: "/icons/icon-copy-trade.png" },
       // { name: "Orders", tab: "orders", icon: TrendingUp },
-      { name: "Prediction Markets", href: "/predict", icon: Target },
+      { name: "Prediction Markets", href: "/predict", icon: "/icons/icon-prediction-markets.png" },
     ],
   },
   {
     title: "Risk & Portfolio",
     items: [
-      { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+      { name: "Overview", href: "/dashboard", icon: "/icons/icon-graph-chart.svg" },
       { name: "Risk Management", tab: "risk", icon: Shield },
     ],
   },
@@ -350,20 +350,36 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {group.items.map((item) => (
-                  <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={isActive((item as any).tab, (item as any).href)}
-                      tooltip={item.name}
-                    >
-                      <Link href={(item as any).href || `/dashboard?tab=${(item as any).tab}`}>
-                        <item.icon />
-                        <span className="group-data-[collapsible=icon]:hidden">{item.name}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {group.items.map((item) => {
+                  const IconComponent = typeof item.icon === 'string' ? null : item.icon;
+                  const iconPath = typeof item.icon === 'string' ? item.icon : null;
+
+                  return (
+                    <SidebarMenuItem key={item.name}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={isActive((item as any).tab, (item as any).href)}
+                        tooltip={item.name}
+                      >
+                        <Link href={(item as any).href || `/dashboard?tab=${(item as any).tab}`}>
+                          {iconPath ? (
+                            <Image
+                              src={iconPath}
+                              alt={item.name}
+                              width={24}
+                              height={24}
+                              className="w-6 h-6 shrink-0"
+                              unoptimized
+                            />
+                          ) : IconComponent ? (
+                            <IconComponent className="w-6 h-6" />
+                          ) : null}
+                          <span className="group-data-[collapsible=icon]:hidden">{item.name}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -377,7 +393,7 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SettingsDialog
                   trigger={
                     <SidebarMenuButton tooltip="Settings">
-                      <Settings />
+                      <Settings className="w-6 h-6" />
                       <span className="group-data-[collapsible=icon]:hidden">Settings</span>
                     </SidebarMenuButton>
                   }
@@ -390,7 +406,14 @@ function AppSidebarContent({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   tooltip="Documentation"
                 >
                   <Link href="/docs">
-                    <HelpCircle />
+                    <Image
+                      src="/icons/icon-user-guide.svg"
+                      alt="Documentation"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6 shrink-0"
+                      unoptimized
+                    />
                     <span className="group-data-[collapsible=icon]:hidden">Documentation</span>
                   </Link>
                 </SidebarMenuButton>

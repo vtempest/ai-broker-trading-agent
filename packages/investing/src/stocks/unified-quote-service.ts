@@ -1,10 +1,10 @@
 /**
  * Unified Quote Service
- * Combines yfinance, finnhub, and alpaca APIs with automatic fallback
- * Priority: cache -> finnhub -> alpaca -> yfinance
+ * Combines finnhub, yfinance, and alpaca APIs with automatic fallback
+ * Priority: cache -> finnhub -> yfinance -> alpaca
  * Caches all fetched quotes to database
  *
- * Note: yfinance is last to avoid IP blocking issues
+ * Note: finnhub is preferred for most reliable stock data
  */
 
 import { yahooFinance } from "./yahoo-finance-wrapper";
@@ -56,7 +56,7 @@ export interface QuotesServiceResponse {
 export class UnifiedQuoteService {
   /**
    * Get a single stock quote with automatic fallback
-   * Tries: cache -> finnhub -> alpaca -> yfinance
+   * Tries: cache -> finnhub -> yfinance -> alpaca
    * @param symbol - Stock symbol to fetch
    * @param options - Options object with useCache flag (default: true)
    */
@@ -79,7 +79,7 @@ export class UnifiedQuoteService {
       console.log(`[UnifiedQuote] Skipping cache for ${symbol} (live data requested)`);
     }
 
-    // Try finnhub first (avoid yfinance IP blocking)
+    // Try finnhub first (most reliable for stock data)
     try {
       console.log(`[UnifiedQuote] Trying finnhub for ${symbol}...`);
       const finnhubResult = await finnhub.getQuote({ symbol });
@@ -115,7 +115,43 @@ export class UnifiedQuoteService {
       console.log(`[UnifiedQuote] ✗ finnhub failed for ${symbol}: ${error.message}`);
     }
 
-    // Try alpaca as second fallback
+    // Try yfinance as second fallback
+    try {
+      console.log(`[UnifiedQuote] Trying yfinance for ${symbol}...`);
+      const yfinanceResult = await yahooFinance.getQuote(symbol);
+
+      if (yfinanceResult.success && yfinanceResult.data) {
+        const data = yfinanceResult.data as any;
+        const normalized: NormalizedQuote = {
+          symbol,
+          price: data.regularMarketPrice || data.currentPrice || 0,
+          change: data.regularMarketChange || null,
+          changePercent: data.regularMarketChangePercent || null,
+          open: data.regularMarketOpen || data.open || null,
+          high: data.regularMarketDayHigh || data.dayHigh || null,
+          low: data.regularMarketDayLow || data.dayLow || null,
+          previousClose: data.regularMarketPreviousClose || data.previousClose || null,
+          volume: data.volume || null,
+          marketCap: data.marketCap || null,
+          currency: data.currency || "USD",
+          name: data.longName || data.shortName || symbol,
+          exchange: data.exchange || data.fullExchangeName || null,
+          timestamp: data.regularMarketTime ? new Date(data.regularMarketTime) : new Date(),
+          source: "yfinance",
+        };
+
+        console.log(`[UnifiedQuote] ✓ yfinance succeeded for ${symbol}`);
+
+        // Save to cache
+        await quoteCacheService.saveQuoteToCache(normalized);
+
+        return { success: true, data: normalized };
+      }
+    } catch (error: any) {
+      console.log(`[UnifiedQuote] ✗ yfinance failed for ${symbol}: ${error.message}`);
+    }
+
+    // Try alpaca as third fallback
     try {
       console.log(`[UnifiedQuote] Trying alpaca for ${symbol}...`);
       const alpacaClient = getAlpacaMCPClient();
@@ -153,53 +189,16 @@ export class UnifiedQuoteService {
       console.log(`[UnifiedQuote] ✗ alpaca failed for ${symbol}: ${error.message}`);
     }
 
-    // Try yfinance as last resort (to avoid IP blocking)
-    try {
-      console.log(`[UnifiedQuote] Trying yfinance (last resort) for ${symbol}...`);
-      const yfinanceResult = await yahooFinance.getQuote(symbol);
-
-      if (yfinanceResult.success && yfinanceResult.data) {
-        const data = yfinanceResult.data as any;
-        const normalized: NormalizedQuote = {
-          symbol,
-          price: data.regularMarketPrice || data.currentPrice || 0,
-          change: data.regularMarketChange || null,
-          changePercent: data.regularMarketChangePercent || null,
-          open: data.regularMarketOpen || data.open || null,
-          high: data.regularMarketDayHigh || data.dayHigh || null,
-          low: data.regularMarketDayLow || data.dayLow || null,
-          previousClose: data.regularMarketPreviousClose || data.previousClose || null,
-          volume: data.volume || null,
-          marketCap: data.marketCap || null,
-          currency: data.currency || "USD",
-          name: data.longName || data.shortName || symbol,
-          exchange: data.exchange || data.fullExchangeName || null,
-          timestamp: data.regularMarketTime ? new Date(data.regularMarketTime) : new Date(),
-          source: "yfinance",
-        };
-
-        console.log(`[UnifiedQuote] ✓ yfinance succeeded for ${symbol}`);
-
-        // Save to cache
-        await quoteCacheService.saveQuoteToCache(normalized);
-
-        return { success: true, data: normalized };
-      }
-    } catch (error: any) {
-      console.log(`[UnifiedQuote] ✗ yfinance failed for ${symbol}: ${error.message}`);
-    }
-
     console.error(`[UnifiedQuote] All sources failed for ${symbol}`);
     return {
       success: false,
-      error: `Failed to fetch quote for ${symbol} from all sources (finnhub, alpaca, yfinance)`,
+      error: `Failed to fetch quote for ${symbol} from all sources (finnhub, yfinance, alpaca)`,
     };
   }
 
   /**
    * Get multiple stock quotes with automatic fallback
-   * Tries: cache -> individual fetch (finnhub -> alpaca -> yfinance)
-   * Note: Batch requests avoided for yfinance due to IP blocking
+   * Tries: cache -> individual fetch (finnhub -> yfinance -> alpaca)
    * @param symbols - Array of stock symbols to fetch
    * @param options - Options object with useCache flag (default: true)
    */

@@ -86,8 +86,7 @@ The **Auto Investment Broker** is a sophisticated platform combining specialized
 
 - **[Alpaca](https://alpaca.markets/)**: Broker & trading as a service.
 - **[TradingView](https://www.tradingview.com/ideas/)**: TradingView PineScript automated trading.
-- **[Finnhub](https://finnhub.io/dashboard)**: Stock market data.
-- **[ZuluTrade](https://www.zulutrade.com/traders/list/75932)**: Top traders leaderboard.
 - **[Polymarket](https://polymarketanalytics.com/)**: Top event predictions leaderboard & correlation with stock market.
+- **[Finnhub](https://finnhub.io/dashboard)**: Stock market data.
 - **[Lightweight Charts](https://www.tradingview.com/lightweight-charts/)**: Candlestick UI widget from TradingView
 - **[TradingAgents](https://github.com/TauricResearch/TradingAgents)**: Implementation of LLM research bots ([paper](https://arxiv.org/pdf/2412.20138))

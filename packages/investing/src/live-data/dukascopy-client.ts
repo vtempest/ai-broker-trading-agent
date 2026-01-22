@@ -15,12 +15,22 @@ export type AssetCategory =
   | "commodities"
   | "bonds";
 
-export type TimeframeType = "tick" | "s1" | "m1" | "m5" | "m15" | "m30" | "h1" | "h4" | "d1" | "mn1";
+export type TimeframeType =
+  | "tick"
+  | "s1"
+  | "m1"
+  | "m5"
+  | "m15"
+  | "m30"
+  | "h1"
+  | "h4"
+  | "d1"
+  | "mn1";
 export type FormatType = "array" | "json" | "csv";
 export type PriceType = "bid" | "ask";
 
 export interface DukascopyConfig {
-  instrument: InstrumentType;
+  instrument: any;
   dates: {
     from: Date | string | number;
     to?: Date | string | number;
@@ -67,7 +77,9 @@ export interface JsonItemTick {
  */
 export async function getHistoricalData(config: DukascopyConfig) {
   try {
+    //@ts-ignore
     const dukascopyConfig: Config = {
+      //@ts-ignore
       instrument: config.instrument,
       dates: {
         from: new Date(config.dates.from),
@@ -85,7 +97,7 @@ export async function getHistoricalData(config: DukascopyConfig) {
     console.error("Dukascopy historical data error:", error);
     return {
       success: false,
-      error: error.message || "Failed to fetch historical data"
+      error: error.message || "Failed to fetch historical data",
     };
   }
 }
@@ -97,8 +109,10 @@ export async function getHistoricalData(config: DukascopyConfig) {
 export async function getRealTimeData(config: RealTimeConfig) {
   try {
     const data = await getRealTimeRates({
+      //@ts-ignore
       instrument: config.instrument,
       timeframe: config.timeframe || "tick",
+      //@ts-ignore
       format: config.format || "json",
       priceType: config.priceType || "bid",
       last: config.last || 10,
@@ -116,7 +130,7 @@ export async function getRealTimeData(config: RealTimeConfig) {
     console.error("Dukascopy real-time data error:", error);
     return {
       success: false,
-      error: error.message || "Failed to fetch real-time data"
+      error: error.message || "Failed to fetch real-time data",
     };
   }
 }
@@ -128,9 +142,9 @@ export function convertToChartData(data: JsonItem[] | JsonItemTick[]): any[] {
   if (!data || data.length === 0) return [];
 
   // Check if tick data
-  if ('askPrice' in data[0]) {
+  if ("askPrice" in data[0]) {
     // Convert tick data to OHLC using bid price
-    return (data as JsonItemTick[]).map(tick => ({
+    return (data as JsonItemTick[]).map((tick) => ({
       time: tick.timestamp / 1000, // Convert to seconds
       value: tick.bidPrice,
       askPrice: tick.askPrice,
@@ -141,7 +155,7 @@ export function convertToChartData(data: JsonItem[] | JsonItemTick[]): any[] {
   }
 
   // Convert OHLC data
-  return (data as JsonItem[]).map(candle => ({
+  return (data as JsonItem[]).map((candle) => ({
     time: candle.timestamp / 1000, // Convert to seconds
     open: candle.open,
     high: candle.high,
@@ -172,31 +186,47 @@ const ALL_INSTRUMENTS_RAW = dukascopySymbolsData as Instrument[];
 export const ALL_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS_RAW;
 
 // Filter instruments by category for convenience
-export const FOREX_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "forex");
-export const CRYPTO_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "crypto");
-export const STOCK_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "stocks");
-export const ETF_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "etf");
-export const INDEX_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "indices");
-export const COMMODITY_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "commodities");
-export const BOND_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(inst => inst.category === "bonds");
+export const FOREX_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "forex",
+);
+export const CRYPTO_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "crypto",
+);
+export const STOCK_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "stocks",
+);
+export const ETF_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "etf",
+);
+export const INDEX_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "indices",
+);
+export const COMMODITY_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "commodities",
+);
+export const BOND_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
+  (inst) => inst.category === "bonds",
+);
 
 /**
  * Helper functions to filter instruments by category
  */
-export function getInstrumentsByCategory(category: AssetCategory): Instrument[] {
-  return ALL_INSTRUMENTS.filter(inst => inst.category === category);
+export function getInstrumentsByCategory(
+  category: AssetCategory,
+): Instrument[] {
+  return ALL_INSTRUMENTS.filter((inst) => inst.category === category);
 }
 
 export function getInstrumentBySymbol(symbol: string): Instrument | undefined {
-  return ALL_INSTRUMENTS.find(inst => inst.symbol === symbol);
+  return ALL_INSTRUMENTS.find((inst) => inst.symbol === symbol);
 }
 
 export function searchInstruments(query: string): Instrument[] {
   const lowerQuery = query.toLowerCase();
   return ALL_INSTRUMENTS.filter(
-    inst =>
+    (inst) =>
       inst.symbol.toLowerCase().includes(lowerQuery) ||
-      inst.name.toLowerCase().includes(lowerQuery)
+      inst.name.toLowerCase().includes(lowerQuery),
   );
 }
 
