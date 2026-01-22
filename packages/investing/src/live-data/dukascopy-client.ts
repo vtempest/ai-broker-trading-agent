@@ -6,12 +6,12 @@ export type InstrumentType = string;
 
 // Asset type categories
 export type AssetCategory =
+  | "indices"
   | "forex"
   | "crypto"
-  | "stocks"
+  | "usstocks"
   | "etf"
-  | "etfs"
-  | "indices"
+  | "worldstocks"
   | "commodities"
   | "bonds";
 
@@ -177,35 +177,48 @@ export interface Instrument {
 }
 
 // Import all instruments from the comprehensive JSON file
+// New format: { category: [[symbol, name], ...] }
 import dukascopySymbolsData from "./dukascopy-symbols.json";
 
-// Cast the imported data to the correct type
-const ALL_INSTRUMENTS_RAW = dukascopySymbolsData as Instrument[];
+type SymbolsData = Record<AssetCategory, [string, string][]>;
+
+const symbolsData = dukascopySymbolsData as SymbolsData;
+
+// Convert grouped data to flat instrument list
+function parseInstruments(): Instrument[] {
+  const instruments: Instrument[] = [];
+  for (const category of Object.keys(symbolsData) as AssetCategory[]) {
+    for (const [symbol, name] of symbolsData[category]) {
+      instruments.push({ symbol, name, category });
+    }
+  }
+  return instruments;
+}
 
 // Combined list of all instruments (1,607 total)
-export const ALL_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS_RAW;
+export const ALL_INSTRUMENTS: Instrument[] = parseInstruments();
 
-// Filter instruments by category for convenience
-export const FOREX_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "forex",
+// Direct access to instruments by category
+export const FOREX_INSTRUMENTS: Instrument[] = (symbolsData.forex || []).map(
+  ([symbol, name]) => ({ symbol, name, category: "forex" as const }),
 );
-export const CRYPTO_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "crypto",
+export const CRYPTO_INSTRUMENTS: Instrument[] = (symbolsData.crypto || []).map(
+  ([symbol, name]) => ({ symbol, name, category: "crypto" as const }),
 );
-export const STOCK_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "stocks",
+export const STOCK_INSTRUMENTS: Instrument[] = (symbolsData.usstocks || []).map(
+  ([symbol, name]) => ({ symbol, name, category: "usstocks" as const }),
 );
-export const ETF_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "etf",
+export const ETF_INSTRUMENTS: Instrument[] = (symbolsData.etf || []).map(
+  ([symbol, name]) => ({ symbol, name, category: "etf" as const }),
 );
-export const INDEX_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "indices",
+export const INDEX_INSTRUMENTS: Instrument[] = (symbolsData.indices || []).map(
+  ([symbol, name]) => ({ symbol, name, category: "indices" as const }),
 );
-export const COMMODITY_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "commodities",
-);
-export const BOND_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
-  (inst) => inst.category === "bonds",
+export const COMMODITY_INSTRUMENTS: Instrument[] = (
+  symbolsData.commodities || []
+).map(([symbol, name]) => ({ symbol, name, category: "commodities" as const }));
+export const BOND_INSTRUMENTS: Instrument[] = (symbolsData.bonds || []).map(
+  ([symbol, name]) => ({ symbol, name, category: "bonds" as const }),
 );
 
 /**
@@ -214,11 +227,17 @@ export const BOND_INSTRUMENTS: Instrument[] = ALL_INSTRUMENTS.filter(
 export function getInstrumentsByCategory(
   category: AssetCategory,
 ): Instrument[] {
-  return ALL_INSTRUMENTS.filter((inst) => inst.category === category);
+  return (symbolsData[category] || []).map(([symbol, name]) => ({
+    symbol,
+    name,
+    category,
+  }));
 }
 
 export function getInstrumentBySymbol(symbol: string): Instrument | undefined {
-  return ALL_INSTRUMENTS.find((inst) => inst.symbol === symbol);
+  return ALL_INSTRUMENTS.find(
+    (inst) => inst.symbol.toLowerCase() === symbol.toLowerCase(),
+  );
 }
 
 export function searchInstruments(query: string): Instrument[] {

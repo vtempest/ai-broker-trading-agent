@@ -1,7 +1,5 @@
-import type { Metadata } from 'next'
-import { env } from '@/env'
-import { title } from '@/lib/layout.shared'
-import type { Page } from './source'
+import type { Metadata } from "next";
+import { title } from "@/lib/layout.shared";
 
 export function createMetadata(override: Metadata): Metadata {
   return {
@@ -9,31 +7,28 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: 'https://fumadocsstarter.vercel.app',
-      images: '/banner.png',
+      url: "https://fumadocsstarter.vercel.app",
+      images: "/banner.png",
       siteName: title,
       ...override.openGraph,
     },
     twitter: {
-      card: 'summary_large_image',
-      creator: '@AnirudhWith',
+      card: "summary_large_image",
+      creator: "@AnirudhWith",
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      images: '/banner.png',
+      images: "/banner.png",
       ...override.twitter,
     },
-  }
+  };
 }
 
-export function getPageImage(page: Page) {
-  const segments = [...page.slugs, 'image.webp']
+export function getPageImage(page: any) {
+  const segments = [...page.slugs, "image.webp"];
   return {
     segments,
-    url: `/og/${segments.join('/')}`,
-  }
+    url: `/og/${segments.join("/")}`,
+  };
 }
 
-export const baseUrl =
-  env.NODE_ENV === 'development' || !env?.NEXT_PUBLIC_BASE_URL
-    ? new URL('http://localhost:3000')
-    : new URL(env?.NEXT_PUBLIC_BASE_URL ?? '')
+export const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
