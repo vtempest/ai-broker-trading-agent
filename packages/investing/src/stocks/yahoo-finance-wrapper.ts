@@ -549,5 +549,8 @@ export class YahooFinanceWrapper {
 // Export singleton instance
 export const yahooFinanceWrapper = new YahooFinanceWrapper();
 
+// Export alias for convenience
+export const yahooFinance = yahooFinanceWrapper;
+
 // Export default
 export default yahooFinanceWrapper;

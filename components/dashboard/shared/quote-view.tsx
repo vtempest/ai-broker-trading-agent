@@ -441,12 +441,10 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
               </Badge>
               <span className="text-muted-foreground">•</span>
               <span className="text-muted-foreground">${formatNumber(price.marketCap)}</span>
-              {summary.trailingPE && (
-                <>
-                  <span className="text-muted-foreground">•</span>
-                  <span className="text-muted-foreground">P/E {summary.trailingPE.toFixed(2)}</span>
-                </>
-              )}
+              <span className="text-muted-foreground">•</span>
+              <span className="text-muted-foreground">
+                P/E {summary.trailingPE ? summary.trailingPE.toFixed(2) : "N/A"}
+              </span>
             </div>
             <div className="ml-auto flex items-center gap-2">
               {session?.user && (
