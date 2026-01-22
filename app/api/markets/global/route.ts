@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRealTimeData, getHistoricalData } from "@/packages/investing/src/live-data/dukascopy-client";
+import { db } from "@/lib/db";
+import { dukascopyIndexCache } from "@/packages/investing/src/db/schema";
+import { eq } from "drizzle-orm";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// Cache TTL in milliseconds (5 minutes)
+const CACHE_TTL = 5 * 60 * 1000;
 
 // Map of Dukascopy symbols to display info
 const GLOBAL_INDICES = [
@@ -29,8 +35,90 @@ const GLOBAL_INDICES = [
 ];
 
 /**
+ * Fetch index data from cache if fresh
+ */
+async function getCachedIndexData(symbol: string) {
+  try {
+    const cached = await db.select().from(dukascopyIndexCache).where(eq(dukascopyIndexCache.symbol, symbol)).limit(1);
+
+    if (cached.length === 0) {
+      return null;
+    }
+
+    const data = cached[0];
+    const now = Date.now();
+    const lastFetched = data.lastFetched.getTime();
+
+    // Check if cache is fresh (less than TTL)
+    if (now - lastFetched < CACHE_TTL) {
+      return {
+        id: data.symbol,
+        name: data.name,
+        country: data.country,
+        countryCode: data.countryCode,
+        price: data.price,
+        dailyChange: data.dailyChange,
+        dailyChangePercent: data.dailyChangePercent,
+        chartData: JSON.parse(data.chartData),
+        volume: data.volume || 0,
+        monthlyChangePercent: data.monthlyChangePercent || 0,
+        yearlyChangePercent: data.yearlyChangePercent || 0,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.error(`Error reading cache for ${symbol}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Save index data to cache
+ */
+async function saveIndexToCache(indexData: any) {
+  try {
+    const now = new Date();
+    await db.insert(dukascopyIndexCache).values({
+      symbol: indexData.id,
+      name: indexData.name,
+      country: indexData.country,
+      countryCode: indexData.countryCode,
+      price: indexData.price,
+      dailyChange: indexData.dailyChange,
+      dailyChangePercent: indexData.dailyChangePercent,
+      volume: indexData.volume,
+      monthlyChangePercent: indexData.monthlyChangePercent,
+      yearlyChangePercent: indexData.yearlyChangePercent,
+      chartData: JSON.stringify(indexData.chartData),
+      lastFetched: now,
+      createdAt: now,
+      updatedAt: now,
+    }).onConflictDoUpdate({
+      target: dukascopyIndexCache.symbol,
+      set: {
+        name: indexData.name,
+        country: indexData.country,
+        countryCode: indexData.countryCode,
+        price: indexData.price,
+        dailyChange: indexData.dailyChange,
+        dailyChangePercent: indexData.dailyChangePercent,
+        volume: indexData.volume,
+        monthlyChangePercent: indexData.monthlyChangePercent,
+        yearlyChangePercent: indexData.yearlyChangePercent,
+        chartData: JSON.stringify(indexData.chartData),
+        lastFetched: now,
+        updatedAt: now,
+      },
+    });
+  } catch (error) {
+    console.error(`Error saving cache for ${indexData.id}:`, error);
+  }
+}
+
+/**
  * GET /api/markets/global
- * Fetch real-time global market indices data from Dukascopy
+ * Fetch real-time global market indices data from Dukascopy with database caching
  */
 export async function GET(request: NextRequest) {
   try {
@@ -41,6 +129,15 @@ export async function GET(request: NextRequest) {
     const results = await Promise.all(
       GLOBAL_INDICES.map(async (index) => {
         try {
+          // Check cache first
+          const cachedData = await getCachedIndexData(index.symbol);
+          if (cachedData) {
+            console.log(`Using cached data for ${index.symbol}`);
+            return cachedData;
+          }
+
+          console.log(`Fetching fresh data for ${index.symbol}`);
+
           // Get real-time data for chart and current price
           const realtimeResult = await getRealTimeData({
             instrument: index.symbol,
@@ -100,7 +197,7 @@ export async function GET(request: NextRequest) {
             // Silent fail for yearly data
           }
 
-          return {
+          const indexData = {
             id: index.symbol,
             name: index.name,
             country: index.country,
@@ -113,6 +210,11 @@ export async function GET(request: NextRequest) {
             monthlyChangePercent: monthlyChangePercent,
             yearlyChangePercent: yearlyChangePercent,
           };
+
+          // Save to cache
+          await saveIndexToCache(indexData);
+
+          return indexData;
         } catch (error) {
           console.error(`Error fetching ${index.symbol}:`, error);
           return null;
@@ -127,6 +229,7 @@ export async function GET(request: NextRequest) {
       success: true,
       data: validResults,
       timestamp: new Date().toISOString(),
+      cached: validResults.length > 0,
     });
   } catch (error: any) {
     console.error("Global markets API error:", error);

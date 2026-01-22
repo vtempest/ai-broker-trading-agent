@@ -90,37 +90,74 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
   const [tradeModalOpen, setTradeModalOpen] = useState(false)
   const [peerStockInfo, setPeerStockInfo] = useState<Map<string, { name: string; marketCap: number }>>(new Map())
   const [industryInfo, setIndustryInfo] = useState<{ emoji: string; number: number } | null>(null)
+  const [sectorInfo, setSectorInfo] = useState<{ emoji: string; number: number } | null>(null)
 
-  // Fetch industry emoji and number from sectors-industries.json
+  // Sector emoji mapping
+  const sectorEmojis: Record<string, string> = {
+    'Finance': '💰',
+    'Real Estate': '🏢',
+    'Consumer Discretionary': '🛍️',
+    'Technology': '💻',
+    'Industrials': '🏭',
+    'Health Care': '🏥',
+    'Basic Materials': '⚗️',
+    'Consumer Staples': '🛒',
+    'Energy': '⚡',
+    'Miscellaneous': '📦',
+    'Utilities': '💡',
+    'Telecommunications': '📞',
+  }
+
+  // Fetch industry and sector info from sectors-industries.json
   useEffect(() => {
-    if (!data?.summaryProfile?.industry) return
+    // Get industry from any available source with fallbacks
+    const industry = data?.summaryProfile?.industry || data?.summaryDetail?.industry || data?.price?.industry
+    const sector = data?.summaryProfile?.sector || data?.summaryDetail?.sector || data?.price?.sector
 
-    const loadIndustryInfo = async () => {
+    if (!industry && !sector) return
+
+    const loadIndustryAndSectorInfo = async () => {
       try {
         // Import sectors-industries data
         // Format: { sectors: { name: number }, industries: [[id, name, emoji, sectorId], ...] }
         const sectorsIndustriesData = await import('@/packages/investing/src/stock-names-data/sectors-industries.json')
         const industries = sectorsIndustriesData.industries as Array<[number, string, string, number]>
+        const sectors = sectorsIndustriesData.sectors as Record<string, number>
 
         // Find the industry by matching the industry name (case-insensitive)
-        const industryName = data.summaryProfile?.industry?.toLowerCase()
-        const industryMatch = industries.find(
-          (industry) => industry[1].toLowerCase() === industryName
-        )
+        if (industry) {
+          const industryName = industry.toLowerCase()
+          const industryMatch = industries.find(
+            (ind) => ind[1].toLowerCase() === industryName
+          )
 
-        if (industryMatch) {
-          setIndustryInfo({
-            number: industryMatch[0], // Industry ID
-            emoji: industryMatch[2],  // Emoji
-          })
+          if (industryMatch) {
+            setIndustryInfo({
+              number: industryMatch[0], // Industry ID
+              emoji: industryMatch[2],  // Emoji
+            })
+          }
+        }
+
+        // Find the sector by matching the sector name
+        if (sector) {
+          const sectorNumber = sectors[sector]
+          const sectorEmoji = sectorEmojis[sector] || '📊'
+
+          if (sectorNumber) {
+            setSectorInfo({
+              number: sectorNumber,
+              emoji: sectorEmoji,
+            })
+          }
         }
       } catch (error) {
-        console.error('Error loading industry info:', error)
+        console.error('Error loading industry/sector info:', error)
       }
     }
 
-    loadIndustryInfo()
-  }, [data?.summaryProfile?.industry])
+    loadIndustryAndSectorInfo()
+  }, [data?.summaryProfile?.industry, data?.summaryDetail?.industry, data?.price?.industry, data?.summaryProfile?.sector, data?.summaryDetail?.sector, data?.price?.sector])
 
   // Fetch peer stock information from stock-names.json
   useEffect(() => {
@@ -531,13 +568,19 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
               <div className="space-y-4">
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Sector</div>
-                  <div className="text-lg font-bold">{data.summaryProfile?.sector || "N/A"}</div>
+                  <div className="text-lg font-bold flex items-center gap-2">
+                    {sectorInfo?.emoji && <span>{sectorInfo.emoji}</span>}
+                    {data.summaryProfile?.sector || data.summaryDetail?.sector || data.price?.sector || "N/A"}
+                    {sectorInfo?.number && (
+                      <span className="text-sm text-muted-foreground">#{sectorInfo.number}</span>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Industry</div>
                   <div className="text-lg font-bold flex items-center gap-2">
                     {industryInfo?.emoji && <span>{industryInfo.emoji}</span>}
-                    {data.summaryProfile?.industry || "N/A"}
+                    {data.summaryProfile?.industry || data.summaryDetail?.industry || data.price?.industry || "N/A"}
                     {industryInfo?.number && (
                       <span className="text-sm text-muted-foreground">#{industryInfo.number}</span>
                     )}

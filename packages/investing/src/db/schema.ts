@@ -659,3 +659,33 @@ export const stockHistoricalQuotes = sqliteTable("stock_historical_quotes", {
   adjustedClose: real("adjusted_close"),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 })
+
+// ============================================================================
+// Dukascopy Index Data Cache
+// ============================================================================
+
+// Dukascopy Index Cache - Cache index data from Dukascopy API
+export const dukascopyIndexCache = sqliteTable("dukascopy_index_cache", {
+  symbol: text("symbol").primaryKey(), // Index symbol (e.g., "usa500idxusd")
+  name: text("name").notNull(), // Display name (e.g., "S&P 500")
+  country: text("country").notNull(), // Country name
+  countryCode: text("country_code").notNull(), // Country code (e.g., "US")
+
+  // Current price data
+  price: real("price").notNull(),
+  dailyChange: real("daily_change").notNull(),
+  dailyChangePercent: real("daily_change_percent").notNull(),
+  volume: real("volume").default(0),
+
+  // Historical change percentages
+  monthlyChangePercent: real("monthly_change_percent").default(0),
+  yearlyChangePercent: real("yearly_change_percent").default(0),
+
+  // Chart data stored as JSON array
+  chartData: text("chart_data").notNull(), // JSON array of close prices
+
+  // Cache metadata
+  lastFetched: integer("last_fetched", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+})
