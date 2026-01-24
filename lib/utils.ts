@@ -1,20 +1,19 @@
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-
-
 /**
- * Adds variable state (like query, active tab. etc) to 
- * the URL so that the state is preserved in a sharable URL 
- * which when clicked resumes from those same state variables.
+ * Adds variable state (like query, active tab. etc) to
+ * the URL so that the state is preserved in a sharable URL.
+ * When user clicks the URL, it resumes that page by loading
+ * those same state variables like ?view=search&q=query
  * Pass in nothing to get the current URL state variables.
  *
  * @param {Record<string, string>} stateObject
- *   - The state object to sync to the URL like view: "search"
+ *   - The state object to sync to the URL like "view: 'search'"
  * @param {boolean} addToBrowserHistory default false.
  *   - If true, add the new state to the browser history
  * @returns {Record<string, string>} stateObject
@@ -25,7 +24,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export function setStateInURL(
   stateObject: Record<string, string> | null,
-  addToBrowserHistory = false
+  addToBrowserHistory = false,
 ) {
   if (typeof window === "undefined") return;
   const url = new URL(document?.location.href);
