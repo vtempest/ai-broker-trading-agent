@@ -350,6 +350,8 @@ export const polymarketMarkets = sqliteTable("polymarket_markets", {
 
   // Additional metadata
   tags: text("tags"), // JSON array
+  category: text("category"), // Primary category: Politics, Sports, Crypto, etc.
+  subcategory: text("subcategory"), // Subcategory within primary category
   endDate: text("end_date"),
   groupItemTitle: text("group_item_title"),
   enableOrderBook: integer("enable_order_book", { mode: "boolean" }),

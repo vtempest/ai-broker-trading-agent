@@ -33,8 +33,8 @@ export function TopHoldersList({ marketId, eventId }: TopHoldersListProps) {
             try {
                 setLoading(true)
                 const eventParam = eventId ? `&eventId=${eventId}` : ''
-                // Always try to sync on first load to get fresh data since we don't have a background job yet
-                const response = await fetch(`/api/polymarket/holders?marketId=${marketId}${eventParam}&sync=true`)
+                // Use cached data from the cron job (refreshes every 15 minutes)
+                const response = await fetch(`/api/polymarket/holders?marketId=${marketId}${eventParam}`)
                 const data = await response.json()
 
                 if (data.success) {

@@ -326,79 +326,8 @@ export const polymarketCategories = sqliteTable("polymarket_categories", {
   updatedAt: integer("updated_at", { mode: "timestamp" }),
 });
 
-// Polymarket Markets - Store prediction markets data
-export const polymarketMarkets = sqliteTable("polymarket_markets", {
-  id: text("id").primaryKey(),
-  question: text("question").notNull(),
-  slug: text("slug").notNull(),
-  eventSlug: text("event_slug"), // Event slug for constructing polymarket.com URLs
-  description: text("description"),
-  image: text("image"),
-
-  // Volume metrics
-  volume24hr: real("volume_24hr"),
-  volumeTotal: real("volume_total"),
-
-  // Market status
-  active: integer("active", { mode: "boolean" }).default(true),
-  closed: integer("closed", { mode: "boolean" }).default(false),
-
-  // Outcomes and prices (stored as JSON strings)
-  outcomes: text("outcomes").notNull(), // JSON array: ["Yes", "No"]
-  outcomePrices: text("outcome_prices").notNull(), // JSON array: ["0.65", "0.35"]
-  clobTokenIds: text("clob_token_ids"), // JSON array of token IDs for price history
-
-  // Additional metadata
-  tags: text("tags"), // JSON array
-  endDate: text("end_date"),
-  groupItemTitle: text("group_item_title"),
-  enableOrderBook: integer("enable_order_book", { mode: "boolean" }),
-
-  // Tracking
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
-});
-
-// Polymarket Market Positions - Detailed order book positions
-export const polymarketMarketPositions = sqliteTable(
-  "polymarket_market_positions",
-  {
-    id: text("id").primaryKey(),
-    marketId: text("market_id").notNull(),
-    outcome: text("outcome").notNull(), // "Yes" or "No"
-    price: real("price").notNull(),
-    size: real("size").notNull(),
-    side: text("side").notNull(), // "buy" or "sell"
-    totalValue: real("total_value").notNull(),
-    createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
-  }
-);
-
-// Polymarket Debate Analysis - LLM-generated debate on both sides
-export const polymarketDebates = sqliteTable("polymarket_debates", {
-  id: text("id").primaryKey(),
-  marketId: text("market_id").notNull().unique(),
-  question: text("question").notNull(),
-
-  // Debate arguments
-  yesArguments: text("yes_arguments").notNull(), // JSON array of arguments
-  noArguments: text("no_arguments").notNull(), // JSON array of arguments
-
-  // Analysis
-  yesSummary: text("yes_summary").notNull(),
-  noSummary: text("no_summary").notNull(),
-  keyFactors: text("key_factors").notNull(), // JSON array
-  uncertainties: text("uncertainties").notNull(), // JSON array
-
-  // Metadata
-  currentYesPrice: real("current_yes_price"),
-  currentNoPrice: real("current_no_price"),
-  llmProvider: text("llm_provider"),
-  model: text("model"),
-
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
-});
+// Polymarket tables are now defined in packages/investing/src/db/schema.ts
+// and re-exported below
 
 // ============================================================================
 // NVSTLY Leaders Tracking

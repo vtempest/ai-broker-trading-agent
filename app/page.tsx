@@ -10,8 +10,9 @@ import { Footer } from "@/components/landing/footer"
 
 export default function LandingPage() {
   return (
-    <main className="w-full max-w-full overflow-x-hidden pt-6">
+    <main className="w-full max-w-full overflow-x-hidden">
       <Header />
+
       <HeroSection />
       <ArchitectureSection />
       <AgentsSection />

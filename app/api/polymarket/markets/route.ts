@@ -77,6 +77,7 @@ export async function GET(request: NextRequest) {
       const searchResults = await searchMarketsInDB(search, {
         limit,
         sortBy: sortBy as any,
+        category,
         activeOnly: true,
       });
 
@@ -125,6 +126,8 @@ export async function GET(request: NextRequest) {
             groupItemTitle: m.groupItemTitle,
             enableOrderBook: m.enableOrderBook,
             tags: safeParseArray(m.tags),
+            category: m.category,
+            subcategory: m.subcategory,
             priceChanges, // Add price changes to the response
           };
         }),
@@ -200,6 +203,8 @@ export async function GET(request: NextRequest) {
           groupItemTitle: m.groupItemTitle,
           enableOrderBook: m.enableOrderBook,
           tags: safeParseArray(m.tags),
+          category: m.category,
+          subcategory: m.subcategory,
           priceChanges, // Add price changes to the response
         };
       }),

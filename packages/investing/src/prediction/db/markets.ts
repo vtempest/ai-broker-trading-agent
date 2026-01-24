@@ -1,6 +1,11 @@
 import { db } from "../../db";
 import { polymarketMarkets } from "../../db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
+import {
+  categorizeMarket,
+  categorizeMarketSubcategory,
+  parseTags,
+} from "../utils/categorizer";
 
 /**
  * Helper function to ensure a value is a JSON string
@@ -47,6 +52,15 @@ export async function saveMarkets(marketsData: any[]) {
           ? market.events[0].slug
           : null;
 
+      // Categorize the market based on tags and question
+      const tags = parseTags(market.tags);
+      const category = categorizeMarket(tags, market.question);
+
+      // Determine subcategory if category is assigned
+      const subcategory = category
+        ? categorizeMarketSubcategory(category, market.question, tags)
+        : null;
+
       await db
         .insert(polymarketMarkets)
         .values({
@@ -64,6 +78,8 @@ export async function saveMarkets(marketsData: any[]) {
           outcomePrices: ensureJsonString(market.outcomePrices),
           clobTokenIds: ensureJsonString(market.clobTokenIds),
           tags: ensureJsonString(market.tags),
+          category: category,
+          subcategory: subcategory,
           endDate: market.endDate || null,
           groupItemTitle: market.groupItemTitle || null,
           enableOrderBook: market.enableOrderBook ?? false,
@@ -85,6 +101,8 @@ export async function saveMarkets(marketsData: any[]) {
             outcomePrices: ensureJsonString(market.outcomePrices),
             clobTokenIds: ensureJsonString(market.clobTokenIds),
             tags: ensureJsonString(market.tags),
+            category: category,
+            subcategory: subcategory,
             endDate: market.endDate || null,
             groupItemTitle: market.groupItemTitle || null,
             enableOrderBook: market.enableOrderBook ?? false,
@@ -135,9 +153,18 @@ export async function getMarkets(
 
   let query = db.select().from(polymarketMarkets);
 
-  // Filter by active status
+  // Build where conditions
+  const conditions = [];
   if (activeOnly) {
-    query = query.where(eq(polymarketMarkets.active, true)) as any;
+    conditions.push(eq(polymarketMarkets.active, true));
+  }
+  if (category && category !== "Overall" && category !== "all") {
+    conditions.push(eq(polymarketMarkets.category, category));
+  }
+
+  // Apply where conditions
+  if (conditions.length > 0) {
+    query = query.where(and(...conditions)) as any;
   }
 
   // Sort
@@ -155,18 +182,6 @@ export async function getMarkets(
 
   const results = await query;
 
-  // Filter by category if specified
-  if (category) {
-    return results.filter((market: any) => {
-      try {
-        const tags = JSON.parse(market.tags || "[]");
-        return tags.includes(category);
-      } catch {
-        return false;
-      }
-    });
-  }
-
   return results;
 }
 
@@ -176,6 +191,7 @@ export async function getMarkets(
  * @param options - Query configuration options
  * @param options.limit - Maximum number of markets to retrieve (default: 50)
  * @param options.sortBy - Sort field: "volume24hr", "volumeTotal", or "createdAt" (default: "volume24hr")
+ * @param options.category - Optional category tag to filter by
  * @param options.activeOnly - Only include active markets (default: true)
  * @returns Array of market records matching the search term
  */
@@ -184,10 +200,11 @@ export async function searchMarketsInDB(
   options: {
     limit?: number;
     sortBy?: "volume24hr" | "volumeTotal" | "createdAt";
+    category?: string;
     activeOnly?: boolean;
   } = {},
 ) {
-  const { limit = 50, sortBy = "volume24hr", activeOnly = true } = options;
+  const { limit = 50, sortBy = "volume24hr", category, activeOnly = true } = options;
 
   if (!searchTerm || searchTerm.trim() === "") {
     return [];
@@ -195,9 +212,18 @@ export async function searchMarketsInDB(
 
   let query = db.select().from(polymarketMarkets);
 
-  // Filter by active status and search term
+  // Build where conditions
+  const conditions = [];
   if (activeOnly) {
-    query = query.where(eq(polymarketMarkets.active, true)) as any;
+    conditions.push(eq(polymarketMarkets.active, true));
+  }
+  if (category && category !== "Overall" && category !== "all") {
+    conditions.push(eq(polymarketMarkets.category, category));
+  }
+
+  // Apply where conditions
+  if (conditions.length > 0) {
+    query = query.where(and(...conditions)) as any;
   }
 
   // Sort

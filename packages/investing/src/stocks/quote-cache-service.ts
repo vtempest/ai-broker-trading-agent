@@ -17,8 +17,8 @@ const client = createClient({
 
 const db = drizzle(client, { schema });
 
-// Cache TTL in milliseconds (default: 1 minute for quotes)
-const QUOTE_CACHE_TTL = 60 * 1000; // 1 minute
+// Cache TTL in milliseconds (default: 5 minutes for quotes)
+const QUOTE_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 const FUNDAMENTALS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 const HISTORICAL_CACHE_TTL = 30 * 24 * 60 * 60 * 1000; // 30 days
 

@@ -110,20 +110,30 @@ export function TickerItem({
           <div
             key="d"
             className={cn(
-              "flex font-bold items-center text-sm rounded-md gap-0",
+              "flex font-bold items-center text-sm rounded-md gap-1",
               getChangeTextColor(data.changePercent, isDailyPositive),
               getChangeBackgroundClass(data.changePercent, isDailyPositive),
               getChangeBorderClass(data.changePercent, isDailyPositive)
             )}
           >
             {Math.abs(data.changePercent) > 2 && (
-              <span className="font-bold text-base tracking-wide tabular-nums">
+              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
                 {Math.round(data.changePercent)}{showPercentSign ? "%" : ""}
               </span>
             )}
             {useTextIcons ? (
-              <span className={cn(getChangeTextColor(data.changePercent, isDailyPositive))}>
-                <span className="text-xs">d</span>{data.changePercent >= 0 ? "▲" : "▼"}
+              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.changePercent, isDailyPositive))}>
+                {data.changePercent >= 0 ? (
+                  <>
+                    <span className="text-[10px]">▲</span>
+                    <span className="text-xs">d</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-xs">d</span>
+                    <span className="text-[10px]">▼</span>
+                  </>
+                )}
               </span>
             ) : (
               <ChangeIcon letter="d" direction={getChangeDirection(data.changePercent)} isPositive={isDailyPositive} />
@@ -136,20 +146,30 @@ export function TickerItem({
           <div
             key="w"
             className={cn(
-              "flex items-center font-semibold text-sm rounded-md gap-0",
+              "flex items-center font-semibold text-sm rounded-md gap-1",
               getChangeTextColor(data.weeklyChangePercent ?? 0, isWeeklyPositive),
               getChangeBackgroundClass(data.weeklyChangePercent ?? 0, isWeeklyPositive),
               getChangeBorderClass(data.weeklyChangePercent ?? 0, isWeeklyPositive)
             )}
           >
             {Math.abs(data.weeklyChangePercent ?? 0) > 2 && (
-              <span className="font-bold text-base tracking-wide tabular-nums">
+              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
                 {Math.round(data.weeklyChangePercent ?? 0)}{showPercentSign ? "%" : ""}
               </span>
             )}
             {useTextIcons ? (
-              <span className={cn(getChangeTextColor(data.weeklyChangePercent ?? 0, isWeeklyPositive))}>
-                <span className="text-xs">w</span>{(data.weeklyChangePercent ?? 0) >= 0 ? "▲" : "▼"}
+              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.weeklyChangePercent ?? 0, isWeeklyPositive))}>
+                {(data.weeklyChangePercent ?? 0) >= 0 ? (
+                  <>
+                    <span className="text-[10px]">▲</span>
+                    <span className="text-xs">w</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-xs">w</span>
+                    <span className="text-[10px]">▼</span>
+                  </>
+                )}
               </span>
             ) : (
               <ChangeIcon letter="w" direction={getChangeDirection(data.weeklyChangePercent ?? 0)} isPositive={isWeeklyPositive} />
@@ -161,20 +181,30 @@ export function TickerItem({
           <div
             key="m"
             className={cn(
-              "flex items-center font-semibold text-sm rounded-md gap-0",
+              "flex items-center font-semibold text-sm rounded-md gap-1",
               getChangeTextColor(data.monthlyChangePercent, isMonthlyPositive),
               getChangeBackgroundClass(data.monthlyChangePercent, isMonthlyPositive),
               getChangeBorderClass(data.monthlyChangePercent, isMonthlyPositive)
             )}
           >
             {Math.abs(data.monthlyChangePercent) > 2 && (
-              <span className="font-bold text-base tracking-wide tabular-nums">
+              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
                 {Math.round(data.monthlyChangePercent)}{showPercentSign ? "%" : ""}
               </span>
             )}
             {useTextIcons ? (
-              <span className={cn(getChangeTextColor(data.monthlyChangePercent, isMonthlyPositive))}>
-                <span className="text-xs">m</span>{data.monthlyChangePercent >= 0 ? "▲" : "▼"}
+              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.monthlyChangePercent, isMonthlyPositive))}>
+                {data.monthlyChangePercent >= 0 ? (
+                  <>
+                    <span className="text-[10px]">▲</span>
+                    <span className="text-xs">m</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-xs">m</span>
+                    <span className="text-[10px]">▼</span>
+                  </>
+                )}
               </span>
             ) : (
               <ChangeIcon letter="m" direction={getChangeDirection(data.monthlyChangePercent)} isPositive={isMonthlyPositive} />
@@ -186,20 +216,30 @@ export function TickerItem({
           <div
             key="y"
             className={cn(
-              "flex items-center font-semibold text-sm rounded-md gap-0",
+              "flex items-center font-semibold text-sm rounded-md gap-1",
               getChangeTextColor(data.yearlyChangePercent, isYearlyPositive),
               getChangeBackgroundClass(data.yearlyChangePercent, isYearlyPositive),
               getChangeBorderClass(data.yearlyChangePercent, isYearlyPositive)
             )}
           >
             {Math.abs(data.yearlyChangePercent) > 2 && (
-              <span className="font-bold text-base tracking-wide tabular-nums">
+              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
                 {Math.round(data.yearlyChangePercent)}{showPercentSign ? "%" : ""}
               </span>
             )}
             {useTextIcons ? (
-              <span className={cn(getChangeTextColor(data.yearlyChangePercent, isYearlyPositive))}>
-                <span className="text-xs">y</span>{data.yearlyChangePercent >= 0 ? "▲" : "▼"}
+              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.yearlyChangePercent, isYearlyPositive))}>
+                {data.yearlyChangePercent >= 0 ? (
+                  <>
+                    <span className="text-[10px]">▲</span>
+                    <span className="text-xs">y</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-xs">y</span>
+                    <span className="text-[10px]">▼</span>
+                  </>
+                )}
               </span>
             ) : (
               <ChangeIcon letter="y" direction={getChangeDirection(data.yearlyChangePercent)} isPositive={isYearlyPositive} />

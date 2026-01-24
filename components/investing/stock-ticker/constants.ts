@@ -1,16 +1,16 @@
-import type { WatchlistItem } from "./types"
+import type { WatchlistItem } from "./types";
 
-export const showPercentSign = false
+export const showPercentSign = false;
 
-export const BATCH_SIZE = 5 // Load 5 symbols at a time
-export const BATCH_DELAY = 20000 // 20 seconds between batches
+export const BATCH_SIZE = 5; // Load 5 symbols at a time
+export const BATCH_DELAY = 20000; // 20 seconds between batches
 
 export const defaultWatchlist: WatchlistItem[] = [
   // Major Indexes
   { symbol: "^GSPC", name: "S&P 500" },
   { symbol: "^DJI", name: "Dow Jones" },
   { symbol: "^IXIC", name: "NASDAQ" },
-  { symbol: "^VIX", name: "VIX" },
+  { symbol: "^VIX", name: "Volatility" },
 
   // Crypto
   { symbol: "BTC-USD", name: "Bitcoin" },
@@ -39,7 +39,7 @@ export const defaultWatchlist: WatchlistItem[] = [
   { symbol: "MCD", name: "McDonald's" },
   { symbol: "NKE", name: "Nike" },
   { symbol: "SBUX", name: "Starbucks" },
-  { symbol: "KO", name: "Coca-Cola" },
+  { symbol: "SNDK", name: "Sandisk" },
   { symbol: "PEP", name: "Pepsi" },
   { symbol: "COST", name: "Costco" },
 
@@ -77,4 +77,4 @@ export const defaultWatchlist: WatchlistItem[] = [
   { symbol: "GC=F", name: "Gold" },
   { symbol: "SI=F", name: "Silver" },
   { symbol: "CL=F", name: "Crude Oil" },
-]
+];

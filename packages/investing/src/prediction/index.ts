@@ -25,6 +25,7 @@ export * from "./analysis/detector";
 
 // Re-export sync functions
 export * from "./sync/markets";
+export * from "./sync/incremental-markets";
 export * from "./sync/leaderboard";
 export * from "./sync/prices";
 export * from "./sync/holders";

@@ -33,6 +33,8 @@ interface PolymarketMarket {
   description?: string
   endDate?: string
   tags?: string[]
+  category?: string
+  subcategory?: string
   priceChanges?: {
     daily: number | null
     weekly: number | null
@@ -324,17 +326,6 @@ export function PredictionMarketsTab() {
       {/* Header */}
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h2 className="text-2xl font-bold">Most Traded Prediction Markets</h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Live from Polymarket • {filteredMarkets.length} active markets
-              {searchTerm && (
-                <span className="ml-2 text-primary font-medium">
-                  • Searching for "{searchTerm}"
-                </span>
-              )}
-            </p>
-          </div>
 
           <div className="flex gap-2">
             <Button
@@ -573,15 +564,29 @@ export function PredictionMarketsTab() {
                       </Badge> */}
                     </div>
 
-                    {market.tags && market.tags.length > 0 && (
-                      <div className="flex gap-2 flex-wrap mt-2">
-                        {market.tags.slice(0, 3).map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
-                            {tag}
+                    <div className="flex gap-2 flex-wrap mt-2">
+                      {market.category && (
+                        <div className="flex gap-1 items-center">
+                          <Badge variant="default" className="text-xs font-semibold">
+                            {market.category}
                           </Badge>
-                        ))}
-                      </div>
-                    )}
+                          {market.subcategory && (
+                            <Badge variant="outline" className="text-xs">
+                              {market.subcategory}
+                            </Badge>
+                          )}
+                        </div>
+                      )}
+                      {market.tags && market.tags.length > 0 && (
+                        <>
+                          {market.tags.slice(0, 3).map((tag) => (
+                            <Badge key={tag} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -680,44 +685,44 @@ export function PredictionMarketsTab() {
             </div>
           </Card>
         ))}
-    </div>
-
-      {/* Infinite scroll trigger */ }
-  <div ref={observerTarget} className="h-10 flex items-center justify-center">
-    {loadingMore && (
-      <div className="flex items-center gap-2 text-muted-foreground">
-        <Loader2 className="h-5 w-5 animate-spin" />
-        <span>Loading more markets...</span>
       </div>
-    )}
-  </div>
 
-  {
-    markets.length === 0 && !loading && (
-      <Card className="p-12 text-center">
-        <Activity className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-        <h3 className="text-xl font-bold mb-2">No Markets Found</h3>
-        <p className="text-muted-foreground">
-          {searchTerm
-            ? `No markets found matching "${searchTerm}". Try a different search term.`
-            : 'Unable to load prediction markets at this time.'}
-        </p>
-        {searchTerm && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setSearchQuery('')
-              setSearchTerm('')
-            }}
-            className="mt-4"
-          >
-            Clear Search
-          </Button>
+      {/* Infinite scroll trigger */}
+      <div ref={observerTarget} className="h-10 flex items-center justify-center">
+        {loadingMore && (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>Loading more markets...</span>
+          </div>
         )}
-      </Card>
-    )
-  }
+      </div>
+
+      {
+        markets.length === 0 && !loading && (
+          <Card className="p-12 text-center">
+            <Activity className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2">No Markets Found</h3>
+            <p className="text-muted-foreground">
+              {searchTerm
+                ? `No markets found matching "${searchTerm}". Try a different search term.`
+                : 'Unable to load prediction markets at this time.'}
+            </p>
+            {searchTerm && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setSearchQuery('')
+                  setSearchTerm('')
+                }}
+                className="mt-4"
+              >
+                Clear Search
+              </Button>
+            )}
+          </Card>
+        )
+      }
     </div >
   )
 }
