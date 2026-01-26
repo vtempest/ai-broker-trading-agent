@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { createChart, IChartApi, ISeriesApi, LineData } from "lightweight-charts"
+import { createChart, IChartApi, ISeriesApi, LineSeries, LineData } from "lightweight-charts"
 
 interface PriceHistoryData {
   timestamp: number
@@ -63,7 +63,7 @@ export function PolymarketPriceChart({
     chartRef.current = chart
 
     // Create line series
-    const lineSeries = chart.addLineSeries({
+    const lineSeries = chart.addSeries(LineSeries, {
       color: "#3b82f6",
       lineWidth: 2,
       priceLineVisible: false,
