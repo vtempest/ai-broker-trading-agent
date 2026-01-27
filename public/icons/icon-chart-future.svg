@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .axis { stroke:#4b5a66; stroke-width:16; fill:none; stroke-linecap:round; }
+      .line { stroke:#4b5a66; stroke-width:14; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+      .dot { fill:#4b5a66; }
+      .bar-red { fill:#d8656a; }
+      .bar-green { fill:#00a884; }
+      .circle-green { fill:#00a884; }
+      .circle-red { fill:#d6525a; }
+      .arrow { fill:white; }
+      .dash { stroke:#9aa8b3; stroke-width:10; stroke-dasharray:12 14; stroke-linecap:round; }
+    </style>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="60" y1="60" x2="60" y2="440" class="axis"/>
+  <line x1="60" y1="440" x2="460" y2="440" class="axis"/>
+
+  <!-- Bars -->
+  <polygon points="120,440 120,300 170,260 170,440" class="bar-red"/>
+  <polygon points="190,440 190,220 240,160 240,440" class="bar-green"/>
+  <polygon points="260,440 260,280 310,240 310,440" class="bar-red"/>
+
+  <!-- Line chart -->
+  <polyline points="100,320 180,260 260,300 320,240" class="line"/>
+
+  <!-- Point -->
+  <circle cx="320" cy="240" r="16" class="dot"/>
+
+  <!-- Dotted projection line -->
+  <line x1="320" y1="240" x2="400" y2="200" class="dash"/>
+
+  <!-- Up circle -->
+  <circle cx="420" cy="160" r="48" class="circle-green"/>
+  <polygon points="420,120 395,155 410,155 410,200 430,200 430,155 445,155" class="arrow"/>
+
+  <!-- Down circle -->
+  <circle cx="420" cy="340" r="48" class="circle-red"/>
+  <polygon points="420,380 395,345 410,345 410,300 430,300 430,345 445,345" class="arrow"/>
+</svg>

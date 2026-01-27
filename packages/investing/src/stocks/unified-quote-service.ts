@@ -1,11 +1,19 @@
 /**
  * Unified Quote Service
- * Combines finnhub, yfinance, and alpaca APIs with automatic fallback
- * Priority: cache -> finnhub -> yfinance -> alpaca
+ * Combines yfinance and alpaca APIs with automatic fallback
+ * Priority: cache -> yfinance (10s timeout) -> alpaca
  * Caches all fetched quotes to database
  *
- * Note: finnhub is preferred for most reliable stock data
+ * Note: yfinance is preferred for most reliable stock data
  */
+
+// Helper to add timeout to a promise
+function withTimeout<T>(promise: Promise<T>, ms: number, timeoutMessage: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(timeoutMessage)), ms)),
+  ]);
+}
 
 import { yahooFinanceWrapper as yahooFinance } from "./yahoo-finance-wrapper";
 import { finnhub } from "./finnhub-wrapper";
@@ -56,7 +64,7 @@ export interface QuotesServiceResponse {
 export class UnifiedQuoteService {
   /**
    * Get a single stock quote with automatic fallback
-   * Tries: cache -> finnhub -> yfinance -> alpaca
+   * Tries: cache -> yfinance (10s timeout) -> alpaca
    * @param symbol - Stock symbol to fetch
    * @param options - Options object with useCache flag (default: true) and cacheTTL in milliseconds
    */
@@ -79,46 +87,14 @@ export class UnifiedQuoteService {
       console.log(`[UnifiedQuote] Skipping cache for ${symbol} (live data requested)`);
     }
 
-    // Try finnhub first (most reliable for stock data)
-    try {
-      console.log(`[UnifiedQuote] Trying finnhub for ${symbol}...`);
-      const finnhubResult = await finnhub.getQuote({ symbol });
-
-      if (finnhubResult.success && finnhubResult.data) {
-        const data = finnhubResult.data;
-        const normalized: NormalizedQuote = {
-          symbol,
-          price: data.price?.regularMarketPrice || 0,
-          change: data.price?.regularMarketChange || null,
-          changePercent: data.price?.regularMarketChangePercent || null,
-          open: data.summaryDetail?.open || null,
-          high: data.summaryDetail?.dayHigh || null,
-          low: data.summaryDetail?.dayLow || null,
-          previousClose: data.summaryDetail?.previousClose || null,
-          volume: data.summaryDetail?.regularMarketVolume || null,
-          marketCap: data.price?.marketCap || null,
-          currency: data.price?.currency || "USD",
-          name: data.price?.longName || data.price?.shortName || symbol,
-          exchange: data.price?.exchange || null,
-          timestamp: data.price?.regularMarketTime || new Date(),
-          source: "finnhub",
-        };
-
-        console.log(`[UnifiedQuote] ✓ finnhub succeeded for ${symbol}`);
-
-        // Save to cache
-        await quoteCacheService.saveQuoteToCache(normalized);
-
-        return { success: true, data: normalized };
-      }
-    } catch (error: any) {
-      console.log(`[UnifiedQuote] ✗ finnhub failed for ${symbol}: ${error.message}`);
-    }
-
-    // Try yfinance as second fallback
+    // Try yfinance first with 10s timeout
     try {
       console.log(`[UnifiedQuote] Trying yfinance for ${symbol}...`);
-      const yfinanceResult = await yahooFinance.getQuote(symbol);
+      const yfinanceResult = await withTimeout(
+        yahooFinance.getQuote(symbol),
+        10000,
+        `yfinance timeout after 10s for ${symbol}`
+      );
 
       if (yfinanceResult.success && yfinanceResult.data) {
         const data = yfinanceResult.data as any;
@@ -151,7 +127,7 @@ export class UnifiedQuoteService {
       console.log(`[UnifiedQuote] ✗ yfinance failed for ${symbol}: ${error.message}`);
     }
 
-    // Try alpaca as third fallback
+    // Try alpaca as second fallback
     try {
       console.log(`[UnifiedQuote] Trying alpaca for ${symbol}...`);
       const alpacaClient = getAlpacaMCPClient();
@@ -192,13 +168,13 @@ export class UnifiedQuoteService {
     console.error(`[UnifiedQuote] All sources failed for ${symbol}`);
     return {
       success: false,
-      error: `Failed to fetch quote for ${symbol} from all sources (finnhub, yfinance, alpaca)`,
+      error: `Failed to fetch quote for ${symbol} from all sources (yfinance, alpaca)`,
     };
   }
 
   /**
    * Get multiple stock quotes with automatic fallback
-   * Tries: cache -> individual fetch (finnhub -> yfinance -> alpaca)
+   * Tries: cache -> individual fetch (yfinance -> alpaca)
    * @param symbols - Array of stock symbols to fetch
    * @param options - Options object with useCache flag (default: true) and cacheTTL in milliseconds
    */

@@ -14,13 +14,33 @@ import { cleanCompanyName } from "@/packages/investing/src/stocks/stock-names"
 import { ChangeIcon } from "./change-icon"
 import { getStockLogoUrl } from "./utils"
 import { showPercentSign } from "./constants"
-import type { TickerData, TickerDisplayProps } from "./types"
+import type { ChangeType, TickerData } from "./types"
 
-interface TickerItemProps extends TickerDisplayProps {
-  data: TickerData
-  orderHistorical?: boolean
-  useTextIcons?: boolean
+interface TickerItemProps {
+  /** Whether to display the stock/index logo icon. @default true */
+  showIcon?: boolean;
+  /** Whether to display the ticker symbol (e.g., "AAPL"). @default false */
+  showSymbol?: boolean;
+  /** Whether to display the company/index name. @default true */
+  showName?: boolean;
+  /** Whether to display the price for stocks. @default false */
+  showPriceStock?: boolean;
+  /** Whether to display the price for indices. @default false */
+  showPriceIndex?: boolean;
+  /** Which time intervals to show change indicators for ('d', 'w', 'm', 'y'). @default ['d', 'w', 'm', 'y'] */
+  enabledIntervals?: ChangeType[];
+  /** The ticker data containing price, changes, and metadata. */
+  data: TickerData;
+  /** Whether to order intervals from oldest to newest (y, m, w, d). @default true */
+  orderHistorical?: boolean;
+  /** Whether to show delta symbols (▲/▼) instead of triangle icons. @default true */
+  showDeltaSymbols?: boolean;
+  /** Whether to show the minus sign for negative changes. @default false */
+  showMinusSign?: boolean;
+  /** Threshold below which change percent is considered neutral and not displayed. @default 5 */
+  setNeutralMagnitude?: number;
 }
+
 
 export function TickerItem({
   data,
@@ -29,9 +49,11 @@ export function TickerItem({
   showName = true,
   showPriceStock = false,
   showPriceIndex = false,
-  enabledChanges = ['d', 'w', 'm', 'y'],
+  enabledIntervals = ['d', 'w', 'm', 'y'],
   orderHistorical = true,
-  useTextIcons = true
+  showMinusSign = false,
+  showDeltaSymbols = true,
+  setNeutralMagnitude = 5,
 }: TickerItemProps) {
   const router = useRouter()
 
@@ -49,7 +71,7 @@ export function TickerItem({
   const getChangeBackgroundClass = (changePercent: number, isPositive: boolean) => {
     const absChange = Math.abs(changePercent)
 
-    if (absChange <= 2) {
+    if (absChange <= setNeutralMagnitude) {
       return "" // No background for small changes
     } else if (absChange >= 100) {
       return isPositive ? "bg-emerald-500/50" : "bg-red-500/50"
@@ -69,7 +91,7 @@ export function TickerItem({
   // Get text color class based on change magnitude (no color for changes <= 2%)
   const getChangeTextColor = (changePercent: number, isPositive: boolean) => {
     const absChange = Math.abs(changePercent)
-    if (absChange <= 2) {
+    if (absChange <= setNeutralMagnitude) {
       return "text-muted-foreground" // Muted color for small changes
     }
     return isPositive ? "text-emerald-500" : "text-red-500"
@@ -100,155 +122,61 @@ export function TickerItem({
   // Determine the order of time periods
   const timePeriodsOrder = orderHistorical ? ['y', 'm', 'w', 'd'] : ['d', 'w', 'm', 'y']
 
-  // Render change indicator for a given time period
-  const renderChangeIndicator = (period: string) => {
-    if (!enabledChanges.includes(period)) return null
-
+  // Get change data for a given time period
+  const getChangeData = (period: string) => {
     switch (period) {
-      case 'd':
-        return (
-          <div
-            key="d"
-            className={cn(
-              "flex font-bold items-center text-sm rounded-md gap-1",
-              getChangeTextColor(data.changePercent, isDailyPositive),
-              getChangeBackgroundClass(data.changePercent, isDailyPositive),
-              getChangeBorderClass(data.changePercent, isDailyPositive)
-            )}
-          >
-            {Math.abs(data.changePercent) > 2 && (
-              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
-                {Math.round(data.changePercent)}{showPercentSign ? "%" : ""}
-              </span>
-            )}
-            {useTextIcons ? (
-              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.changePercent, isDailyPositive))}>
-                {data.changePercent >= 0 ? (
-                  <>
-                    <span className="text-[10px]">▲</span>
-                    <span className="text-xs">d</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-xs">d</span>
-                    <span className="text-[10px]">▼</span>
-                  </>
-                )}
-              </span>
-            ) : (
-              <ChangeIcon letter="d" direction={getChangeDirection(data.changePercent)} isPositive={isDailyPositive} />
-            )}
-          </div>
-        )
-      case 'w':
-        if (!hasWeeklyData) return null
-        return (
-          <div
-            key="w"
-            className={cn(
-              "flex items-center font-semibold text-sm rounded-md gap-1",
-              getChangeTextColor(data.weeklyChangePercent ?? 0, isWeeklyPositive),
-              getChangeBackgroundClass(data.weeklyChangePercent ?? 0, isWeeklyPositive),
-              getChangeBorderClass(data.weeklyChangePercent ?? 0, isWeeklyPositive)
-            )}
-          >
-            {Math.abs(data.weeklyChangePercent ?? 0) > 2 && (
-              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
-                {Math.round(data.weeklyChangePercent ?? 0)}{showPercentSign ? "%" : ""}
-              </span>
-            )}
-            {useTextIcons ? (
-              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.weeklyChangePercent ?? 0, isWeeklyPositive))}>
-                {(data.weeklyChangePercent ?? 0) >= 0 ? (
-                  <>
-                    <span className="text-[10px]">▲</span>
-                    <span className="text-xs">w</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-xs">w</span>
-                    <span className="text-[10px]">▼</span>
-                  </>
-                )}
-              </span>
-            ) : (
-              <ChangeIcon letter="w" direction={getChangeDirection(data.weeklyChangePercent ?? 0)} isPositive={isWeeklyPositive} />
-            )}
-          </div>
-        )
-      case 'm':
-        return (
-          <div
-            key="m"
-            className={cn(
-              "flex items-center font-semibold text-sm rounded-md gap-1",
-              getChangeTextColor(data.monthlyChangePercent, isMonthlyPositive),
-              getChangeBackgroundClass(data.monthlyChangePercent, isMonthlyPositive),
-              getChangeBorderClass(data.monthlyChangePercent, isMonthlyPositive)
-            )}
-          >
-            {Math.abs(data.monthlyChangePercent) > 2 && (
-              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
-                {Math.round(data.monthlyChangePercent)}{showPercentSign ? "%" : ""}
-              </span>
-            )}
-            {useTextIcons ? (
-              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.monthlyChangePercent, isMonthlyPositive))}>
-                {data.monthlyChangePercent >= 0 ? (
-                  <>
-                    <span className="text-[10px]">▲</span>
-                    <span className="text-xs">m</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-xs">m</span>
-                    <span className="text-[10px]">▼</span>
-                  </>
-                )}
-              </span>
-            ) : (
-              <ChangeIcon letter="m" direction={getChangeDirection(data.monthlyChangePercent)} isPositive={isMonthlyPositive} />
-            )}
-          </div>
-        )
-      case 'y':
-        return (
-          <div
-            key="y"
-            className={cn(
-              "flex items-center font-semibold text-sm rounded-md gap-1",
-              getChangeTextColor(data.yearlyChangePercent, isYearlyPositive),
-              getChangeBackgroundClass(data.yearlyChangePercent, isYearlyPositive),
-              getChangeBorderClass(data.yearlyChangePercent, isYearlyPositive)
-            )}
-          >
-            {Math.abs(data.yearlyChangePercent) > 2 && (
-              <span className="font-bold text-base tracking-wide  ml-1 tabular-nums">
-                {Math.round(data.yearlyChangePercent)}{showPercentSign ? "%" : ""}
-              </span>
-            )}
-            {useTextIcons ? (
-              <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(data.yearlyChangePercent, isYearlyPositive))}>
-                {data.yearlyChangePercent >= 0 ? (
-                  <>
-                    <span className="text-[10px]">▲</span>
-                    <span className="text-xs">y</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-xs">y</span>
-                    <span className="text-[10px]">▼</span>
-                  </>
-                )}
-              </span>
-            ) : (
-              <ChangeIcon letter="y" direction={getChangeDirection(data.yearlyChangePercent)} isPositive={isYearlyPositive} />
-            )}
-          </div>
-        )
-      default:
-        return null
+      case 'd': return { changePercent: data.changePercent, isPositive: isDailyPositive }
+      case 'w': return { changePercent: data.weeklyChangePercent, isPositive: isWeeklyPositive }
+      case 'm': return { changePercent: data.monthlyChangePercent, isPositive: isMonthlyPositive }
+      case 'y': return { changePercent: data.yearlyChangePercent, isPositive: isYearlyPositive }
+      default: return null
     }
+  }
+
+  // Render change indicator for a given time period
+  const renderChangeIndicator = (period: ChangeType) => {
+    if (!enabledIntervals.includes(period)) return null
+    if (period === 'w' && !hasWeeklyData) return null
+
+    const changeData = getChangeData(period)
+    if (!changeData) return null
+
+    const { changePercent, isPositive } = changeData
+
+    return (
+      <div
+        key={period}
+        className={cn(
+          "flex items-center font-semibold text-sm rounded-md",
+          getChangeTextColor(changePercent, isPositive),
+          getChangeBackgroundClass(changePercent, isPositive),
+          getChangeBorderClass(changePercent, isPositive)
+        )}
+      >
+        {Math.abs(changePercent) > setNeutralMagnitude && (
+          <span className="font-bold text-base tracking-wide tabular-nums">
+            {!showMinusSign ? Math.abs(Math.round(changePercent)) : Math.round(changePercent)}{showPercentSign ? "%" : ""}
+          </span>
+        )}
+        {showDeltaSymbols ? (
+          <span className={cn("flex flex-col items-center leading-none", getChangeTextColor(changePercent, isPositive))}>
+            {changePercent >= 0 ? (
+              <>
+                <span className="text-[10px]">▲</span>
+                <span className="text-xs">{period}</span>
+              </>
+            ) : (
+              <>
+                <span className="text-xs">{period}</span>
+                <span className="text-[10px]">▼</span>
+              </>
+            )}
+          </span>
+        ) : (
+          <ChangeIcon letter={period} direction={getChangeDirection(changePercent)} isPositive={isPositive} />
+        )}
+      </div>
+    )
   }
 
   return (
@@ -273,14 +201,14 @@ export function TickerItem({
               <span className="font-semibold text-foreground/80">{data.symbol}</span>
             )}
             {showName && (
-              <span className="font-medium text-foreground pl-1 pr-2">{cleanCompanyName(data.name)}</span>
+              <span className="font-medium text-foreground ml-[2px] mr-1">{cleanCompanyName(data.name)}</span>
             )}
             {showPrice && (
               <span className="font-mono text-foreground/90">
                 ${data.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             )}
-            {timePeriodsOrder.map(period => renderChangeIndicator(period))}
+            {timePeriodsOrder.map(period => renderChangeIndicator(period as ChangeType))}
             <span className="text-muted-foreground/50">|</span>
           </div>
         </TooltipTrigger>
