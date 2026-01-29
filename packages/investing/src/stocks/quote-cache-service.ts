@@ -17,13 +17,19 @@ const client = createClient({
 
 const db = drizzle(client, { schema });
 
-// Cache TTL in milliseconds (default: 5 minutes for quotes)
-const QUOTE_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+// Cache TTL in milliseconds
 const FUNDAMENTALS_CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-const HISTORICAL_CACHE_TTL = 30 * 24 * 60 * 60 * 1000; // 30 days
 
-export interface CachedQuote extends NormalizedQuote {
-  lastFetched: Date;
+export interface CachedQuote {
+  symbol: string;
+  price: number;
+  change: number | null;
+  changePercent: number | null;
+  open: number | null;
+  high: number | null;
+  low: number | null;
+  previousClose: number | null;
+  volume: number | null;
 }
 
 export interface HistoricalQuote {
@@ -48,9 +54,9 @@ export class QuoteCacheService {
   }
 
   /**
-   * Get cached quote if available and fresh
+   * Get cached quote if available
    */
-  async getCachedQuote(symbol: string, customTTL?: number): Promise<CachedQuote | null> {
+  async getCachedQuote(symbol: string): Promise<CachedQuote | null> {
     try {
       const cached = await db
         .select()
@@ -63,15 +69,6 @@ export class QuoteCacheService {
       }
 
       const quote = cached[0];
-      const now = new Date();
-      const lastFetched = new Date(quote.lastFetched);
-      const age = now.getTime() - lastFetched.getTime();
-
-      // Check if cache is still fresh (use custom TTL if provided)
-      const ttl = customTTL ?? QUOTE_CACHE_TTL;
-      if (age > ttl) {
-        return null;
-      }
 
       return {
         symbol: quote.symbol,
@@ -83,13 +80,6 @@ export class QuoteCacheService {
         low: quote.low,
         previousClose: quote.previousClose,
         volume: quote.volume,
-        marketCap: quote.marketCap,
-        currency: quote.currency || "USD",
-        name: quote.name,
-        exchange: quote.exchange,
-        timestamp: lastFetched,
-        source: quote.source as "yfinance" | "finnhub" | "alpaca",
-        lastFetched,
       };
     } catch (error: any) {
       console.error(`[QuoteCache] Error reading cache for ${symbol}:`, error.message);
@@ -102,7 +92,6 @@ export class QuoteCacheService {
    */
   async saveQuoteToCache(quote: NormalizedQuote): Promise<void> {
     try {
-      const now = new Date();
       const symbol = quote.symbol.toUpperCase();
 
       // Round all price values to 2 decimal places
@@ -116,14 +105,6 @@ export class QuoteCacheService {
         low: this.roundPrice(quote.low),
         previousClose: this.roundPrice(quote.previousClose),
         volume: quote.volume,
-        marketCap: quote.marketCap,
-        currency: quote.currency || "USD",
-        name: quote.name,
-        exchange: quote.exchange,
-        source: quote.source,
-        lastFetched: now,
-        createdAt: now,
-        updatedAt: now,
       };
 
       await db
@@ -140,13 +121,6 @@ export class QuoteCacheService {
             low: roundedData.low,
             previousClose: roundedData.previousClose,
             volume: roundedData.volume,
-            marketCap: roundedData.marketCap,
-            currency: roundedData.currency,
-            name: roundedData.name,
-            exchange: roundedData.exchange,
-            source: roundedData.source,
-            lastFetched: now,
-            updatedAt: now,
           },
         });
     } catch (error: any) {

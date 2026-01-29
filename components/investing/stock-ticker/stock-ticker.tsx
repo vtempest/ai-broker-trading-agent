@@ -16,11 +16,7 @@ import { Badge } from "@/components/ui/badge"
 import { TickerItem } from "./ticker-item"
 import { fetchTickerData } from "./utils"
 import { defaultWatchlist, BATCH_SIZE, BATCH_DELAY } from "./constants"
-import type { TickerData, WatchlistItem, TickerDisplayProps } from "./types"
-
-interface StockTickerProps extends TickerDisplayProps {
-  fixed?: "top" | "bottom"
-}
+import type { TickerData, WatchlistItem, TickerItemProps } from "./types"
 
 export function StockTicker({
   showIcon,
@@ -28,9 +24,9 @@ export function StockTicker({
   showName,
   showPriceStock,
   showPriceIndex,
-  enabledChanges,
+  enabledIntervals,
   fixed
-}: StockTickerProps = {}) {
+}: TickerItemProps = {}) {
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>(defaultWatchlist)
   const [tickerData, setTickerData] = useState<TickerData[]>([])
   const [isPaused, setIsPaused] = useState(false)
@@ -188,7 +184,7 @@ export function StockTicker({
               showName={showName}
               showPriceStock={showPriceStock}
               showPriceIndex={showPriceIndex}
-              enabledChanges={enabledChanges}
+              enabledIntervals={enabledIntervals}
             />
           ))}
           {tickerData.map((data, index) => (
@@ -200,7 +196,7 @@ export function StockTicker({
               showName={showName}
               showPriceStock={showPriceStock}
               showPriceIndex={showPriceIndex}
-              enabledChanges={enabledChanges}
+              enabledIntervals={enabledIntervals}
             />
           ))}
         </div>

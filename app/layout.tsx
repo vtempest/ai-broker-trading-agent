@@ -44,7 +44,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider defaultOpen={true}>
+          <SidebarProvider defaultOpen={false}>
 
             <AppSidebar />
             <SidebarInset className="md:pb-0 overflow-x-hidden">

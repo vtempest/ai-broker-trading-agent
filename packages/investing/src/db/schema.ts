@@ -715,14 +715,6 @@ export const stockQuoteCache = sqliteTable("stock_quote_cache", {
   low: real("low"),
   previousClose: real("previous_close"),
   volume: real("volume"),
-  marketCap: real("market_cap"),
-  currency: text("currency").default("USD"),
-  name: text("name"),
-  exchange: text("exchange"),
-  source: text("source").notNull(), // yfinance, finnhub, alpaca
-  lastFetched: integer("last_fetched", { mode: "timestamp" }).notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
 // Stock Fundamentals - Store fundamental data like PE ratio, etc.

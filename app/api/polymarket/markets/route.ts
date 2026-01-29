@@ -66,6 +66,7 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "50");
+    const offset = parseInt(searchParams.get("offset") || "0");
     const window = searchParams.get("window") || "24h";
     const category = searchParams.get("category") || undefined;
     const sync = searchParams.get("sync") === "true";
@@ -76,6 +77,7 @@ export async function GET(request: NextRequest) {
       const sortBy = window === "total" ? "volumeTotal" : "volume24hr";
       const searchResults = await searchMarketsInDB(search, {
         limit,
+        offset,
         sortBy: sortBy as any,
         category,
         activeOnly: true,
@@ -153,6 +155,7 @@ export async function GET(request: NextRequest) {
     // Get markets from database
     const markets = await getMarkets({
       limit,
+      offset,
       sortBy: sortBy as any,
       category,
       activeOnly: true,

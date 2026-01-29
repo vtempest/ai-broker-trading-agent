@@ -139,6 +139,7 @@ export async function saveMarkets(marketsData: any[]) {
 export async function getMarkets(
   options: {
     limit?: number;
+    offset?: number;
     sortBy?: "volume24hr" | "volumeTotal" | "createdAt";
     category?: string;
     activeOnly?: boolean;
@@ -146,6 +147,7 @@ export async function getMarkets(
 ) {
   const {
     limit = 50,
+    offset = 0,
     sortBy = "volume24hr",
     category,
     activeOnly = true,
@@ -177,8 +179,8 @@ export async function getMarkets(
 
   query = query.orderBy(desc(orderByColumn)) as any;
 
-  // Apply limit
-  query = query.limit(limit) as any;
+  // Apply limit and offset
+  query = query.limit(limit).offset(offset) as any;
 
   const results = await query;
 
@@ -199,12 +201,13 @@ export async function searchMarketsInDB(
   searchTerm: string,
   options: {
     limit?: number;
+    offset?: number;
     sortBy?: "volume24hr" | "volumeTotal" | "createdAt";
     category?: string;
     activeOnly?: boolean;
   } = {},
 ) {
-  const { limit = 50, sortBy = "volume24hr", category, activeOnly = true } = options;
+  const { limit = 50, offset = 0, sortBy = "volume24hr", category, activeOnly = true } = options;
 
   if (!searchTerm || searchTerm.trim() === "") {
     return [];
@@ -244,8 +247,8 @@ export async function searchMarketsInDB(
     return market.question.toLowerCase().includes(searchLower);
   });
 
-  // Apply limit
-  return filteredResults.slice(0, limit);
+  // Apply offset and limit
+  return filteredResults.slice(offset, offset + limit);
 }
 
 /**

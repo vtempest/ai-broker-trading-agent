@@ -151,15 +151,37 @@ export function PredictionMarketsTab() {
   const [priceHistory, setPriceHistory] = useState<Record<string, PriceHistoryData[]>>({})
   const observerTarget = useRef<HTMLDivElement>(null)
 
+  const loadMore = useCallback(async () => {
+    if (loadingMore) return
+    setLoadingMore(true)
+    const pageSize = 20
+    try {
+      const categoryParam = selectedCategory !== 'all' ? `&category=${selectedCategory}` : ''
+      const searchParam = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''
+      const response = await fetch(`/api/polymarket/markets?limit=${pageSize}&offset=${markets.length}&window=${timeWindow}${categoryParam}${searchParam}`)
+      const data = await response.json()
+
+      if (data.success && data.markets.length > 0) {
+        setMarkets(prev => [...prev, ...data.markets])
+        // Fetch price history for new markets only
+        fetchPriceHistoryForMarkets(data.markets, false)
+      }
+    } catch (error) {
+      console.error('Error loading more markets:', error)
+    } finally {
+      setLoadingMore(false)
+    }
+  }, [loadingMore, markets.length, selectedCategory, searchTerm, timeWindow])
+
   useEffect(() => {
     fetchMarkets()
-  }, [limit, timeWindow, selectedCategory, searchTerm])
+  }, [timeWindow, selectedCategory, searchTerm])
 
   // Infinite scroll observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !loading && !loadingMore && markets.length >= limit) {
+        if (entries[0].isIntersecting && !loading && !loadingMore && markets.length > 0) {
           loadMore()
         }
       },
@@ -176,14 +198,7 @@ export function PredictionMarketsTab() {
         observer.unobserve(currentTarget)
       }
     }
-  }, [loading, loadingMore, markets.length, limit])
-
-  const loadMore = useCallback(() => {
-    if (!loadingMore && markets.length >= limit) {
-      setLoadingMore(true)
-      setLimit(prev => prev + 20)
-    }
-  }, [loadingMore, markets.length, limit])
+  }, [loading, loadingMore, markets.length, loadMore])
 
 
   const fetchMarkets = async (sync = false) => {
@@ -208,11 +223,11 @@ export function PredictionMarketsTab() {
     }
   }
 
-  const fetchPriceHistoryForMarkets = async (markets: PolymarketMarket[], sync = false) => {
+  const fetchPriceHistoryForMarkets = async (marketsToFetch: PolymarketMarket[], sync = false) => {
     const historyData: Record<string, PriceHistoryData[]> = {}
 
     // Fetch price history for first token of each market (typically "Yes" outcome)
-    for (const market of markets) {
+    for (const market of marketsToFetch) {
       if (market.clobTokenIds && market.clobTokenIds.length > 0) {
         try {
           const tokenId = market.clobTokenIds[0] // First token (usually "Yes")
@@ -229,7 +244,8 @@ export function PredictionMarketsTab() {
       }
     }
 
-    setPriceHistory(historyData)
+    // Merge with existing price history instead of replacing
+    setPriceHistory(prev => ({ ...prev, ...historyData }))
   }
 
   const syncMarkets = async () => {
