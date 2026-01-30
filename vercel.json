@@ -8,10 +8,6 @@
     {
       "path": "/api/cron/refresh-quotes",
       "schedule": "0 0 * * *"
-    },
-    {
-      "path": "/api/cron/sync-polymarket",
-      "schedule": "*/5 * * * *"
     }
   ]
 }
