@@ -1,0 +1,656 @@
+{
+  "financial_data_providers": [
+    {
+      "name": "Alpha Vantage",
+      "domain": "alphavantage.co",
+      "description": "Provides realtime and historical financial market data through powerful developer-friendly APIs and spreadsheets. Covers traditional asset classes, economic indicators, forex rates, commodities, fundamental data, and technical indicators.",
+      "data_types": [
+        "Stock prices (realtime and historical)",
+        "ETF data",
+        "Mutual fund data",
+        "Economic indicators",
+        "Foreign exchange rates",
+        "Commodity prices",
+        "Fundamental company data",
+        "Technical indicators"
+      ],
+      "endpoints": [
+        "Stock time series data",
+        "FX rates",
+        "Economic indicators",
+        "Technical analysis"
+      ],
+      "pypi_package": "openbb-alpha-vantage",
+      "access_model": "API-based"
+    },
+    {
+      "name": "Benzinga",
+      "domain": "benzinga.com",
+      "description": "Financial data provider with APIs focused on information that moves the market. Specializes in market-moving news and data.",
+      "data_types": [
+        "Market-moving news",
+        "Financial alerts",
+        "Market data"
+      ],
+      "endpoints": [
+        "News endpoints",
+        "Market alerts"
+      ],
+      "pypi_package": "openbb-benzinga",
+      "access_model": "API-based"
+    },
+    {
+      "name": "BizToc",
+      "domain": "api.biztoc.com",
+      "description": "Financial news aggregator using Rapid API for REST API access. Provides news stream integrated with OpenBB Terminal.",
+      "data_types": [
+        "Financial news",
+        "News stream aggregation"
+      ],
+      "endpoints": [
+        "News API",
+        "Market news stream"
+      ],
+      "pypi_package": "openbb-biztoc",
+      "access_model": "REST API via RapidAPI",
+      "base_url": "https://biztoc.p.rapidapi.com/"
+    },
+    {
+      "name": "Bureau of Labor Statistics (BLS)",
+      "domain": "bls.gov",
+      "description": "U.S. government agency providing public access to economic data from all BLS programs through its Public Data API.",
+      "data_types": [
+        "Employment statistics",
+        "Unemployment rates",
+        "Labor force data",
+        "Consumer price index",
+        "Producer price index",
+        "Economic indicators"
+      ],
+      "endpoints": [
+        "Employment data",
+        "Price indices",
+        "Economic time series"
+      ],
+      "pypi_package": "openbb-bls",
+      "access_model": "Public API v2"
+    },
+    {
+      "name": "Chicago Board Options Exchange (CBOE)",
+      "domain": "cboe.com",
+      "description": "World's leading derivatives and exchange network providing trading, clearing, and investment solutions. Delivers cutting-edge market data.",
+      "data_types": [
+        "Options market data",
+        "Volatility indices",
+        "Derivatives pricing",
+        "Options analytics"
+      ],
+      "endpoints": [
+        "Options data",
+        "Market indices",
+        "Volatility measures"
+      ],
+      "pypi_package": "openbb-cboe",
+      "access_model": "API-based"
+    },
+    {
+      "name": "Commodity Futures Trading Commission (CFTC)",
+      "domain": "cftc.gov",
+      "description": "U.S. government agency promoting the integrity, resilience, and vibrancy of derivatives markets through public reporting API.",
+      "data_types": [
+        "Futures market data",
+        "Commodity positions",
+        "Market reports",
+        "Regulatory filings"
+      ],
+      "endpoints": [
+        "Futures data",
+        "Position reports",
+        "Commitment of traders"
+      ],
+      "pypi_package": "openbb-cftc",
+      "access_model": "Public Reporting API"
+    },
+    {
+      "name": "Congress.gov",
+      "domain": "api.congress.gov",
+      "description": "Official U.S. Congress API providing legislative data including bills, summaries, and related information. Also provides access to presidential documents and regulations.",
+      "data_types": [
+        "Bills and legislation",
+        "Legislative summaries",
+        "Congressional records",
+        "Presidential documents",
+        "Federal regulations"
+      ],
+      "endpoints": [
+        "Bills endpoint",
+        "Summaries endpoint",
+        "Members endpoint",
+        "Committees endpoint"
+      ],
+      "pypi_package": "openbb-congress-gov",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Deribit",
+      "domain": "deribit.com",
+      "description": "Cryptocurrency derivatives exchange providing official public data through unofficial Python client implementation.",
+      "data_types": [
+        "Cryptocurrency derivatives data",
+        "Options data",
+        "Futures data",
+        "Order book data",
+        "Historical trades"
+      ],
+      "endpoints": [
+        "Market data",
+        "Instruments data",
+        "Ticker data",
+        "Order book"
+      ],
+      "pypi_package": "openbb-deribit",
+      "access_model": "Public Data API"
+    },
+    {
+      "name": "European Central Bank (ECB)",
+      "domain": "data.ecb.europa.eu",
+      "description": "Provides access to all official ECB statistics through the ECB Data Portal with options to download data and comprehensive metadata.",
+      "data_types": [
+        "Interest rates",
+        "Monetary policy data",
+        "Exchange rates",
+        "Economic statistics",
+        "Financial market data",
+        "Balance of payments"
+      ],
+      "endpoints": [
+        "Statistical data warehouse",
+        "Time series data",
+        "Exchange rates"
+      ],
+      "pypi_package": "openbb-ecb",
+      "access_model": "REST API"
+    },
+    {
+      "name": "EconDB",
+      "domain": "econdb.com",
+      "description": "Economic data provider processing information at different granularity levels using official statistics agencies and alternative data sources for market observations.",
+      "data_types": [
+        "Economic indicators",
+        "Official statistics",
+        "Alternative economic data",
+        "Market observations",
+        "Aggregate statistics"
+      ],
+      "endpoints": [
+        "Economic data endpoints",
+        "Country data",
+        "Indicator data"
+      ],
+      "pypi_package": "openbb-econdb",
+      "access_model": "API-based"
+    },
+    {
+      "name": "Fama-French Research Portfolios and Factors",
+      "domain": "mba.tuck.dartmouth.edu",
+      "description": "Implements Fama-French research portfolios and factors data library maintained by Kenneth R. French at Dartmouth College. Essential for academic and professional financial research.",
+      "data_types": [
+        "Market factor data",
+        "Research portfolios",
+        "Risk factors",
+        "Historical returns",
+        "Size factors",
+        "Value factors",
+        "Momentum factors"
+      ],
+      "endpoints": [
+        "Factor data downloads",
+        "Portfolio data",
+        "Research datasets"
+      ],
+      "pypi_package": "openbb-famafrench",
+      "access_model": "Data library access"
+    },
+    {
+      "name": "Federal Reserve (FED)",
+      "domain": "federalreserve.gov",
+      "description": "Central Bank of the United States providing access to comprehensive economic and financial data through its official data portal.",
+      "data_types": [
+        "Interest rates",
+        "Monetary policy",
+        "Banking statistics",
+        "Inflation data",
+        "Employment data",
+        "Financial stability indicators",
+        "Reserve balances"
+      ],
+      "endpoints": [
+        "Time series data",
+        "Release calendars",
+        "Economic data"
+      ],
+      "pypi_package": "openbb-federal-reserve",
+      "access_model": "Public API"
+    },
+    {
+      "name": "Financial Industry Regulatory Authority (FINRA)",
+      "domain": "finra.org",
+      "description": "Self-regulatory organization providing centralized access to abundant market data for public, media, researchers, and member firms.",
+      "data_types": [
+        "Trade and quote data",
+        "Short sale data",
+        "Options data",
+        "Market statistics",
+        "Disciplinary records"
+      ],
+      "endpoints": [
+        "Market data",
+        "Trade data",
+        "Short sale reports"
+      ],
+      "pypi_package": "openbb-finra",
+      "access_model": "Public Data API"
+    },
+    {
+      "name": "FinViz",
+      "domain": "finviz.com",
+      "description": "Stock market analysis platform with unofficial API implementation providing stock screening and analysis data.",
+      "data_types": [
+        "Stock screener data",
+        "Technical analysis",
+        "Fundamental data",
+        "Market insights",
+        "Stock charts"
+      ],
+      "endpoints": [
+        "Stock data",
+        "Screener data",
+        "Chart data"
+      ],
+      "pypi_package": "openbb-finviz",
+      "access_model": "Unofficial API"
+    },
+    {
+      "name": "Financial Modeling Prep (FMP)",
+      "domain": "financialmodelingprep.com",
+      "description": "Comprehensive financial data provider offering stock market information including news, currencies, and stock prices.",
+      "data_types": [
+        "Stock prices and quotes",
+        "Financial statements",
+        "Currency data",
+        "Financial news",
+        "Market data",
+        "Earnings data"
+      ],
+      "endpoints": [
+        "Quote endpoints",
+        "Financial statements",
+        "News endpoints",
+        "Earnings data"
+      ],
+      "pypi_package": "openbb-fmp",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Federal Reserve Economic Data (FRED)",
+      "domain": "fred.stlouisfed.org",
+      "description": "Database maintained by the Federal Reserve Bank of St. Louis containing over 816,000 economic time series from various sources.",
+      "data_types": [
+        "Economic indicators (800,000+ series)",
+        "GDP data",
+        "Inflation rates",
+        "Unemployment data",
+        "Interest rates",
+        "Housing data",
+        "Industrial production"
+      ],
+      "endpoints": [
+        "Time series data",
+        "Series info",
+        "Search endpoints"
+      ],
+      "pypi_package": "openbb-fred",
+      "access_model": "REST API"
+    },
+    {
+      "name": "U.S. Government Data (Data.gov)",
+      "domain": "data.gov",
+      "description": "Official U.S. government open data website providing access to datasets published by federal agencies to drive innovation and transparency.",
+      "data_types": [
+        "Government datasets",
+        "Agency data",
+        "Economic data",
+        "Health data",
+        "Environment data",
+        "Infrastructure data"
+      ],
+      "endpoints": [
+        "Dataset catalog",
+        "Data search",
+        "Agency datasets"
+      ],
+      "pypi_package": "openbb-government-us",
+      "access_model": "REST API"
+    },
+    {
+      "name": "International Monetary Fund (IMF)",
+      "domain": "datahelp.imf.org",
+      "description": "Provides access to International Monetary Fund data through JSON RESTful web services.",
+      "data_types": [
+        "Global economic data",
+        "Country statistics",
+        "Balance of payments",
+        "Government finance",
+        "Price indices",
+        "Monetary statistics"
+      ],
+      "endpoints": [
+        "Country data",
+        "Indicator data",
+        "Time series data"
+      ],
+      "pypi_package": "openbb-imf",
+      "access_model": "REST API (JSON)"
+    },
+    {
+      "name": "Intrinio",
+      "domain": "intrinio.com",
+      "description": "Financial data platform providing real-time and historical financial market data to businesses and developers through comprehensive API.",
+      "data_types": [
+        "Stock prices (realtime and historical)",
+        "Financial statements",
+        "Economic indicators",
+        "Options data",
+        "Forex data",
+        "Company fundamentals"
+      ],
+      "endpoints": [
+        "Stock prices",
+        "Financial data",
+        "News endpoints",
+        "Options data"
+      ],
+      "pypi_package": "openbb-intrinio",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Multpl",
+      "domain": "multpl.com",
+      "description": "Provides public broad-market data and financial metrics published through Multpl.com.",
+      "data_types": [
+        "Broad market indices",
+        "Market metrics",
+        "Historical valuations",
+        "Market data"
+      ],
+      "endpoints": [
+        "Market data",
+        "Historical metrics"
+      ],
+      "pypi_package": "openbb-multpl",
+      "access_model": "Web scraping"
+    },
+    {
+      "name": "NASDAQ",
+      "domain": "data.nasdaq.com",
+      "description": "Technology and capital markets provider offering premier platforms and services positioned at the nexus of global capital markets.",
+      "data_types": [
+        "Stock prices",
+        "Market data",
+        "Company information",
+        "Financial fundamentals",
+        "Alternative data"
+      ],
+      "endpoints": [
+        "Prices and quotes",
+        "Company data",
+        "Time series data"
+      ],
+      "pypi_package": "openbb-nasdaq",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Organization for Economic Co-operation and Development (OECD)",
+      "domain": "data-explorer.oecd.org",
+      "description": "International organization providing data and metadata for OECD countries and selected non-member economies through Data Explorer.",
+      "data_types": [
+        "Economic indicators",
+        "Country statistics",
+        "Social data",
+        "Education data",
+        "Health data",
+        "Environmental data"
+      ],
+      "endpoints": [
+        "Country data",
+        "Dataset endpoints",
+        "Indicator data"
+      ],
+      "pypi_package": "openbb-oecd",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Polygon.io",
+      "domain": "polygon.io",
+      "description": "Comprehensive stocks API providing REST endpoints for querying latest market data from all US stock exchanges with additional corporate data.",
+      "data_types": [
+        "Stock prices and quotes",
+        "Company financials",
+        "Stock market holidays",
+        "Corporate actions",
+        "Dividend data",
+        "Market data",
+        "Trades and quotes"
+      ],
+      "endpoints": [
+        "Stock quotes",
+        "Aggregates",
+        "Company info",
+        "Dividends",
+        "Splits",
+        "News"
+      ],
+      "pypi_package": "openbb-polygon",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Securities and Exchange Commission (SEC)",
+      "domain": "sec.gov",
+      "description": "U.S. regulatory body for public listings providing access to company filings and regulatory documents.",
+      "data_types": [
+        "Company filings (10-K, 10-Q, 8-K)",
+        "Financial statements",
+        "Company information",
+        "Insider transactions",
+        "Regulatory filings"
+      ],
+      "endpoints": [
+        "EDGAR filings",
+        "Company data",
+        "Filing search"
+      ],
+      "pypi_package": "openbb-sec",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Seeking Alpha",
+      "domain": "seekingalpha.com",
+      "description": "Data provider offering news, analysis, and real-time alerts on stocks with investment research content.",
+      "data_types": [
+        "Stock analysis",
+        "Investment news",
+        "Real-time alerts",
+        "Earnings data",
+        "Research articles",
+        "Market commentary"
+      ],
+      "endpoints": [
+        "News endpoints",
+        "Alert endpoints",
+        "Analysis data"
+      ],
+      "pypi_package": "openbb-seeking-alpha",
+      "access_model": "Web scraping/API"
+    },
+    {
+      "name": "Stockgrid",
+      "domain": "stockgrid.io",
+      "description": "Smart money tracking platform providing in-depth data on large option blocks and sentiment analysis.",
+      "data_types": [
+        "Options block trades",
+        "Sentiment scores",
+        "Order flow data",
+        "Market sentiment",
+        "Volume analysis"
+      ],
+      "endpoints": [
+        "Options data",
+        "Sentiment data",
+        "Volume data"
+      ],
+      "pypi_package": "openbb-stockgrid",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Tiingo",
+      "domain": "tiingo.com",
+      "description": "Reliable, enterprise-grade financial markets API powering hedge funds, tech companies, and individual investors.",
+      "data_types": [
+        "Stock prices (realtime and historical)",
+        "End-of-day data",
+        "Intraday data",
+        "Crypto data",
+        "News endpoints"
+      ],
+      "endpoints": [
+        "Stock prices",
+        "EOD data",
+        "News",
+        "Crypto data"
+      ],
+      "pypi_package": "openbb-tiingo",
+      "access_model": "REST API"
+    },
+    {
+      "name": "TMX Group",
+      "domain": "tmx.com",
+      "description": "Canadian financial markets operator providing data for Toronto Stock Exchange, TSX Venture Exchange, and other Canadian market venues.",
+      "data_types": [
+        "Canadian stock data",
+        "TSX market data",
+        "TSX Venture data",
+        "Options data",
+        "Derivatives data"
+      ],
+      "endpoints": [
+        "Market data",
+        "Stock prices",
+        "Market statistics"
+      ],
+      "pypi_package": "openbb-tmx",
+      "access_model": "Unofficial API"
+    },
+    {
+      "name": "Tradier",
+      "domain": "tradier.com",
+      "description": "Full-range brokerage services provider offering scalable, secure REST-based APIs for trading, account management, and market data.",
+      "data_types": [
+        "Market data",
+        "Account data",
+        "Trading data",
+        "Orders and positions",
+        "Quotes"
+      ],
+      "endpoints": [
+        "Market data endpoints",
+        "Account endpoints",
+        "Trading endpoints",
+        "Quote endpoints"
+      ],
+      "pypi_package": "openbb-tradier",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Trading Economics",
+      "domain": "tradingeconomics.com",
+      "description": "Comprehensive economic data provider offering historical data and forecasts for 196 countries with 20+ million economic indicators.",
+      "data_types": [
+        "Economic indicators (20M+ series)",
+        "Exchange rates",
+        "Stock market indices",
+        "Government bond yields",
+        "Commodity prices",
+        "Forecasts",
+        "Country data"
+      ],
+      "endpoints": [
+        "Country data",
+        "Indicator data",
+        "Calendar endpoints",
+        "Forecast data"
+      ],
+      "pypi_package": "openbb-tradingeconomics",
+      "access_model": "REST API"
+    },
+    {
+      "name": "U.S. Energy Information Administration (EIA)",
+      "domain": "eia.gov",
+      "description": "U.S. government energy agency committed to free and open data through APIs and open data tools.",
+      "data_types": [
+        "Energy production data",
+        "Crude oil prices",
+        "Natural gas data",
+        "Coal data",
+        "Electricity data",
+        "Renewable energy data"
+      ],
+      "endpoints": [
+        "Series data",
+        "Category data",
+        "Updates endpoint"
+      ],
+      "pypi_package": "openbb-us-eia",
+      "access_model": "REST API"
+    },
+    {
+      "name": "Wall Street Journal (WSJ)",
+      "domain": "wsj.com",
+      "description": "Business-focused international daily newspaper providing financial news, analysis, and market information.",
+      "data_types": [
+        "Financial news",
+        "Market analysis",
+        "Business reporting",
+        "Market data",
+        "Commentary"
+      ],
+      "endpoints": [
+        "News endpoints",
+        "Article data"
+      ],
+      "pypi_package": "openbb-wsj",
+      "access_model": "Web scraping"
+    },
+    {
+      "name": "Yahoo Finance",
+      "domain": "finance.yahoo.com",
+      "description": "Web-based platform offering financial news, data, and tools for investors interested in tracking and analyzing financial markets.",
+      "data_types": [
+        "Stock prices and quotes",
+        "Historical price data",
+        "Company information",
+        "Financial statements",
+        "Options data",
+        "Mutual fund data",
+        "News"
+      ],
+      "endpoints": [
+        "Quote endpoints",
+        "Historical data",
+        "Options data",
+        "Company info"
+      ],
+      "pypi_package": "openbb-yfinance",
+      "access_model": "Web scraping/API"
+    }
+  ]
+}

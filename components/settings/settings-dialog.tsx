@@ -24,6 +24,7 @@ import {
   XCircle,
   Clock,
   AlertCircle,
+  SlidersHorizontal,
 } from "lucide-react"
 
 import {
@@ -66,6 +67,9 @@ import { toast } from "sonner"
 import { TeamsManager } from "@/components/settings/teams-manager"
 import { PremiumUpgrade } from "@/components/settings/premium-upgrade"
 import { ThirdPartySyncTab } from "@/components/investing/tabs/third-party-sync-tab"
+import { useTickerConfig, defaultTickerConfig, type TickerConfig } from "@/lib/ui-config"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Slider } from "@/components/ui/slider"
 
 const LLM_PROVIDERS = [
   {
@@ -240,6 +244,7 @@ const themeColors: Record<string, { primary: string; secondary: string }> = {
 
 const navItems = [
   { name: "General", icon: Key, value: "general" },
+  { name: "Config UI", icon: SlidersHorizontal, value: "configui" },
   { name: "LLM", icon: Brain, value: "llm" },
   { name: "Brokers", icon: TrendingUp, value: "brokers" },
   { name: "Data", icon: Database, value: "data" },
@@ -264,6 +269,7 @@ export function SettingsDialog({ trigger }: { trigger?: React.ReactNode }) {
   const [kycStatus, setKycStatus] = useState<string>("not_started")
   const [kycVerifiedAt, setKycVerifiedAt] = useState<Date | null>(null)
   const [startingKyc, setStartingKyc] = useState(false)
+  const { tickerConfig, updateTickerConfig, saving: savingTickerConfig, saveConfig: saveTickerConfig } = useTickerConfig()
 
   useEffect(() => {
     const saved = localStorage.getItem("color-theme")
@@ -999,6 +1005,179 @@ export function SettingsDialog({ trigger }: { trigger?: React.ReactNode }) {
 
   const renderSyncSection = () => <ThirdPartySyncTab />
 
+  const handleSaveTickerConfig = async () => {
+    try {
+      await saveTickerConfig()
+      toast.success("Ticker settings saved successfully")
+    } catch (error) {
+      toast.error("Failed to save ticker settings")
+    }
+  }
+
+  const renderConfigUISection = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Stock Ticker Display</CardTitle>
+          <CardDescription>
+            Configure how the stock ticker displays information in the header
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Display Options */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-medium">Display Options</h4>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showIcon"
+                  checked={tickerConfig.showIcon}
+                  onCheckedChange={(checked) => updateTickerConfig({ showIcon: !!checked })}
+                />
+                <Label htmlFor="showIcon" className="font-normal">Show Icon</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showSymbol"
+                  checked={tickerConfig.showSymbol}
+                  onCheckedChange={(checked) => updateTickerConfig({ showSymbol: !!checked })}
+                />
+                <Label htmlFor="showSymbol" className="font-normal">Show Symbol</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showName"
+                  checked={tickerConfig.showName}
+                  onCheckedChange={(checked) => updateTickerConfig({ showName: !!checked })}
+                />
+                <Label htmlFor="showName" className="font-normal">Show Name</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showPriceStock"
+                  checked={tickerConfig.showPriceStock}
+                  onCheckedChange={(checked) => updateTickerConfig({ showPriceStock: !!checked })}
+                />
+                <Label htmlFor="showPriceStock" className="font-normal">Show Stock Price</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showPriceIndex"
+                  checked={tickerConfig.showPriceIndex}
+                  onCheckedChange={(checked) => updateTickerConfig({ showPriceIndex: !!checked })}
+                />
+                <Label htmlFor="showPriceIndex" className="font-normal">Show Index Price</Label>
+              </div>
+            </div>
+          </div>
+
+          {/* Time Intervals */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-medium">Time Intervals</h4>
+            <p className="text-xs text-muted-foreground">Select which time periods to show change indicators for</p>
+            <div className="flex gap-4">
+              {(["d", "w", "m", "y"] as const).map((interval) => (
+                <div key={interval} className="flex items-center space-x-2">
+                  <Checkbox
+                    id={`interval-${interval}`}
+                    checked={tickerConfig.enabledIntervals.includes(interval)}
+                    onCheckedChange={(checked) => {
+                      if (checked) {
+                        updateTickerConfig({
+                          enabledIntervals: [...tickerConfig.enabledIntervals, interval],
+                        })
+                      } else {
+                        updateTickerConfig({
+                          enabledIntervals: tickerConfig.enabledIntervals.filter((i) => i !== interval),
+                        })
+                      }
+                    }}
+                  />
+                  <Label htmlFor={`interval-${interval}`} className="font-normal uppercase">
+                    {interval === "d" ? "Daily" : interval === "w" ? "Weekly" : interval === "m" ? "Monthly" : "Yearly"}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Change Display Options */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-medium">Change Display Options</h4>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="orderHistorical"
+                  checked={tickerConfig.orderHistorical}
+                  onCheckedChange={(checked) => updateTickerConfig({ orderHistorical: !!checked })}
+                />
+                <Label htmlFor="orderHistorical" className="font-normal">
+                  Order Historical (Y, M, W, D)
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showMinusSign"
+                  checked={tickerConfig.showMinusSign}
+                  onCheckedChange={(checked) => updateTickerConfig({ showMinusSign: !!checked })}
+                />
+                <Label htmlFor="showMinusSign" className="font-normal">Show Minus Sign</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="showDeltaSymbols"
+                  checked={tickerConfig.showDeltaSymbols}
+                  onCheckedChange={(checked) => updateTickerConfig({ showDeltaSymbols: !!checked })}
+                />
+                <Label htmlFor="showDeltaSymbols" className="font-normal">Show Delta Symbols (▲/▼)</Label>
+              </div>
+            </div>
+          </div>
+
+          {/* Neutral Magnitude Threshold */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="text-sm font-medium">Neutral Magnitude Threshold</h4>
+                <p className="text-xs text-muted-foreground">
+                  Changes below this percentage are shown as neutral (no color)
+                </p>
+              </div>
+              <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                {tickerConfig.setNeutralMagnitude}%
+              </span>
+            </div>
+            <Slider
+              value={[tickerConfig.setNeutralMagnitude]}
+              onValueChange={([value]) => updateTickerConfig({ setNeutralMagnitude: value })}
+              min={0}
+              max={20}
+              step={1}
+              className="w-full"
+            />
+          </div>
+
+          {/* Reset to Defaults */}
+          <div className="flex justify-between pt-4 border-t">
+            <Button
+              variant="outline"
+              onClick={() => updateTickerConfig(defaultTickerConfig)}
+            >
+              Reset to Defaults
+            </Button>
+            <Button
+              onClick={handleSaveTickerConfig}
+              disabled={savingTickerConfig}
+            >
+              <Save className="mr-2 h-4 w-4" />
+              {savingTickerConfig ? "Saving..." : "Save Ticker Settings"}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+
   const renderContent = () => {
     if (loading || !mounted) {
       return <div className="flex items-center justify-center h-full">Loading...</div>
@@ -1007,6 +1186,8 @@ export function SettingsDialog({ trigger }: { trigger?: React.ReactNode }) {
     switch (activeSection) {
       case "general":
         return renderGeneralSection()
+      case "configui":
+        return renderConfigUISection()
       case "llm":
         return renderLLMSection()
       case "brokers":

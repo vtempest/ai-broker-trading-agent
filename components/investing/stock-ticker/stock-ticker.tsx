@@ -16,17 +16,36 @@ import { Badge } from "@/components/ui/badge"
 import { TickerItem } from "./ticker-item"
 import { fetchTickerData } from "./utils"
 import { defaultWatchlist, BATCH_SIZE, BATCH_DELAY } from "./constants"
+import { useTickerConfig } from "@/lib/ui-config"
 import type { TickerData, WatchlistItem, TickerItemProps } from "./types"
 
 export function StockTicker({
-  showIcon,
-  showSymbol,
-  showName,
-  showPriceStock,
-  showPriceIndex,
-  enabledIntervals,
+  showIcon: showIconProp,
+  showSymbol: showSymbolProp,
+  showName: showNameProp,
+  showPriceStock: showPriceStockProp,
+  showPriceIndex: showPriceIndexProp,
+  enabledIntervals: enabledIntervalsProp,
+  orderHistorical: orderHistoricalProp,
+  showMinusSign: showMinusSignProp,
+  showDeltaSymbols: showDeltaSymbolsProp,
+  setNeutralMagnitude: setNeutralMagnitudeProp,
   fixed
 }: TickerItemProps = {}) {
+  const { tickerConfig } = useTickerConfig()
+
+  // Use props if provided, otherwise use config from context
+  const showIcon = showIconProp ?? tickerConfig.showIcon
+  const showSymbol = showSymbolProp ?? tickerConfig.showSymbol
+  const showName = showNameProp ?? tickerConfig.showName
+  const showPriceStock = showPriceStockProp ?? tickerConfig.showPriceStock
+  const showPriceIndex = showPriceIndexProp ?? tickerConfig.showPriceIndex
+  const enabledIntervals = enabledIntervalsProp ?? tickerConfig.enabledIntervals
+  const orderHistorical = orderHistoricalProp ?? tickerConfig.orderHistorical
+  const showMinusSign = showMinusSignProp ?? tickerConfig.showMinusSign
+  const showDeltaSymbols = showDeltaSymbolsProp ?? tickerConfig.showDeltaSymbols
+  const setNeutralMagnitude = setNeutralMagnitudeProp ?? tickerConfig.setNeutralMagnitude
+
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>(defaultWatchlist)
   const [tickerData, setTickerData] = useState<TickerData[]>([])
   const [isPaused, setIsPaused] = useState(false)
@@ -185,6 +204,10 @@ export function StockTicker({
               showPriceStock={showPriceStock}
               showPriceIndex={showPriceIndex}
               enabledIntervals={enabledIntervals}
+              orderHistorical={orderHistorical}
+              showMinusSign={showMinusSign}
+              showDeltaSymbols={showDeltaSymbols}
+              setNeutralMagnitude={setNeutralMagnitude}
             />
           ))}
           {tickerData.map((data, index) => (
@@ -197,6 +220,10 @@ export function StockTicker({
               showPriceStock={showPriceStock}
               showPriceIndex={showPriceIndex}
               enabledIntervals={enabledIntervals}
+              orderHistorical={orderHistorical}
+              showMinusSign={showMinusSign}
+              showDeltaSymbols={showDeltaSymbols}
+              setNeutralMagnitude={setNeutralMagnitude}
             />
           ))}
         </div>

@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { cookies } from "next/headers"
 import { ThemeProvider } from "@/components/theme/theme-provider"
+import { UIConfigProvider } from "@/lib/ui-config"
 import { Toaster } from "sonner"
 import "./globals.css"
 import "@/components/theme/themes-shadcn.css"
@@ -44,16 +45,17 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider defaultOpen={false}>
-
-            <AppSidebar />
-            <SidebarInset className="md:pb-0 overflow-x-hidden">
-              <StockTicker fixed="top" />
-              {children}
-            </SidebarInset>
-            <MobileDock />
-          </SidebarProvider>
-          <Toaster position="top-right" />
+          <UIConfigProvider>
+            <SidebarProvider defaultOpen={false}>
+              <AppSidebar />
+              <SidebarInset className="md:pb-0 overflow-x-hidden">
+                <StockTicker fixed="top" />
+                {children}
+              </SidebarInset>
+              <MobileDock />
+            </SidebarProvider>
+            <Toaster position="top-right" />
+          </UIConfigProvider>
         </ThemeProvider>
       </body>
     </html>

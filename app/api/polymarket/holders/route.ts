@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/packages/investing/src/db";
-import { polymarketHolders } from "@/packages/investing/src/db/schema";
+import { polymarketHolders, polymarketLeaders } from "@/packages/investing/src/db/schema";
 import {
   fetchMarketsDashboard,
   saveHolders,
+  fetchTraderProfiles,
 } from "@/packages/investing/src/prediction";
-import { eq, asc } from "drizzle-orm";
+import { eq, asc, inArray } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +60,50 @@ export async function GET(request: NextRequest) {
             }
 
             if (allHolders.length > 0) {
+              // Try to enrich holders with stats from polymarketanalytics
+              const holderAddresses = allHolders.map(h =>
+                h.address || h.user || h.proxyWallet || ""
+              ).filter(Boolean);
+
+              if (holderAddresses.length > 0) {
+                // Fetch trader profiles from polymarketanalytics API
+                const traderProfiles = await fetchTraderProfiles(holderAddresses);
+
+                // Also check local leaders table as fallback
+                const leaders = await db
+                  .select()
+                  .from(polymarketLeaders)
+                  .where(inArray(polymarketLeaders.trader, holderAddresses));
+
+                const leaderMap = new Map(
+                  leaders.map(l => [l.trader.toLowerCase(), {
+                    pnl: l.pnl || l.overallGain,
+                    winRate: l.winRate,
+                    winAmount: l.winAmount,
+                    lossAmount: l.lossAmount,
+                    totalPositions: l.totalPositions,
+                  }])
+                );
+
+                // Enrich holders with trader profile data
+                allHolders = allHolders.map(h => {
+                  const addr = (h.address || h.user || h.proxyWallet || "").toLowerCase();
+                  const profile = traderProfiles.get(addr);
+                  const leaderData = leaderMap.get(addr);
+
+                  return {
+                    ...h,
+                    userName: profile?.userName || h.userName || h.username || h.name,
+                    profileImage: profile?.profileImage || h.profileImage || h.image,
+                    overallGain: profile?.overallGain ?? leaderData?.pnl ?? null,
+                    winRate: profile?.winRate ?? (leaderData?.winRate ? leaderData.winRate * 100 : null),
+                    totalProfit: profile?.totalProfit ?? leaderData?.winAmount ?? null,
+                    totalLoss: profile?.totalLoss ?? leaderData?.lossAmount ?? null,
+                    totalPositions: profile?.totalPositions ?? leaderData?.totalPositions ?? null,
+                  };
+                });
+              }
+
               await saveHolders(marketId, allHolders);
             }
           }

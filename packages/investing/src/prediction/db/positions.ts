@@ -122,6 +122,11 @@ export async function saveHolders(marketId: string, holdersData: any[]) {
       outcome: holder.outcome || holder.side || null, // "Yes" or "No"
       balance: parseFloat(holder.balance || holder.shares || 0),
       value: parseFloat(holder.value || holder.volume || holder.usdValue || 0),
+      overallGain: holder.overallGain || holder.pnl || holder.gain || null,
+      winRate: holder.winRate ?? null,
+      totalProfit: holder.totalProfit ?? null,
+      totalLoss: holder.totalLoss ?? null,
+      totalPositions: holder.totalPositions ?? null,
       updatedAt: new Date(now),
     });
   }

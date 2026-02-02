@@ -119,3 +119,100 @@ export async function fetchTraderPositions(traderId: string) {
   if (!resp.ok) throw new Error(`positions fetch failed: ${resp.status}`);
   return await resp.json();
 }
+
+export interface TraderProfile {
+  address: string;
+  userName?: string;
+  profileImage?: string;
+  overallGain: number;
+  winRate: number;
+  totalProfit: number;
+  totalLoss: number;
+  totalPositions: number;
+  activePositions: number;
+  currentValue: number;
+}
+
+/**
+ * Fetches profile stats for multiple traders from Polymarket Analytics API.
+ * Uses the traders-tag-performance API to get bulk trader data.
+ * @param addresses - Array of trader wallet addresses
+ * @returns Map of address to trader profile data
+ */
+export async function fetchTraderProfiles(
+  addresses: string[],
+): Promise<Map<string, TraderProfile>> {
+  const profileMap = new Map<string, TraderProfile>();
+
+  if (addresses.length === 0) {
+    return profileMap;
+  }
+
+  try {
+    // Fetch top traders which includes performance data
+    const resp = await fetch(
+      "https://polymarketanalytics.com/api/traders-tag-performance",
+      {
+        method: "POST",
+        headers: {
+          accept: "*/*",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          tag: "Overall",
+          sortColumn: "overall_gain",
+          sortDirection: "DESC",
+          minPnL: -100000000,
+          maxPnL: 100000000,
+          minActivePositions: 0,
+          maxActivePositions: 100000,
+          minWinAmount: 0,
+          maxWinAmount: 100000000,
+          minLossAmount: -100000000,
+          maxLossAmount: 0,
+          minWinRate: 0,
+          maxWinRate: 100,
+          minCurrentValue: 0,
+          maxCurrentValue: 100000000000,
+          minTotalPositions: 0,
+          maxTotalPositions: 100000,
+        }),
+      },
+    );
+
+    if (!resp.ok) {
+      console.error(`Trader profiles fetch failed: ${resp.status}`);
+      return profileMap;
+    }
+
+    const data = await resp.json();
+    const traders = Array.isArray(data) ? data : [];
+
+    // Create a lookup set for efficient address matching
+    const addressSet = new Set(addresses.map((a) => a.toLowerCase()));
+
+    for (const trader of traders) {
+      const traderAddress =
+        trader.proxy_wallet || trader.proxyWallet || trader.address || "";
+      if (addressSet.has(traderAddress.toLowerCase())) {
+        profileMap.set(traderAddress.toLowerCase(), {
+          address: traderAddress,
+          userName: trader.user_name || trader.userName,
+          profileImage: trader.profile_image || trader.profileImage,
+          overallGain: trader.overall_gain || trader.overallGain || 0,
+          winRate: trader.win_rate || trader.winRate || 0,
+          totalProfit: trader.win_amount || trader.winAmount || 0,
+          totalLoss: trader.loss_amount || trader.lossAmount || 0,
+          totalPositions: trader.total_positions || trader.totalPositions || 0,
+          activePositions:
+            trader.active_positions || trader.activePositions || 0,
+          currentValue: trader.current_value || trader.currentValue || 0,
+        });
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching trader profiles:", error);
+  }
+
+  return profileMap;
+}

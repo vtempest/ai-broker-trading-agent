@@ -122,6 +122,9 @@ export const userSettings = sqliteTable("user_settings", {
   finnhubApiKey: text("finnhub_api_key"),
   polygonApiKey: text("polygon_api_key"),
 
+  // UI Configuration (JSON string)
+  uiConfig: text("ui_config"),
+
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });

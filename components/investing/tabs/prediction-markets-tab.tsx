@@ -149,6 +149,7 @@ export function PredictionMarketsTab() {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [priceHistory, setPriceHistory] = useState<Record<string, PriceHistoryData[]>>({})
+  const [expandedHolders, setExpandedHolders] = useState<Set<string>>(new Set())
   const observerTarget = useRef<HTMLDivElement>(null)
 
   const loadMore = useCallback(async () => {
@@ -317,6 +318,18 @@ export function PredictionMarketsTab() {
     if (volume >= 1000000) return `$${(volume / 1000000).toFixed(2)}M`
     if (volume >= 1000) return `$${(volume / 1000).toFixed(0)}K`
     return `$${volume.toFixed(0)}`
+  }
+
+  const toggleHoldersExpanded = (marketId: string) => {
+    setExpandedHolders(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(marketId)) {
+        newSet.delete(marketId)
+      } else {
+        newSet.add(marketId)
+      }
+      return newSet
+    })
   }
 
   const filteredMarkets = markets.filter(market => {
@@ -675,11 +688,24 @@ export function PredictionMarketsTab() {
                   />
                 </div>
 
-                {/* Top Holders */}
-                <TopHoldersList
-                  marketId={market.id}
-                  eventId={undefined}
-                />
+                {/* Top Holders Button */}
+                <div className="mt-4">
+                  <Button
+                    variant={expandedHolders.has(market.id) ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => toggleHoldersExpanded(market.id)}
+                    className="w-full"
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    {expandedHolders.has(market.id) ? "Hide Top Holders" : "Show Top Holders"}
+                  </Button>
+                  {expandedHolders.has(market.id) && (
+                    <TopHoldersList
+                      marketId={market.id}
+                      eventId={undefined}
+                    />
+                  )}
+                </div>
               </div>
 
               {/* Action Buttons */}

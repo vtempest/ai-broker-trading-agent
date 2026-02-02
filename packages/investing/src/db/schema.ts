@@ -423,6 +423,11 @@ export const polymarketHolders = sqliteTable("polymarket_holders", {
   outcome: text("outcome"), // "Yes" or "No" - which side they're on
   balance: real("balance").notNull(), // Number of shares
   value: real("value").notNull(), // Value in USD
+  overallGain: real("overall_gain"), // Overall PnL from polymarketLeaders lookup
+  winRate: real("win_rate"), // Win rate percentage (0-100)
+  totalProfit: real("total_profit"), // Total profit from winning positions
+  totalLoss: real("total_loss"), // Total loss from losing positions
+  totalPositions: integer("total_positions"), // Total number of positions
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
