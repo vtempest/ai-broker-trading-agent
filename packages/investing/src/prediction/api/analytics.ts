@@ -1,5 +1,63 @@
 import fetch from "node-fetch";
 
+// Polymarket Data API types
+export interface PolymarketHolder {
+  proxyWallet: string;
+  pseudonym?: string;
+  name?: string;
+  amount: number;
+  outcomeIndex: number;
+  asset?: string;
+  bio?: string;
+  profileImage?: string;
+  profileImageOptimized?: string;
+  displayUsernamePublic?: boolean;
+}
+
+export interface PolymarketHoldersResponse {
+  token: string;
+  holders: PolymarketHolder[];
+}
+
+/**
+ * Fetches top holders for a market from Polymarket Data API.
+ * @param conditionId - The condition ID of the market (0x-prefixed hex string)
+ * @param limit - Maximum holders per token (max 20)
+ * @returns Array of holders grouped by token (Yes/No outcomes)
+ */
+export async function fetchMarketHolders(
+  conditionId: string,
+  limit = 20,
+): Promise<PolymarketHoldersResponse[]> {
+  if (!conditionId) {
+    console.error("No conditionId provided for holders fetch");
+    return [];
+  }
+
+  const url = new URL("https://data-api.polymarket.com/holders");
+  url.searchParams.set("market", conditionId);
+  url.searchParams.set("limit", String(Math.min(limit, 20)));
+  url.searchParams.set("minBalance", "1");
+
+  try {
+    const resp = await fetch(url.toString(), {
+      headers: { accept: "application/json" },
+      cache: "no-store",
+    });
+
+    if (!resp.ok) {
+      console.error(`Holders fetch failed: ${resp.status}`);
+      return [];
+    }
+
+    const data = (await resp.json()) as PolymarketHoldersResponse[];
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Error fetching market holders:", error);
+    return [];
+  }
+}
+
 /**
  * Fetches the order book for a specific market from Polymarket Gamma API.
  * @param marketId - The unique identifier of the market

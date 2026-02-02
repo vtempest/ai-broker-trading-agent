@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import { TickerItem } from "./ticker-item"
+import { IntervalDelta } from "./interval-delta"
 import { fetchTickerData } from "./utils"
 import { defaultWatchlist, BATCH_SIZE, BATCH_DELAY } from "./constants"
 import { useTickerConfig } from "@/lib/ui-config"
@@ -193,9 +193,9 @@ export function StockTicker({
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex whitespace-nowrap">
-          {/* Render items twice for seamless infinite loop */}
+          {/* Render items twice for seamless infinite loop
           {tickerData.map((data, index) => (
-            <TickerItem
+            <IntervalDelta
               key={`first-${data.symbol}-${index}`}
               data={data}
               showIcon={showIcon}
@@ -209,9 +209,9 @@ export function StockTicker({
               showDeltaSymbols={showDeltaSymbols}
               setNeutralMagnitude={setNeutralMagnitude}
             />
-          ))}
+          ))} */}
           {tickerData.map((data, index) => (
-            <TickerItem
+            <IntervalDelta
               key={`second-${data.symbol}-${index}`}
               data={data}
               showIcon={showIcon}

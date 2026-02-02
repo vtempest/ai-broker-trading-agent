@@ -329,6 +329,7 @@ export const polymarketCategories = sqliteTable("polymarket_categories", {
 // Polymarket Markets - Store prediction markets data
 export const polymarketMarkets = sqliteTable("polymarket_markets", {
   id: text("id").primaryKey(),
+  conditionId: text("condition_id"), // Condition ID for Polymarket data-api queries
   question: text("question").notNull(),
   slug: text("slug").notNull(),
   eventSlug: text("event_slug"), // Event slug for constructing polymarket.com URLs

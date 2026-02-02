@@ -1,20 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/packages/investing/src/db";
-import { polymarketHolders, polymarketLeaders } from "@/packages/investing/src/db/schema";
 import {
-  fetchMarketsDashboard,
+  polymarketHolders,
+  polymarketMarkets,
+} from "@/packages/investing/src/db/schema";
+import {
+  fetchMarketHolders,
+  fetchMarketDetails,
   saveHolders,
-  fetchTraderProfiles,
 } from "@/packages/investing/src/prediction";
-import { eq, asc, inArray } from "drizzle-orm";
+import { eq, asc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 30; // 30 second timeout
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const marketId = searchParams.get("marketId");
-    const eventId = searchParams.get("eventId");
     const sync = searchParams.get("sync") === "true";
 
     if (!marketId) {
@@ -24,93 +27,73 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    console.log(`[Holders] Request for market ${marketId}, sync=${sync}`);
+
     // If sync is requested, fetch fresh data from Polymarket
     if (sync) {
+      let allHolders: any[] = [];
+
       try {
-        // We need an event ID to fetch the dashboard.
-        // If provided, use it. If not, we might be out of luck unless we look it up.
-        // For now, we rely on the client passing eventId if available.
-        const idToUse = eventId || marketId; // Fallback to marketId (sometimes works if they match or for slugs)
+        // Get the market's conditionId from database
+        let conditionId: string | null = null;
 
-        if (idToUse) {
-          const dashboardData = await fetchMarketsDashboard(idToUse);
+        const [marketRecord] = await db
+          .select({ conditionId: polymarketMarkets.conditionId })
+          .from(polymarketMarkets)
+          .where(eq(polymarketMarkets.id, marketId))
+          .limit(1);
 
-          if (dashboardData) {
-            let allHolders: any[] = [];
+        conditionId = marketRecord?.conditionId || null;
+        console.log(`[Holders] conditionId from DB: ${conditionId?.slice(0, 20) || 'null'}`);
 
-            // Handle different response formats
-            if (dashboardData.holders && Array.isArray(dashboardData.holders)) {
-              // Single array of holders
-              allHolders = dashboardData.holders;
-            } else if (dashboardData.yesHolders || dashboardData.noHolders) {
-              // Separate arrays for Yes and No holders
-              const yesHolders = (dashboardData.yesHolders || []).map(
-                (h: any) => ({
-                  ...h,
-                  outcome: "Yes",
-                }),
-              );
-              const noHolders = (dashboardData.noHolders || []).map(
-                (h: any) => ({
-                  ...h,
-                  outcome: "No",
-                }),
-              );
-              allHolders = [...yesHolders, ...noHolders];
-            }
-
-            if (allHolders.length > 0) {
-              // Try to enrich holders with stats from polymarketanalytics
-              const holderAddresses = allHolders.map(h =>
-                h.address || h.user || h.proxyWallet || ""
-              ).filter(Boolean);
-
-              if (holderAddresses.length > 0) {
-                // Fetch trader profiles from polymarketanalytics API
-                const traderProfiles = await fetchTraderProfiles(holderAddresses);
-
-                // Also check local leaders table as fallback
-                const leaders = await db
-                  .select()
-                  .from(polymarketLeaders)
-                  .where(inArray(polymarketLeaders.trader, holderAddresses));
-
-                const leaderMap = new Map(
-                  leaders.map(l => [l.trader.toLowerCase(), {
-                    pnl: l.pnl || l.overallGain,
-                    winRate: l.winRate,
-                    winAmount: l.winAmount,
-                    lossAmount: l.lossAmount,
-                    totalPositions: l.totalPositions,
-                  }])
-                );
-
-                // Enrich holders with trader profile data
-                allHolders = allHolders.map(h => {
-                  const addr = (h.address || h.user || h.proxyWallet || "").toLowerCase();
-                  const profile = traderProfiles.get(addr);
-                  const leaderData = leaderMap.get(addr);
-
-                  return {
-                    ...h,
-                    userName: profile?.userName || h.userName || h.username || h.name,
-                    profileImage: profile?.profileImage || h.profileImage || h.image,
-                    overallGain: profile?.overallGain ?? leaderData?.pnl ?? null,
-                    winRate: profile?.winRate ?? (leaderData?.winRate ? leaderData.winRate * 100 : null),
-                    totalProfit: profile?.totalProfit ?? leaderData?.winAmount ?? null,
-                    totalLoss: profile?.totalLoss ?? leaderData?.lossAmount ?? null,
-                    totalPositions: profile?.totalPositions ?? leaderData?.totalPositions ?? null,
-                  };
-                });
-              }
-
-              await saveHolders(marketId, allHolders);
-            }
+        // If no conditionId in DB, try to fetch from Gamma API
+        if (!conditionId) {
+          console.log(`[Holders] Fetching conditionId from Gamma API...`);
+          const marketDetails = await fetchMarketDetails(marketId);
+          if (marketDetails?.conditionId) {
+            conditionId = marketDetails.conditionId;
+            console.log(`[Holders] Got conditionId: ${conditionId.slice(0, 20)}...`);
+            // Update the database
+            await db
+              .update(polymarketMarkets)
+              .set({ conditionId })
+              .where(eq(polymarketMarkets.id, marketId));
           }
         }
-      } catch (error) {
-        console.error(`Error syncing holders for market ${marketId}:`, error);
-        // Continue to return cached data even if sync fails
+
+        if (conditionId) {
+          console.log(`[Holders] Fetching holders from Polymarket Data API...`);
+          const holdersData = await fetchMarketHolders(conditionId, 20);
+          console.log(`[Holders] Got ${holdersData?.length || 0} token groups`);
+
+          if (holdersData && holdersData.length > 0) {
+            // Transform holders data - group by outcome
+            for (const tokenGroup of holdersData) {
+              for (const holder of tokenGroup.holders) {
+                const outcome = holder.outcomeIndex === 0 ? "Yes" : "No";
+                allHolders.push({
+                  address: holder.proxyWallet,
+                  userName: holder.pseudonym || holder.name || null,
+                  profileImage: holder.profileImageOptimized || holder.profileImage || null,
+                  balance: holder.amount || 0,
+                  value: holder.amount || 0,
+                  outcome,
+                });
+              }
+            }
+            console.log(`[Holders] Transformed ${allHolders.length} holders`);
+          }
+        } else {
+          console.log(`[Holders] No conditionId available, cannot fetch holders`);
+        }
+
+        // Save holders to database
+        if (allHolders.length > 0) {
+          await saveHolders(marketId, allHolders);
+          console.log(`[Holders] Saved ${allHolders.length} holders to DB`);
+        }
+      } catch (error: any) {
+        console.error(`[Holders] Error syncing:`, error.message);
       }
     }
 
@@ -120,6 +103,8 @@ export async function GET(request: NextRequest) {
       .from(polymarketHolders)
       .where(eq(polymarketHolders.marketId, marketId))
       .orderBy(asc(polymarketHolders.rank));
+
+    console.log(`[Holders] Returning ${holders.length} holders from DB`);
 
     return NextResponse.json({
       success: true,

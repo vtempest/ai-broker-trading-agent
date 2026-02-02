@@ -65,6 +65,7 @@ export async function saveMarkets(marketsData: any[]) {
         .insert(polymarketMarkets)
         .values({
           id: market.id,
+          conditionId: market.conditionId || null,
           question: market.question,
           slug: market.slug,
           eventSlug: eventSlug,
@@ -89,6 +90,7 @@ export async function saveMarkets(marketsData: any[]) {
         .onConflictDoUpdate({
           target: polymarketMarkets.id,
           set: {
+            conditionId: market.conditionId || null,
             question: market.question,
             eventSlug: eventSlug,
             description: market.description || null,

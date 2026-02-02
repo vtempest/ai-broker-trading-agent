@@ -17,7 +17,7 @@ import { showPercentSign } from "./constants"
 import type { ChangeType, TickerData, TickerItemProps } from "./types"
 
 
-export function TickerItem({
+export function IntervalDelta({
   data,
   showIcon = true,
   showSymbol = false,
