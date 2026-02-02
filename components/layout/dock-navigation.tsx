@@ -1,37 +1,44 @@
-"use client"
-
 import {
   GraphChartIcon,
+  PredictCheckboxesIcon,
   MarketScreenerIcon,
   CopyTradeIcon,
-  PredictCheckboxesIcon,
+  IndicatorsIcon,
+  SettingsIcon
 } from "@/components/icons"
 
 export interface DockNavigationItem {
+  name: string
+  href?: string
   icon: React.ComponentType<{ className?: string }>
-  label: string
-  href: string
+  isModal?: boolean
 }
 
-export const dockNavigationItems: DockNavigationItem[] = [
+export interface DockNavigationGroup {
+  title: string
+  items: DockNavigationItem[]
+}
+
+export const dockNavigationGroups: DockNavigationGroup[] = [
   {
-    icon: GraphChartIcon,
-    label: "Strategies",
-    href: "/stock",
+    title: "Trade",
+    items: [
+      { name: "Stocks", href: "/stock", icon: GraphChartIcon },
+      { name: "Predict", href: "/predict", icon: PredictCheckboxesIcon },
+    ],
   },
   {
-    icon: PredictCheckboxesIcon,
-    label: "Futures",
-    href: "/predict",
+    title: "Signal",
+    items: [
+      { name: "Watch", href: "/markets", icon: MarketScreenerIcon },
+      { name: "Copy", href: "/leaders", icon: CopyTradeIcon },
+    ],
   },
   {
-    icon: CopyTradeIcon,
-    label: "Copy",
-    href: "/leaders",
-  },
-  {
-    icon: MarketScreenerIcon,
-    label: "Watchlist",
-    href: "/markets",
+    title: "Portfolio",
+    items: [
+      { name: "Portfolio", href: "/portfolio", icon: IndicatorsIcon },
+      { name: "Settings", icon: SettingsIcon, isModal: true },
+    ],
   },
 ]

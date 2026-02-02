@@ -1,17 +1,17 @@
 interface ChangeIconProps {
-  /*
-  d - daily
-  w - weekly
-  m - monthly
-  y - yearly
-  */
+  /**
+   * d - daily
+   * w - weekly
+   * m - monthly
+   * y - yearly
+   */
   letter: string
-  /*
-  direction of the change: positive (green up), negative (red down), or neutral (gray)
-  */
+  /**
+   * direction of the change: positive (green up), negative (red down), or neutral (gray)
+   */
   direction: 'positive' | 'negative' | 'neutral'
-  /*
-  whether the underlying value is positive (used for arrow direction in neutral state)
+  /**
+   * whether the underlying value is positive (used for arrow direction in neutral state)
   */
   isPositive: boolean
 }

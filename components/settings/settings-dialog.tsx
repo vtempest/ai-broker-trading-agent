@@ -252,8 +252,19 @@ const navItems = [
   { name: "Third-Party Sync", icon: Database, value: "sync" },
 ]
 
-export function SettingsDialog({ trigger }: { trigger?: React.ReactNode }) {
-  const [open, setOpen] = React.useState(false)
+export function SettingsDialog({
+  trigger,
+  open: controlledOpen,
+  onOpenChange,
+}: {
+  trigger?: React.ReactNode
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}) {
+  const [internalOpen, setInternalOpen] = React.useState(false)
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : internalOpen
+  const setOpen = isControlled ? (onOpenChange ?? (() => {})) : setInternalOpen
   const [activeSection, setActiveSection] = React.useState("general")
   const [settings, setSettings] = useState<any>({})
   const [loading, setLoading] = useState(true)
@@ -1207,9 +1218,11 @@ export function SettingsDialog({ trigger }: { trigger?: React.ReactNode }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {trigger || <Button size="sm">Settings</Button>}
-      </DialogTrigger>
+      {trigger && (
+        <DialogTrigger asChild>
+          {trigger}
+        </DialogTrigger>
+      )}
       <DialogContent className="overflow-hidden p-0 md:max-h-[600px] md:max-w-[900px] lg:max-w-[1000px]">
         <DialogTitle className="sr-only">Settings</DialogTitle>
         <DialogDescription className="sr-only">
@@ -1238,23 +1251,42 @@ export function SettingsDialog({ trigger }: { trigger?: React.ReactNode }) {
             </SidebarContent>
           </Sidebar>
           <main className="flex h-[600px] flex-1 flex-col overflow-hidden">
-            <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-              <div className="flex items-center justify-between w-full">
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">Settings</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>{activeSectionName}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-                <Button onClick={handleSave} disabled={saving} size="sm">
-                  <Save className="mr-2 h-4 w-4" />
-                  {saving ? "Saving..." : "Save"}
-                </Button>
+            <header className="flex shrink-0 flex-col border-b">
+              <div className="flex h-14 items-center gap-2 px-4">
+                <div className="flex items-center justify-between w-full">
+                  <Breadcrumb>
+                    <BreadcrumbList>
+                      <BreadcrumbItem className="hidden md:block">
+                        <BreadcrumbLink href="#">Settings</BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator className="hidden md:block" />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>{activeSectionName}</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </BreadcrumbList>
+                  </Breadcrumb>
+                  <Button onClick={handleSave} disabled={saving} size="sm">
+                    <Save className="mr-2 h-4 w-4" />
+                    {saving ? "Saving..." : "Save"}
+                  </Button>
+                </div>
+              </div>
+              {/* Mobile navigation tabs */}
+              <div className="flex md:hidden overflow-x-auto px-2 pb-2 gap-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.value}
+                    onClick={() => setActiveSection(item.value)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                      activeSection === item.value
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted hover:bg-muted/80"
+                    }`}
+                  >
+                    <item.icon className="h-3.5 w-3.5" />
+                    {item.name}
+                  </button>
+                ))}
               </div>
             </header>
             <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4">

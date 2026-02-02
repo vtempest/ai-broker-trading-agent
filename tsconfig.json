@@ -57,7 +57,7 @@
     "*.tsx",
     "*.mts",
     "*.js"
-  ],
+, "scripts/inspect_holders_api.ts", "scripts/inspect_polymarket_api.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

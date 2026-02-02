@@ -49,6 +49,11 @@ export function TopHoldersList({ marketId, eventId }: TopHoldersListProps) {
             const data = await response.json()
 
             if (data.success) {
+                // If no holders and we haven't synced yet, auto-sync
+                if (data.holders.length === 0 && !sync) {
+                    fetchHolders(true)
+                    return
+                }
                 setHolders(data.holders)
             } else {
                 setError(data.error)
