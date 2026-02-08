@@ -15,6 +15,7 @@ export async function saveLeaders(leadersData: any[]) {
       .insert(polymarketLeaders)
       .values({
         trader: leader.trader,
+        userName: leader.trader_name || null,
         overallGain: leader.overall_gain || 0,
         winRate: leader.win_rate || 0,
         activePositions: leader.active_positions || 0,
@@ -27,6 +28,7 @@ export async function saveLeaders(leadersData: any[]) {
       .onConflictDoUpdate({
         target: polymarketLeaders.trader,
         set: {
+          userName: leader.trader_name || null,
           overallGain: leader.overall_gain || 0,
           winRate: leader.win_rate || 0,
           activePositions: leader.active_positions || 0,

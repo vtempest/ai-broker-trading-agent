@@ -38,7 +38,6 @@ export async function fetchLeaderboard(
 
   const resp = await fetch(url, {
     headers: { accept: "application/json" },
-    cache: "no-store",
   });
 
   if (!resp.ok) throw new Error(`leaderboard fetch failed: ${resp.status}`);
@@ -215,4 +214,161 @@ export async function fetchTraderProfiles(
   }
 
   return profileMap;
+}
+
+/**
+ * Activity types available from Polymarket Data API
+ */
+export type ActivityType =
+  | "TRADE"
+  | "SPLIT"
+  | "MERGE"
+  | "REDEEM"
+  | "REWARD"
+  | "CONVERSION"
+  | "MAKER_REBATE";
+
+/**
+ * Options for fetching trader activity
+ */
+export interface FetchActivityOptions {
+  user: string; // Trader wallet address (required)
+  limit?: number; // Default: 100, Max: 500
+  offset?: number; // Default: 0, Max: 10000
+  market?: string[]; // Condition IDs to filter by
+  type?: ActivityType[]; // Activity types to filter by
+  start?: number; // Unix timestamp minimum
+  end?: number; // Unix timestamp maximum
+  sortBy?: "TIMESTAMP" | "TOKENS" | "CASH";
+  sortDirection?: "ASC" | "DESC";
+  side?: "BUY" | "SELL";
+}
+
+/**
+ * Activity record from Polymarket Data API
+ */
+export interface TraderActivity {
+  proxyWallet: string;
+  timestamp: number; // Unix timestamp in seconds
+  conditionId: string;
+  type: ActivityType;
+  size: string; // Number of tokens as string
+  usdcSize: string; // USDC amount as string
+  transactionHash: string;
+  price?: string;
+  asset?: string;
+  side?: "BUY" | "SELL";
+  outcomeIndex?: number;
+  title?: string;
+  slug?: string;
+  icon?: string;
+  eventSlug?: string;
+  outcome?: string;
+  name?: string;
+  pseudonym?: string;
+  bio?: string;
+  profileImage?: string;
+  profileImageOptimized?: string;
+}
+
+/**
+ * Fetches on-chain activity for a specific trader from Polymarket Data API.
+ * @param options - Configuration options for the activity query
+ * @returns Array of activity objects for the trader
+ * @throws Error if the API request fails
+ */
+export async function fetchTraderActivity(
+  options: FetchActivityOptions,
+): Promise<TraderActivity[]> {
+  const {
+    user,
+    limit = 100,
+    offset = 0,
+    market,
+    type,
+    start,
+    end,
+    sortBy = "TIMESTAMP",
+    sortDirection = "DESC",
+    side,
+  } = options;
+
+  const url = new URL("https://data-api.polymarket.com/activity");
+  url.searchParams.set("user", user);
+  url.searchParams.set("limit", String(Math.min(limit, 500)));
+  url.searchParams.set("offset", String(Math.min(offset, 10000)));
+  url.searchParams.set("sortBy", sortBy);
+  url.searchParams.set("sortDirection", sortDirection);
+
+  if (market && market.length > 0) {
+    url.searchParams.set("market", market.join(","));
+  }
+  if (type && type.length > 0) {
+    url.searchParams.set("type", type.join(","));
+  }
+  if (start !== undefined) {
+    url.searchParams.set("start", String(start));
+  }
+  if (end !== undefined) {
+    url.searchParams.set("end", String(end));
+  }
+  if (side) {
+    url.searchParams.set("side", side);
+  }
+
+  const resp = await fetch(url, {
+    headers: { accept: "application/json" },
+  });
+
+  if (!resp.ok) {
+    throw new Error(`Activity fetch failed for ${user}: ${resp.status}`);
+  }
+
+  return (await resp.json()) as TraderActivity[];
+}
+
+/**
+ * Fetches all activity for a trader by paginating through all pages.
+ * @param user - Trader wallet address
+ * @param options - Additional fetch options
+ * @param onProgress - Optional callback for progress updates
+ * @returns Array of all activity objects for the trader
+ */
+export async function fetchAllTraderActivity(
+  user: string,
+  options: Omit<FetchActivityOptions, "user" | "offset"> = {},
+  onProgress?: (fetched: number, total: number | null) => void,
+): Promise<TraderActivity[]> {
+  const allActivity: TraderActivity[] = [];
+  let offset = 0;
+  const limit = 500; // Max per request
+
+  while (offset < 10000) {
+    // API max offset is 10000
+    const activities = await fetchTraderActivity({
+      ...options,
+      user,
+      limit,
+      offset,
+    });
+
+    if (activities.length === 0) {
+      break;
+    }
+
+    allActivity.push(...activities);
+    onProgress?.(allActivity.length, null);
+
+    if (activities.length < limit) {
+      // No more pages
+      break;
+    }
+
+    offset += limit;
+
+    // Small delay to avoid rate limiting
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+
+  return allActivity;
 }

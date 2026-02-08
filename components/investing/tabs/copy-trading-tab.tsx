@@ -14,7 +14,7 @@ export function CopyTradingTab() {
   const [traders, setTraders] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
-  const [source, setSource] = useState("zulu")
+  const [source, setSource] = useState("polymarket")
 
   const fetchData = async (currentSource: string) => {
     setLoading(true)
@@ -63,8 +63,8 @@ export function CopyTradingTab() {
         <div className="flex items-center gap-4">
           <Tabs value={source} onValueChange={setSource}>
             <TabsList>
-              <TabsTrigger value="zulu">ZuluTrade</TabsTrigger>
               <TabsTrigger value="polymarket">Polymarket</TabsTrigger>
+              <TabsTrigger value="zulu">ZuluTrade</TabsTrigger>
               <TabsTrigger value="nvstly">NVSTLY</TabsTrigger>
             </TabsList>
           </Tabs>
@@ -128,12 +128,12 @@ export function CopyTradingTab() {
                       {source === 'nvstly'
                         ? `${trader.totalGain}%`
                         : source === 'zulu'
-                        ? `$${trader.overallPnL.toLocaleString()}`
-                        : `${trader.overallPnL.toFixed(2)}%`}
+                          ? `$${trader.overallPnL.toLocaleString()}`
+                          : `${trader.overallPnL?.toFixed(0)}`}
                     </div>
                   </td>
                   <td className="p-4">
-                    <div className="font-semibold">{trader.winRate}%</div>
+                    <div className="font-semibold">{trader.winRate.toFixed(0)}%</div>
                   </td>
                   <td className="p-4">
                     <Badge variant="secondary">
@@ -169,11 +169,10 @@ export function CopyTradingTab() {
                           <DialogTitle>
                             <div className="flex items-center gap-3">
                               {trader.rank <= 3 && (
-                                <Trophy className={`h-6 w-6 ${
-                                  trader.rank === 1 ? 'text-yellow-500' :
+                                <Trophy className={`h-6 w-6 ${trader.rank === 1 ? 'text-yellow-500' :
                                   trader.rank === 2 ? 'text-gray-400' :
-                                  'text-orange-600'
-                                }`} />
+                                    'text-orange-600'
+                                  }`} />
                               )}
                               <div>
                                 <div className="text-xl">{trader.name}</div>
@@ -192,16 +191,15 @@ export function CopyTradingTab() {
                               <div className="text-xs text-muted-foreground mb-1">
                                 {source === 'nvstly' ? 'Total Gain' : 'Overall P&L'}
                               </div>
-                              <div className={`text-lg font-bold ${
-                                (source === 'nvstly' ? trader.totalGain : trader.overallPnL) >= 0
-                                  ? 'text-green-500'
-                                  : 'text-red-500'
-                              }`}>
+                              <div className={`text-lg font-bold ${(source === 'nvstly' ? trader.totalGain : trader.overallPnL) >= 0
+                                ? 'text-green-500'
+                                : 'text-red-500'
+                                }`}>
                                 {source === 'nvstly'
                                   ? `${trader.totalGain >= 0 ? '+' : ''}${trader.totalGain}%`
                                   : source === 'zulu'
-                                  ? `$${trader.overallPnL.toLocaleString()}`
-                                  : `${trader.overallPnL.toFixed(2)}%`}
+                                    ? `$${trader.overallPnL.toLocaleString()}`
+                                    : `${trader.overallPnL.toFixed(2)}%`}
                               </div>
                             </div>
                             <div className="p-3 bg-muted rounded-lg">
@@ -212,11 +210,10 @@ export function CopyTradingTab() {
                               <div className="text-xs text-muted-foreground mb-1">
                                 {source === 'nvstly' ? 'Avg Return' : 'Max Drawdown'}
                               </div>
-                              <div className={`text-lg font-bold ${
-                                source === 'nvstly'
-                                  ? (trader.avgReturn >= 0 ? 'text-green-500' : 'text-red-500')
-                                  : 'text-red-500'
-                              }`}>
+                              <div className={`text-lg font-bold ${source === 'nvstly'
+                                ? (trader.avgReturn >= 0 ? 'text-green-500' : 'text-red-500')
+                                : 'text-red-500'
+                                }`}>
                                 {source === 'nvstly'
                                   ? `${trader.avgReturn >= 0 ? '+' : ''}${trader.avgReturn}%`
                                   : `${trader.maxDrawdown}%`}
@@ -243,11 +240,10 @@ export function CopyTradingTab() {
                                     className="flex items-center justify-between p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
                                   >
                                     <div className="flex items-center gap-3">
-                                      <div className={`p-2 rounded ${
-                                        trade.type === 'buy' ? 'bg-green-500/10' :
+                                      <div className={`p-2 rounded ${trade.type === 'buy' ? 'bg-green-500/10' :
                                         trade.type === 'sell' ? 'bg-blue-500/10' :
-                                        'bg-red-500/10'
-                                      }`}>
+                                          'bg-red-500/10'
+                                        }`}>
                                         {trade.type === 'buy' ? (
                                           <ArrowUpRight className="h-4 w-4 text-green-500" />
                                         ) : trade.type === 'sell' ? (
@@ -266,15 +262,14 @@ export function CopyTradingTab() {
                                     <div className="text-right">
                                       <Badge variant={
                                         trade.type === 'buy' ? 'default' :
-                                        trade.type === 'sell' ? 'secondary' :
-                                        'destructive'
+                                          trade.type === 'sell' ? 'secondary' :
+                                            'destructive'
                                       }>
                                         {trade.type.toUpperCase()}
                                       </Badge>
                                       {trade.gain !== undefined && (
-                                        <div className={`text-sm font-semibold mt-1 ${
-                                          trade.gain >= 0 ? 'text-green-500' : 'text-red-500'
-                                        }`}>
+                                        <div className={`text-sm font-semibold mt-1 ${trade.gain >= 0 ? 'text-green-500' : 'text-red-500'
+                                          }`}>
                                           {trade.gain >= 0 ? '+' : ''}{trade.gain}%
                                         </div>
                                       )}

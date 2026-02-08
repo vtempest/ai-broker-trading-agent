@@ -26,7 +26,7 @@ export * from "./alpaca/client";
 export * from "./stocks";
 
 // Prediction markets (Polymarket integration)
-export * from "./prediction/polymarket";
+export * from "./prediction";
 
 // Trading strategies and algorithms
 export * from "./algo-stategies/tv-scraper";

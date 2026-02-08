@@ -16,6 +16,7 @@ export * from "./db/leaderboard";
 export * from "./db/positions";
 export * from "./db/debates";
 export * from "./db/prices";
+export * from "./db/trade-history";
 
 // Re-export analysis functions
 export * from "./analysis/price-changes";
@@ -30,3 +31,4 @@ export * from "./sync/leaderboard";
 export * from "./sync/prices";
 export * from "./sync/holders";
 export * from "./sync/orchestration";
+export * from "./sync/trade-history";

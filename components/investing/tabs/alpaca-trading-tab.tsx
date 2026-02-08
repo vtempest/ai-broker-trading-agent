@@ -168,13 +168,12 @@ function StrategyChatInterface() {
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg p-4 ${
-                  message.role === 'user'
+                className={`max-w-[80%] rounded-lg p-4 ${message.role === 'user'
                     ? 'bg-primary text-primary-foreground'
                     : message.role === 'system'
-                    ? 'bg-muted'
-                    : 'bg-secondary'
-                }`}
+                      ? 'bg-muted'
+                      : 'bg-secondary'
+                  }`}
               >
                 {message.role !== 'user' && (
                   <div className="flex items-center gap-2 mb-2">

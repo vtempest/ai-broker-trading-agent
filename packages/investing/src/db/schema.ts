@@ -432,6 +432,57 @@ export const polymarketHolders = sqliteTable("polymarket_holders", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
 
+// Polymarket Trade History - Full trade history for leaderboard traders
+export const polymarketTradeHistory = sqliteTable("polymarket_trade_history", {
+  id: text("id").primaryKey(), // Unique trade ID (transactionHash-outcomeIndex)
+  traderId: text("trader_id").notNull(), // Trader wallet address (proxyWallet)
+  transactionHash: text("transaction_hash").notNull(),
+
+  // Market info
+  conditionId: text("condition_id").notNull(), // Market condition ID
+  marketTitle: text("market_title"), // Market title
+  marketSlug: text("market_slug"), // Market slug for URL
+  eventSlug: text("event_slug"), // Event slug for URL
+
+  // Trade details
+  type: text("type").notNull(), // TRADE, SPLIT, MERGE, REDEEM, REWARD, CONVERSION, MAKER_REBATE
+  side: text("side"), // BUY or SELL (for TRADE type)
+  outcome: text("outcome"), // Outcome name (e.g., "Yes", "No")
+  outcomeIndex: integer("outcome_index"), // 0 or 1
+
+  // Amounts
+  size: real("size").notNull(), // Number of shares/tokens
+  usdcSize: real("usdc_size").notNull(), // USDC amount
+  price: real("price"), // Price per share (0-1 range)
+
+  // Trader profile (snapshot at time of trade)
+  traderName: text("trader_name"), // pseudonym
+  traderBio: text("trader_bio"),
+  traderProfileImage: text("trader_profile_image"),
+
+  // Timestamps
+  timestamp: integer("timestamp", { mode: "timestamp" }).notNull(), // Trade execution time
+  syncedAt: integer("synced_at", { mode: "timestamp" }).notNull(), // When we synced this
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
+// Polymarket Trade Sync Status - Track sync progress for traders
+export const polymarketTradeSyncStatus = sqliteTable(
+  "polymarket_trade_sync_status",
+  {
+    traderId: text("trader_id").primaryKey(),
+    lastSyncedTimestamp: integer("last_synced_timestamp", {
+      mode: "timestamp",
+    }), // Most recent trade timestamp synced
+    totalTradesSynced: integer("total_trades_synced").default(0),
+    syncStatus: text("sync_status").notNull().default("pending"), // pending, in_progress, completed, error
+    errorMessage: text("error_message"),
+    lastSyncAttempt: integer("last_sync_attempt", { mode: "timestamp" }),
+    createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+    updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+  },
+);
+
 // ============================================================================
 // NVSTLY Leaders Tracking
 // ============================================================================
