@@ -55,7 +55,7 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-tight">
-            <span className="block text-primary"> Auto-Invest Like a Boss Of Your Own Hedge Fund</span>
+            <span className="block text-primary"> Auto-Invest Like a Boss <br />Vibe-Trade Your Hedge Fund</span>
           </h1>
         </div>
 
@@ -102,13 +102,13 @@ export function HeroSection() {
                 </Link>
               </Button>
 
-              
+
 
             </div>
 
 
-<div className="mt-2 flex flex-col items-center lg:items-start gap-4 sm:flex-row">
-            <Link href="https://play.google.com/store/apps/details?id=com.autoinvestment.broker.app" target="_blank" rel="noopener noreferrer">
+            <div className="mt-2 flex flex-col items-center lg:items-start gap-4 sm:flex-row">
+              <Link href="https://play.google.com/store/apps/details?id=com.autoinvestment.broker.app" target="_blank" rel="noopener noreferrer">
                 <Image
                   src="/images/download-google-play.png"
                   alt="Get it on Google Play"
@@ -117,10 +117,10 @@ export function HeroSection() {
                   className="h-12 w-auto transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_10px_10px_rgba(0,0,0,0.25)] active:scale-95"
                 />
               </Link>
-</div>
+            </div>
 
           </div>
-          
+
 
           <div className="w-full relative rounded-xl overflow-hidden shadow-2xl border border-border/50 bg-background/50 backdrop-blur-sm aspect-video">
             <iframe
