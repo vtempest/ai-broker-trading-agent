@@ -126,14 +126,14 @@ export function CopyTradingTab() {
                   <td className="p-4">
                     <div className="text-green-500 font-bold">
                       {source === 'nvstly'
-                        ? `${trader.totalGain}%`
+                        ? `${trader.totalGain ?? 0}%`
                         : source === 'zulu'
-                          ? `$${trader.overallPnL.toLocaleString()}`
-                          : `${trader.overallPnL?.toFixed(0)}`}
+                          ? `$${(trader.overallPnL ?? 0).toLocaleString()}`
+                          : `${(trader.overallPnL ?? 0).toFixed(0)}`}
                     </div>
                   </td>
                   <td className="p-4">
-                    <div className="font-semibold">{trader.winRate.toFixed(0)}%</div>
+                    <div className="font-semibold">{(trader.winRate ?? 0).toFixed(0)}%</div>
                   </td>
                   <td className="p-4">
                     <Badge variant="secondary">
@@ -143,8 +143,8 @@ export function CopyTradingTab() {
                   <td className="p-4">
                     <div className="font-semibold">
                       {source === 'nvstly'
-                        ? `${trader.avgReturn}%`
-                        : `$${trader.currentValue.toLocaleString()}`}
+                        ? `${trader.avgReturn ?? 0}%`
+                        : `$${(trader.currentValue ?? 0).toLocaleString()}`}
                     </div>
                   </td>
                   <td className="p-4">
@@ -191,32 +191,32 @@ export function CopyTradingTab() {
                               <div className="text-xs text-muted-foreground mb-1">
                                 {source === 'nvstly' ? 'Total Gain' : 'Overall P&L'}
                               </div>
-                              <div className={`text-lg font-bold ${(source === 'nvstly' ? trader.totalGain : trader.overallPnL) >= 0
+                              <div className={`text-lg font-bold ${(source === 'nvstly' ? (trader.totalGain ?? 0) : (trader.overallPnL ?? 0)) >= 0
                                 ? 'text-green-500'
                                 : 'text-red-500'
                                 }`}>
                                 {source === 'nvstly'
-                                  ? `${trader.totalGain >= 0 ? '+' : ''}${trader.totalGain}%`
+                                  ? `${(trader.totalGain ?? 0) >= 0 ? '+' : ''}${trader.totalGain ?? 0}%`
                                   : source === 'zulu'
-                                    ? `$${trader.overallPnL.toLocaleString()}`
-                                    : `${trader.overallPnL.toFixed(2)}%`}
+                                    ? `$${(trader.overallPnL ?? 0).toLocaleString()}`
+                                    : `${(trader.overallPnL ?? 0).toFixed(2)}%`}
                               </div>
                             </div>
                             <div className="p-3 bg-muted rounded-lg">
                               <div className="text-xs text-muted-foreground mb-1">Win Rate</div>
-                              <div className="text-lg font-bold">{trader.winRate}%</div>
+                              <div className="text-lg font-bold">{trader.winRate ?? 0}%</div>
                             </div>
                             <div className="p-3 bg-muted rounded-lg">
                               <div className="text-xs text-muted-foreground mb-1">
                                 {source === 'nvstly' ? 'Avg Return' : 'Max Drawdown'}
                               </div>
                               <div className={`text-lg font-bold ${source === 'nvstly'
-                                ? (trader.avgReturn >= 0 ? 'text-green-500' : 'text-red-500')
+                                ? ((trader.avgReturn ?? 0) >= 0 ? 'text-green-500' : 'text-red-500')
                                 : 'text-red-500'
                                 }`}>
                                 {source === 'nvstly'
-                                  ? `${trader.avgReturn >= 0 ? '+' : ''}${trader.avgReturn}%`
-                                  : `${trader.maxDrawdown}%`}
+                                  ? `${(trader.avgReturn ?? 0) >= 0 ? '+' : ''}${trader.avgReturn ?? 0}%`
+                                  : `${trader.maxDrawdown ?? 0}%`}
                               </div>
                             </div>
                             <div className="p-3 bg-muted rounded-lg">
@@ -224,7 +224,7 @@ export function CopyTradingTab() {
                                 {source === 'nvstly' ? 'Reputation' : 'Volatility'}
                               </div>
                               <div className="text-lg font-bold">
-                                {source === 'nvstly' ? trader.rep : `${trader.volatility}%`}
+                                {source === 'nvstly' ? (trader.rep ?? 0) : `${trader.volatility ?? 0}%`}
                               </div>
                             </div>
                           </div>

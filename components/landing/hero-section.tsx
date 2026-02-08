@@ -55,7 +55,7 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-tight">
-            <span className="block text-primary"> Auto-Invest Like a Boss <br />Vibe-Trade Your Hedge Fund</span>
+            <span className="block text-primary"> Vibe-Trade Like a Boss <br /> Auto-Invest Like a Hedge Fund</span>
           </h1>
         </div>
 

@@ -64,7 +64,7 @@ export function Header() {
             className={navLinkClasses}
           >
             <Image src="/icons/icon-prediction-markets.png" alt="Prediction Markets" width={32} height={32} />
-            Events
+            Predict Events
           </Link>
 
           <Link
