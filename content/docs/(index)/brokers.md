@@ -4,7 +4,7 @@ icon: Landmark
 ---
 
 ## Investment Broker Rank
-| Icon | Broker Name | Tradable Assets | Rating | Accounts | Options Commission | Stock Commission | Margin Rate | Notable Promo / Notes |
+| Icon | Broker Name |  Asset Classes | Rating | Accounts | Options Commission | Stock Commission | Margin Rate | Notable Promo / Notes |
 |--------|--------|----------------|--------|----------|----------------------------------|------------------|--------------------------|----------------------|
 | ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://alpaca.markets) | [Alpaca](https://alpaca.markets) | Stocks, Crypto, ETFs, Options | 4.5 | 18.6K | 0% | $0 (API-based) | 7.0% | Crypto, stocks, options API access for custom bots |
 | ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.Polymarket.com) | [Polymarket](https://www.Polymarket.com) |  Prediction Markets (Events, Politics, Crypto, Sports) | 4.5 | 29K | 0% | N/A | N/A | 10B monthly volume, 4% rewards on long terms
