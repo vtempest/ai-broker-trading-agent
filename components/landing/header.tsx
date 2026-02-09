@@ -80,7 +80,7 @@ export function Header() {
             className={navLinkClasses}
           >
             <Image src="/icons/icon-user-guide.svg" alt="Docs" width={32} height={32} />
-            Docs
+            Learn Investing
           </Link>
         </nav>
 
