@@ -4,23 +4,23 @@ icon: Landmark
 ---
 
 ## Stock Broker Rank
-| Broker | Tradable Assets | Rating | Accounts | Options Commission | Stock Commission | Margin Rate | Notable Promo / Notes |
+| Icon | Broker Name | Tradable Assets | Rating | Accounts | Options Commission | Stock Commission | Margin Rate | Notable Promo / Notes |
 |--------|----------------|--------|----------|----------------------------------|------------------|--------------------------|----------------------|
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.fidelity.com) [Fidelity](https://www.fidelity.com) | Stocks, Crypto, ETFs, Options, Futures | 3.7 | ~51.5M | $0.65 | $0 | 10-11.825% | No TradingView integration; Fidelity Trader+ platform |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://investor.vanguard.com) [Vanguard](https://investor.vanguard.com) | Stocks, ETFs, Mutual Funds, Bonds, Options | 3.5 | ~50M | $1 | $0 | ~12.25% | Low-cost index funds; passive investing focus |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.schwab.com) [Schwab](https://www.schwab.com) | Stocks, ETFs, Options, Futures, Forex, Bonds, Mutual Funds | 3.4 | ~46.5M | $0.65 | $0 | 10-12.575% | thinkorswim platform; no direct TradingView integration |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://robinhood.com) [Robinhood](https://robinhood.com) | Stocks, ETFs, Options, Crypto | 4.3 | ~25M | $0 | $0 | 5–6.75% | No TradingView integration; commission-free trading |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://us.etrade.com) [E*TRADE](https://us.etrade.com) | Stocks, ETFs, Options, Futures, Bonds | 3.9 | ~5.5M | $0.65 | $0 | ~11–13% | No TradingView integration; owned by Morgan Stanley |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.interactivebrokers.com) [Interactive Brokers](https://www.interactivebrokers.com) | Stocks, Crypto, Forex, Futures, Bonds, Options | 4.1 | 296K | $0.65 | $0 | 6.83% | Low Trading Costs; Promotion |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.webull.com) [Webull](https://www.webull.com) | Stocks, Futures | 4.3 | 224.1K | $0 | $0 | 8.74% | |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tradestation.com) [TradeStation](https://www.tradestation.com) | Stocks, Futures, Options | 4.2 | 122.9K | $0.60 | $0 | 12.5% | $150 + $0 Options Contract Fees; Promotion |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tradovate.com) [Tradovate](https://www.tradovate.com) | Futures | 4.1 | 70K | N/A (Futures only) | N/A | N/A | Futures commissions $0.09–$0.59/micro; low margins |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.moomoo.com) [moomoo](https://www.moomoo.com) | Stocks, ETFs, Options | 4.3 | 57.1K | Low (e.g. $0 stock options) | $0 | 6.8% | 8.1% APY +$1000 in NVDA; Promotion |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.coinbase.com) [Coinbase](https://www.coinbase.com/advanced-trade) | Crypto, Futures | 4.1 | 51K | N/A (Crypto taker 0.6%) | N/A | N/A | |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://alpaca.markets) [Alpaca](https://alpaca.markets) | Stocks, Crypto, ETFs, Options | 4.5 | 18.6K | 0% | $0 (API-based) | 7.0% | Open account |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://ninjatrader.com) [NinjaTrader](https://ninjatrader.com) | Futures | 4.1 | 17.4K | N/A | N/A | N/A | Futures $0.09–$0.35; Get $250; Promotion |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tastytrade.com) [tastytrade](https://www.tastytrade.com) | Stocks, Futures, Options | 4.1 | 14.4K | $1/open (max $10/leg) | $0 | 8.0% | Promotion |
-| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tradier.com) [Tradier](https://www.tradier.com) | Stocks, Options | 3.8 | 4.4K | $0.35 | $0 | N/A | Trade commission-free!; Promotion |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.fidelity.com) | [Fidelity](https://www.fidelity.com) | Stocks, Crypto, ETFs, Options, Futures | 3.7 | ~51.5M | $0.65 | $0 | 10-11.825% | No TradingView integration; Fidelity Trader+ platform |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://investor.vanguard.com) | [Vanguard](https://investor.vanguard.com) | Stocks, ETFs, Mutual Funds, Bonds, Options | 3.5 | ~50M | $1 | $0 | ~12.25% | Low-cost index funds; passive investing focus |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.schwab.com) | [Schwab](https://www.schwab.com) | Stocks, ETFs, Options, Futures, Forex, Bonds, Mutual Funds | 3.4 | ~46.5M | $0.65 | $0 | 10-12.575% | thinkorswim platform; no direct TradingView integration |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://robinhood.com) | [Robinhood](https://robinhood.com) | Stocks, ETFs, Options, Crypto | 4.3 | ~25M | $0 | $0 | 5–6.75% | No TradingView integration; commission-free trading |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://us.etrade.com) | [E*TRADE](https://us.etrade.com) | Stocks, ETFs, Options, Futures, Bonds | 3.9 | ~5.5M | $0.65 | $0 | ~11–13% | No TradingView integration; owned by Morgan Stanley |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.interactivebrokers.com) | [Interactive Brokers](https://www.interactivebrokers.com) | Stocks, Crypto, Forex, Futures, Bonds, Options | 4.1 | 296K | $0.65 | $0 | 6.83% | Low Trading Costs; Promotion |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.webull.com) | [Webull](https://www.webull.com) | Stocks, Futures | 4.3 | 224.1K | $0 | $0 | 8.74% | |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tradestation.com) | [TradeStation](https://www.tradestation.com) | Stocks, Futures, Options | 4.2 | 122.9K | $0.60 | $0 | 12.5% | $150 + $0 Options Contract Fees; Promotion |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tradovate.com) | [Tradovate](https://www.tradovate.com) | Futures | 4.1 | 70K | N/A (Futures only) | N/A | N/A | Futures commissions $0.09–$0.59/micro; low margins |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.moomoo.com) | [moomoo](https://www.moomoo.com) | Stocks, ETFs, Options | 4.3 | 57.1K | Low (e.g. $0 stock options) | $0 | 6.8% | 8.1% APY +$1000 in NVDA; Promotion |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.coinbase.com) | [Coinbase](https://www.coinbase.com/advanced-trade) | Crypto, Futures | 4.1 | 51K | N/A (Crypto taker 0.6%) | N/A | N/A | |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://alpaca.markets) | [Alpaca](https://alpaca.markets) | Stocks, Crypto, ETFs, Options | 4.5 | 18.6K | 0% | $0 (API-based) | 7.0% | Open account |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://ninjatrader.com) | [NinjaTrader](https://ninjatrader.com) | Futures | 4.1 | 17.4K | N/A | N/A | N/A | Futures $0.09–$0.35; Get $250; Promotion |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tastytrade.com) | [tastytrade](https://www.tastytrade.com) | Stocks, Futures, Options | 4.1 | 14.4K | $1/open (max $10/leg) | $0 | 8.0% | Promotion |
+| ![](https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.tradier.com) | [Tradier](https://www.tradier.com) | Stocks, Options | 3.8 | 4.4K | $0.35 | $0 | N/A | Trade commission-free!; Promotion |
 
 
 ## Financial Data APIs
