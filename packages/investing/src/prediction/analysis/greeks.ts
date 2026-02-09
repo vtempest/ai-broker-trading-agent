@@ -176,8 +176,11 @@ async function calculateHistoricalVolatility(tokenId: string): Promise<number> {
       [tokenId],
     );
 
-    const dailyVol = parseFloat(result.rows[0]?.daily_vol ?? "0");
-    const sampleCount = parseInt(result.rows[0]?.sample_count ?? "0", 10);
+    const row = result.rows[0] as
+      | { daily_vol: string | number; sample_count: string | number }
+      | undefined;
+    const dailyVol = Number(row?.daily_vol) || 0;
+    const sampleCount = Number(row?.sample_count) || 0;
 
     // Annualize: multiply by √365
     const annualizedVol = dailyVol * Math.sqrt(365);
