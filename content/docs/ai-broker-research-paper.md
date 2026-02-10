@@ -7,9 +7,12 @@ icon: File
 ## **Research Agents Debate, Correlate, and Copy Prediction Market Elite Forecasters**
 
 **Alex Gul**
+
 **support@autoinvestment.broker**
 **ORCID ID: 0009-0003-4439-1461**
-**Jan 1, 2026**
+
+
+****Jan 1, 2026****
 
 ## **Abstract**
 

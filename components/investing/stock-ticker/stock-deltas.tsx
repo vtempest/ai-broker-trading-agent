@@ -17,7 +17,7 @@ import { showPercentSign } from "./constants"
 import type { ChangeType, TickerData, TickerItemProps } from "./types"
 
 
-export function IntervalDelta({
+export function StockIntervalDelta({
   data,
   showIcon = true,
   showSymbol = false,
@@ -28,7 +28,7 @@ export function IntervalDelta({
   orderHistorical = true,
   showMinusSign = false,
   showDeltaSymbols = true,
-  setNeutralMagnitude = 5,
+  setNeutralMagnitude = 3,
 }: TickerItemProps) {
   const router = useRouter()
 
@@ -124,7 +124,7 @@ export function IntervalDelta({
       <div
         key={period}
         className={cn(
-          "flex items-center font-semibold text-sm rounded-md",
+          "flex items-center font-semibold text-sm rounded-md px-[1px]",
           getChangeTextColor(changePercent, isPositive),
           getChangeBackgroundClass(changePercent, isPositive),
           getChangeBorderClass(changePercent, isPositive)
@@ -170,7 +170,7 @@ export function IntervalDelta({
                 alt={data.symbol}
                 width={24}
                 height={24}
-                className="rounded-sm"
+                className="rounded-sm  pr-[1px]"
                 unoptimized
               />
             )}

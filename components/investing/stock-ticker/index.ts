@@ -1,5 +1,5 @@
 export { StockTicker } from "./stock-ticker";
-export { IntervalDelta } from "./interval-delta";
+export { StockIntervalDelta } from "./stock-deltas";
 export { ChangeIcon } from "./change-icon";
 export * from "./types";
 export * from "./constants";

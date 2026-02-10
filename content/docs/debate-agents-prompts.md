@@ -1,8 +1,7 @@
 ---
-title: Debate Agents System - Agent Prompts Reference
+title: Debate Agents System 
 icon: Users
 ---
-
 # Multi-Agent Debate System - Agent Prompts
 
 This document describes all agents in the multi-agent debate trading system, their roles, and how they contribute to investment analysis.
@@ -26,12 +25,14 @@ The debate system uses a multi-stage analysis pipeline:
 **Role**: Technical market analysis and indicator calculation
 
 **Key Responsibilities**:
+
 - Fetch OHLCV (Open, High, Low, Close, Volume) data
 - Calculate technical indicators (RSI, MACD, Bollinger Bands, Moving Averages)
 - Identify chart patterns and trends
 - Assess momentum and volatility
 
 **Tools Used**:
+
 - `get_stock_data_tool`: Historical price data
 - `get_technical_indicators_tool`: Technical analysis metrics
 
@@ -46,18 +47,21 @@ The debate system uses a multi-stage analysis pipeline:
 **Version**: 2.0
 
 **Key Responsibilities**:
+
 - Search and analyze recent news articles about the stock
 - Extract multilingual news from local markets
 - Identify significant corporate events (earnings, M&A, regulatory)
 - Assess sentiment and potential market impact
 
 **Tools Used**:
+
 - `tavily_search_tool`: Web search for news articles
 - `get_multilingual_sentiment_search`: Local language news sources
 
 **Output**: News sentiment report with key events, sentiment score, and market impact assessment
 
 **Special Features**:
+
 - Multilingual news analysis for international stocks
 - Focus on local-language sources (e.g., Nikkei for Japanese stocks)
 - Identifies "undiscovered" status based on coverage gaps
@@ -69,12 +73,14 @@ The debate system uses a multi-stage analysis pipeline:
 **Role**: Social media and retail investor sentiment tracking
 
 **Key Responsibilities**:
+
 - Analyze social media discussions (StockTwits, Reddit, Twitter)
 - Gauge retail investor sentiment
 - Identify trending topics and concerns
 - Detect sentiment shifts and momentum
 
 **Tools Used**:
+
 - `get_stocktwits_sentiment`: StockTwits message analysis
 - Social media aggregation tools
 
@@ -89,6 +95,7 @@ The debate system uses a multi-stage analysis pipeline:
 **Version**: 2.5
 
 **Key Responsibilities**:
+
 - Analyze balance sheet, income statement, cash flow
 - Calculate financial health score (Piotroski F-Score)
 - Evaluate growth metrics
@@ -97,11 +104,13 @@ The debate system uses a multi-stage analysis pipeline:
 - Calculate liquidity metrics
 
 **Tools Used**:
+
 - `get_fundamental_data_tool`: Financial statements
 - `calculate_liquidity_metrics`: Trading liquidity analysis
 - `get_analyst_coverage`: Analyst coverage check
 
 **Output**: Comprehensive DATA_BLOCK with:
+
 - Financial Health Score (0-12 scale using Piotroski F-Score)
 - Growth Score (0-6 scale)
 - Valuation metrics
@@ -110,6 +119,7 @@ The debate system uses a multi-stage analysis pipeline:
 - Analyst coverage count
 
 **Special Features**:
+
 - Structured JSON output for programmatic validation
 - Strict thesis compliance checking
 - ADR detection to identify "discovered" vs "undiscovered" stocks
@@ -125,6 +135,7 @@ The debate system uses a multi-stage analysis pipeline:
 **Version**: 2.3
 
 **Thesis Compliance Criteria**:
+
 - Financial health ≥7/12 (preferably ≥8/12 for strong conviction)
 - Growth score ≥3/6 (preferably ≥4/6 for strong conviction)
 - US revenue <25% (or <35% if ≥30% undervalued + ≥3 catalysts)
@@ -134,6 +145,7 @@ The debate system uses a multi-stage analysis pipeline:
 - **No US ADR listing** (maintains "undiscovered" status)
 
 **Key Responsibilities**:
+
 - Build strongest case for upside potential
 - Identify catalysts that could drive price higher
 - Counter bearish concerns with evidence
@@ -141,6 +153,7 @@ The debate system uses a multi-stage analysis pipeline:
 - Acknowledge thesis compliance boundaries
 
 **Output Structure**:
+
 1. **Thesis Compliance Check**: List passing/failing criteria
 2. **Bull Case Summary**: 2-3 strongest arguments with specific data
 3. **Counter to Bear Concerns**: Direct responses with evidence
@@ -177,6 +190,7 @@ RECOMMENDATION: BUY
 **Focus Areas**:
 
 **Quantitative Hard Fails**:
+
 - Financial health <7/12
 - Growth score <3/6
 - US revenue >35%
@@ -187,6 +201,7 @@ RECOMMENDATION: BUY
 - **ADR exists** on NYSE/NASDAQ/OTC
 
 **Qualitative Risks**:
+
 - Technological lag (e.g., legacy automaker late to EVs)
 - Eroding competitive moat
 - Cyclical peak risk
@@ -195,6 +210,7 @@ RECOMMENDATION: BUY
 - Market saturation/oversupply
 
 **Key Responsibilities**:
+
 - Flag thesis violations explicitly with exact numbers
 - Identify structural headwinds
 - Challenge bullish arguments
@@ -202,6 +218,7 @@ RECOMMENDATION: BUY
 - Detect cognitive biases in analysis
 
 **Output Structure**:
+
 1. **Bear Case Summary**: Start with thesis violations, then 2-3 strongest risks
 2. **Counter to Bull Arguments**: Direct rebuttals with evidence
 3. **Key Risks**:
@@ -220,6 +237,7 @@ Additionally, the company has an ADR (TICKER: XYZ) on NYSE,
 violating the undiscovered criterion...
 
 KEY RISKS:
+
 - Thesis Violations: P/E=22 (>18), ADR exists, Analyst coverage=8 (>6)
 - Qualitative Risks: Cyclical Peak, Eroding Moat
 - Quantitative Concerns: High leverage, Declining margins
@@ -237,6 +255,7 @@ RECOMMENDATION: SELL
 **Version**: 2.2
 
 **Key Responsibilities**:
+
 - Synthesize Bull and Bear arguments
 - Evaluate evidence quality and logic
 - Check thesis compliance against DATA_BLOCK
@@ -244,11 +263,13 @@ RECOMMENDATION: SELL
 - Provide confidence level and reasoning
 
 **Decision Framework**:
+
 - **BUY**: Thesis compliance ≥80%, strong catalysts, Bull case stronger
 - **HOLD**: 60-79% thesis compliance or balanced arguments
 - **SELL**: Hard thesis violations, Bear case stronger, high risks
 
 **Output Structure**:
+
 1. **Summary of Debate**: Key points from both sides
 2. **Thesis Compliance Assessment**: Percentage score
 3. **Decision**: BUY/HOLD/SELL
@@ -264,6 +285,7 @@ RECOMMENDATION: SELL
 **Role**: Convert research recommendation into actionable trade plan
 
 **Key Responsibilities**:
+
 - Translate BUY/HOLD/SELL into specific actions
 - Consider market conditions and timing
 - Recommend entry/exit points
@@ -281,6 +303,7 @@ RECOMMENDATION: SELL
 **Role**: Advocate for minimal risk exposure
 
 **Key Responsibilities**:
+
 - Emphasize downside protection
 - Recommend smaller position sizes
 - Suggest tight stop-losses
@@ -294,6 +317,7 @@ RECOMMENDATION: SELL
 **Role**: Balanced risk perspective
 
 **Key Responsibilities**:
+
 - Weigh risk vs reward objectively
 - Recommend moderate position sizes
 - Balance upside and downside scenarios
@@ -306,6 +330,7 @@ RECOMMENDATION: SELL
 **Role**: Argue for higher risk for higher returns
 
 **Key Responsibilities**:
+
 - Emphasize upside potential
 - Recommend larger position sizes
 - Focus on conviction rather than caution
@@ -322,6 +347,7 @@ RECOMMENDATION: SELL
 **Version**: 2.3
 
 **Key Responsibilities**:
+
 - **Hard veto** on thesis violations (P/E>25, ADR exists, coverage≥6)
 - Validate thesis compliance with exact numbers from DATA_BLOCK
 - Assess portfolio fit and diversification
@@ -329,6 +355,7 @@ RECOMMENDATION: SELL
 - Make final GO/NO-GO decision
 
 **Veto Powers**:
+
 - Automatic REJECT if P/E >25
 - Automatic REJECT if ADR exists on US exchange
 - Automatic REJECT if analyst coverage ≥6
@@ -365,6 +392,7 @@ Status: [✓ FACTS VERIFIED / ✗ ERRORS FOUND]
 SECTION 2: BIAS DETECTION
 Status: [✓ NO BIASES / ⚠ BIASES IDENTIFIED]
 Detected Biases:
+
 - [Bias Type]: [Evidence and Impact]
 
 SECTION 3: SYNTHESIS EVALUATION
@@ -375,6 +403,7 @@ FINAL CONSULTANT VERDICT: [Overall assessment]
 \`\`\`
 
 **Special Features**:
+
 - Uses different AI model (OpenAI) to cross-validate Gemini outputs
 - Independent of organizational biases
 - Focus on material issues that could change decision
@@ -386,6 +415,7 @@ FINAL CONSULTANT VERDICT: [Overall assessment]
 The multi-agent system enforces a **value-to-growth ex-US equities** thesis:
 
 **Core Criteria**:
+
 - **Valuation**: P/E ≤18 ideal, 18-25 acceptable if PEG≤1.2, >25 rejected
 - **Quality**: Financial health ≥7/12, Growth ≥3/6
 - **Geography**: US revenue <25-35%, no ADR listing
@@ -393,6 +423,7 @@ The multi-agent system enforces a **value-to-growth ex-US equities** thesis:
 - **Accessibility**: IBKR-accessible jurisdictions
 
 **Emphasized Attributes**:
+
 - Undervaluation >25%
 - ROE ≥15%
 - FCF yield ≥4%
@@ -407,8 +438,8 @@ This thesis ensures the system focuses on undiscovered, high-quality value oppor
 ### Example 1: Basic Analysis
 
 \`\`\`bash
-curl -X POST http://localhost:3000/api/groq-debate \
-  -H "Content-Type: application/json" \
+curl -X POST http://localhost:3000/api/groq-debate 
+  -H "Content-Type: application/json" 
   -d '{
     "symbol": "AAPL"
   }'
@@ -417,8 +448,8 @@ curl -X POST http://localhost:3000/api/groq-debate \
 ### Example 2: Extended Debate
 
 \`\`\`bash
-curl -X POST http://localhost:3000/api/groq-debate \
-  -H "Content-Type: application/json" \
+curl -X POST http://localhost:3000/api/groq-debate 
+  -H "Content-Type: application/json" 
   -d '{
     "symbol": "TSLA",
     "date": "2024-12-19",
@@ -430,8 +461,8 @@ curl -X POST http://localhost:3000/api/groq-debate \
 ### Example 3: Custom Models
 
 \`\`\`bash
-curl -X POST http://localhost:3000/api/groq-debate \
-  -H "Content-Type: application/json" \
+curl -X POST http://localhost:3000/api/groq-debate 
+  -H "Content-Type: application/json" 
   -d '{
     "symbol": "NVDA",
     "llm_provider": "anthropic",
