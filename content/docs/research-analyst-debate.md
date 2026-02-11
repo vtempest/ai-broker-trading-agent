@@ -68,7 +68,7 @@ This project now includes a powerful stock analysis system using **Groq LLMs** w
 
 ## 📦 Installation
 
-### 1. Install Python Dependencies
+### Install Python Dependencies
 
 \`\`\`bash
 cd agents/debate-analyst
@@ -81,7 +81,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 \`\`\`
 
-### 2. Configure Environment
+### Configure Environment
 
 The environment has been configured to use Groq by default:
 
@@ -325,29 +325,29 @@ curl -X POST http://localhost:8001/analyze \
 
 ## 🧠 How It Works
 
-### 1. Data Collection Phase
+### Data Collection Phase
 - **Market Analyst**: Gathers OHLCV data, technical indicators
 - **News Analyst**: Collects and analyzes recent news sentiment
 - **Social Media Analyst**: Analyzes social sentiment (optional)
 - **Fundamentals Analyst**: Reviews financial statements and metrics
 
-### 2. Investment Debate Phase
+### Investment Debate Phase
 - **Bull Researcher**: Presents optimistic case based on data
 - **Bear Researcher**: Presents pessimistic case and risks
 - **Multiple Rounds**: Agents debate back and forth (default: 2 rounds)
 - **Research Manager**: Acts as judge, decides BUY/SELL/HOLD
 
-### 3. Trading Decision
+### Trading Decision
 - **Trader Agent**: Makes action decision based on research manager's judgment
 - Considers risk appetite, market conditions, portfolio context
 
-### 4. Risk Management Debate
+### Risk Management Debate
 - **Conservative Debator**: Argues for minimal risk exposure
 - **Neutral Debator**: Balanced risk perspective
 - **Aggressive Debator**: Higher risk for higher returns
 - **Risk Manager**: Final judgment on position size and risk level
 
-### 5. Memory & Learning
+### Memory and Learning
 - All decisions are stored in ChromaDB vector database
 - Future analyses retrieve similar past situations
 - Agents learn from past successes and failures

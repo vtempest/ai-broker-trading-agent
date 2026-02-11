@@ -5,7 +5,7 @@ icon: GitBranch
 
 The most **correlated data factors to stock performance**—those most strongly linked to changes in stock prices—fall into several categories:
 
-### 1. **Fundamental Factors**
+### Fundamental Factors
 
 Core financial metrics of a company:
 
@@ -13,7 +13,7 @@ Core financial metrics of a company:
 - **[Valuation multiples](https://www.investopedia.com/articles/basics/04/100804.asp) (e.g., P/E ratio)**: The price investors pay for each dollar of earnings strongly indicates stock performance. Changes in valuation multiples reflect shifts in investor sentiment about growth prospects or risk.
 - **[Revenue growth and cash flow](https://www.investopedia.com/articles/basics/04/100804.asp)**: Sustained growth positively correlates with long-term stock appreciation.
 
-### 2. **Macroeconomic Indicators**
+### Macroeconomic Indicators
 
 Broad economic data show strong correlations:
 
@@ -22,18 +22,18 @@ Broad economic data show strong correlations:
 - **[Average Weekly Private Wages](https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1293&context=honorstheses)**: Higher wages support consumer spending, corporate earnings, and stock prices (R² of 0.7045).
 - **[Unemployment Rate](https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1293&context=honorstheses)**: Weaker negative correlation with stock performance (R² of 0.2125), as lower unemployment supports economic growth.
 
-### 3. **Technical and Market Factors**
+### Technical and Market Factors
 
 - **[Overall market and sector movement](https://www.cfm.com/bond-equity-correlations-beyond-the-benchmark/)**: Research suggests up to 90% of a stock's movement is explained by overall market and sector movement, rather than company-specific news.
 - **[Liquidity and trading volume](https://www.investopedia.com/articles/basics/04/100804.asp)**: Highly liquid stocks are more responsive to news and trends, while illiquid stocks may be more volatile or discounted.
 - **[Momentum and trends](https://caia.org/blog/2021/09/19/are-stock-markets-becoming-more-correlated)**: Stocks that performed well recently tend to continue performing well short-term.
 
-### 4. **Market Sentiment and External Factors**
+### Market Sentiment and External Factors
 
 - **[Investor sentiment](https://www.investopedia.com/articles/basics/04/100804.asp)**: News, social media, and market mood drive short-term price swings.
 - **[Macroeconomic events](https://www.investopedia.com/articles/basics/04/100804.asp)**: Interest rates, inflation expectations, and geopolitical events trigger correlated moves across stocks and sectors.
 
-### 5. **Correlations Among Stocks**
+### Correlations Among Stocks
 
 - **[Index and sector correlations](https://www.investopedia.com/ask/answers/021716/how-does-correlation-affect-stock-market.asp)**: Stocks within the same index or sector move together due to shared economic drivers or investor behavior.
 - **[Global market correlations](https://caia.org/blog/2021/09/19/are-stock-markets-becoming-more-correlated)**: US and European stocks are more highly correlated with each other than with Asian stocks, reflecting economic ties and trading hours overlap.
