@@ -46,7 +46,7 @@ of future results. By investing their money in securities through Auto Investmen
 are taking full responsibility for all trading actions, and should make every effort to understand the
 risks involved.
 
-## 1. You may lose money trading and investing.
+## You may lose money trading and investing
 
 Trading and investing in securities is always risky. For that reason, Customers should trade or
 invest only with money they can afford to lose. Trading stocks, ETFs and stock options
@@ -56,14 +56,14 @@ deposit additional collateral in a falling market. Before using margin, customer
 determine whether this type of trading strategy is right for them given their specific
 investment objectives, experience, risk tolerance, and financial situation.
 
-## 2. Past performance is not necessarily indicative of future results.
+## Past performance is not necessarily indicative of future results
 All investments carry risk, and all trading decisions of an individual remain the
 responsibility of that individual. There is no guarantee that systems, indicators, or trading
 signals will result in profits or that they will not result in losses. All Customers are advised
 to fully understand all risks associated with any kind of trading or investing they choose to
 do.
 
-## 3. Auto Investment Broker is an online brokerage website and affiliated with other nonbrokerage informational and other similar types of websites.
+## Auto Investment Broker is an online brokerage website
 Neither Auto Investment Broker nor its affiliates provide investment advice. Our affiliate,
 Alpaca Markets, Inc., provides technology, technology support and administrative
 services, and it does not offer trading or investment advice or recommend the purchase
@@ -75,7 +75,7 @@ on their own mastery of the details of trading and investing in order to handle
 problematic situations that may arise, including the consultation of their own advisors
 as they deem appropriate.
 
-## 4. Stop orders may reduce, but not eliminate, your trading risk.
+## Stop orders may reduce, but not eliminate, your trading risk
 A stop market order is an order, placed with your broker, to buy or sell a particular stock at
 the market price if and when the price reaches a specified level. Stop orders are often
 used by traders in an effort to limit the amount they might lose. If and when the market
