@@ -87,6 +87,9 @@ export default defineConfig({
     const { remarkSteps } = await import(
       'fumadocs-core/mdx-plugins/remark-steps'
     )
+    const { remarkImage } = await import(
+      'fumadocs-core/mdx-plugins/remark-image'
+    )
     const { transformerTwoslash } = await import('fumadocs-twoslash')
     const { createFileSystemTypesCache } = await import(
       'fumadocs-twoslash/cache-fs'
@@ -120,7 +123,12 @@ export default defineConfig({
           id: 'package-manager',
         },
       },
-      remarkPlugins: [remarkSteps, remarkMath, remarkAutoTypeTable],
+      remarkPlugins: [
+        remarkSteps,
+        remarkMath,
+        remarkAutoTypeTable,
+        [remarkImage, { external: false }],
+      ],
       rehypePlugins: (v) => [rehypeKatex, ...v],
     }
   },
