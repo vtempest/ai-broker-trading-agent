@@ -2,6 +2,7 @@
 title: Investment Brokers
 icon: Landmark
 ---
+
 ## Investment Broker Rank
 
 | Icon                                                                                  | Broker Name                                            | Asset Classes                                              | Rating | Accounts | Options Commission                              | Margin Rate                                             | Notable Promo / Notes                               |
@@ -36,7 +37,7 @@ icon: Landmark
 | ![](https://www.google.com/s2/favicons?sz=28&domain=https://eodhd.com)                         | [EODHD](https://eodhd.com)                                        | Global Stocks, Fundamentals      | 4.6   | Great      |  €19.99/mo            | Best for Global. Covers 60+ exchanges worldwide. Very affordable for global data.                                     |
 | ![](https://www.google.com/s2/favicons?sz=28&domain=https://site.financialmodelingprep.com)    | [Financial Modeling Prep](https://site.financialmodelingprep.com) | Fundamentals, Stocks, FX         | 4.1    | Very Good  | \$19/mo                | Best for Fundamentals. 30+ years of balance sheets, earnings, and cash flow statements.                               |
 | ![](https://www.google.com/s2/favicons?sz=28&domain=https://twelvedata.com)                    | [Twelve Data](https://twelvedata.com)                             | Stocks, FX, Crypto, Indices      | 4.1    | Good       | \$29/mo                | Good Visuals. flexible API, great for building charting apps. Supports 800 req/day .                              |
-| ![](https://www.google.com/s2/favicons?sz=28&domain=https://pypi.org)                          | [Yahoo Finance ](https://github.com/gadicc/yahoo-finance2)  | Stocks, Crypto, FX  | 3.8    | Average    |  Free          | Best for Learning. No official support. Use via libraries like `yfinance` for non-commercial projects.              |
+| ![](https://www.google.com/s2/favicons?sz=28&domain=https://pypi.org)                          | [Yahoo Finance ](https://github.com/gadicc/yahoo-finance2)  | Stocks, Crypto, FX  | 3.8    | Average    |  Free          | Best for Learning. No official support. Use via libraries  for non-commercial projects.              |
 | ![](https://www.google.com/s2/favicons?sz=28&domain=https://marketstack.com)                   | [MarketStack](https://marketstack.com)                            | Global Stocks, Intraday          | 4.0    | Solid      | \$29/mo                | Good Alternative. Scalable cloud data, decent global coverage.                                                        |
 | ![](https://sov.ai/favicon.ico)                            | [SOV.AI](https://sov.ai)                                          | Alternative Data, ML Tools       | 4.3   | ML Focus   | Paid                        | Best for Quants. 30,000+ tickers, 30+ years history. 80+ financial ratios, ML asset management tools. Python library. |
 | ![](https://s2.googleusercontent.com/s2/favicons?size=32&domain_url=https://www.dukascopy.com) | [Dukascopy](https://www.dukascopy.com)                            | Forex, Crypto, Commodities       | 4.4   | Great      |                         | Best for Forex. Real-time tick data. Historical data from 2003. No API key required. 15+ instruments.                 |

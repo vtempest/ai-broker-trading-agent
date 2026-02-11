@@ -164,13 +164,50 @@ body:has(#nd-docs-layout) {
 }
 
 #nd-docs-layout {
-  height: var(--fd-docs-height, 100dvh);
-  max-height: var(--fd-docs-height, 100dvh);
+  height: 100dvh;
+  max-height: 100dvh;
   overflow: hidden;
+  display: grid;
 }
 
-/* Main content area - scrollable, accounting for header */
-#nd-page {
+/* Left sidebar - fixed/sticky with its own scroll */
+#nd-docs-layout > aside:first-of-type,
+[data-sidebar] {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  max-height: 100dvh;
   overflow-y: auto;
-  max-height: calc(var(--fd-docs-height, 100dvh) - var(--fd-docs-row-1, 0px));
+  overflow-x: hidden;
+}
+
+/* Main content wrapper */
+#nd-docs-layout > div:has(#nd-page) {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Main content area - scrollable */
+#nd-page {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Right sidebar (TOC) - sticky with its own scroll */
+#nd-toc,
+[data-toc] {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ensure article content is scrollable within page */
+#nd-page > article {
+  min-height: 0;
 }
