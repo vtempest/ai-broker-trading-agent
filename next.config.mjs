@@ -8,6 +8,10 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Disable Turbopack for builds to fix MDX serialization issues
+  experimental: {
+    turbo: false,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
