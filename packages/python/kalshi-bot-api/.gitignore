@@ -1,0 +1,39 @@
+# API Credentials - DO NOT COMMIT
+.env
+.env.*
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Distributions
+*.egg-info/
+dist/
+build/
+
+.cache
+
+data/
+
+
+# Temp
+.pytest_cache/
+.coverage
+market.json
+
+# Claude Code
+CLAUDE.md

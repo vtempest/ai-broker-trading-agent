@@ -9,11 +9,11 @@ import 'fumadocs-ui/style.css'
 import 'fumadocs-twoslash/twoslash.css'
 import 'fumadocs-openapi/css/preset.css'
 import 'katex/dist/katex.min.css'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { DOCS_TITLE } from '@/lib/constants'
 
 
-export default function Layout({ children }: LayoutProps<'/docs'>) {
+export default function Layout({ children }: { children: ReactNode }) {
   const base = baseOptions()
 
   return (

@@ -155,3 +155,22 @@
     scrollbar-width: none;  /* Firefox */
   }
 }
+
+/* Fumadocs layout fixes - sticky sidebars with scrollable main content */
+html:has(#nd-docs-layout),
+body:has(#nd-docs-layout) {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+#nd-docs-layout {
+  height: var(--fd-docs-height, 100dvh);
+  max-height: var(--fd-docs-height, 100dvh);
+  overflow: hidden;
+}
+
+/* Main content area - scrollable, accounting for header */
+#nd-page {
+  overflow-y: auto;
+  max-height: calc(var(--fd-docs-height, 100dvh) - var(--fd-docs-row-1, 0px));
+}

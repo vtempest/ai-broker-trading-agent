@@ -54,24 +54,7 @@ export function ArchitectureSection() {
 
         <div className="mt-16">
           {/* Desktop Flow */}
-          <div className="hidden items-center justify-center gap-2 lg:flex">
-            {workflow.map((step, index) => (
-              <div key={step.name} className="flex items-center">
-                <div className="flex flex-col items-center">
-                  <div
-                    className={`flex h-16 w-16 items-center justify-center rounded-full border-2 ${step.border} bg-card font-mono text-lg font-bold ${step.color}`}
-                  >
-                    {index + 1}
-                  </div>
-                  <div className="mt-4 w-36 text-center">
-                    <div className="font-semibold text-foreground">{step.name}</div>
-                    <div className="mt-1 text-xs text-muted-foreground">{step.desc}</div>
-                  </div>
-                </div>
-                {index < workflow.length - 1 && <ArrowRight className="mx-3 h-5 w-5 text-primary" />}
-              </div>
-            ))}
-          </div>
+
 
           {/* Mobile Flow */}
           <div className="flex flex-col gap-3 lg:hidden">

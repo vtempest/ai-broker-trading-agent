@@ -1,0 +1,82 @@
+[project]
+name = "pykalshi"
+version = "0.3.6"
+description = "A typed Python client for the Kalshi prediction markets API with WebSocket streaming, automatic retries, and ergonomic interfaces"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{name = "Arsh Koneru", email = "arshkon@gmail.com"}]
+keywords = [
+    "kalshi",
+    "prediction-markets",
+    "trading",
+    "api-client",
+    "websocket",
+    "finance",
+    "betting",
+    "forecasting",
+    "elections",
+    "event-contracts",
+    "binary-options",
+    "real-time",
+    "async",
+    "pydantic",
+    "orderbook",
+    "market-data",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "requests>=2.31.0",
+    "pydantic>=2.0.0",
+    "cryptography>=41.0.0",
+    "python-dotenv>=1.0.0",
+    "websockets>=11.0",
+]
+
+[project.optional-dependencies]
+dataframe = [
+    "pandas>=1.5.0",
+]
+web = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "aiofiles>=23.0.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.0.0",
+    "mypy>=1.0.0",
+    "types-requests>=2.31.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ArshKA/pykalshi"
+Repository = "https://github.com/ArshKA/pykalshi"
+Documentation = "https://github.com/ArshKA/pykalshi#readme"
+Issues = "https://github.com/ArshKA/pykalshi/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["pykalshi"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

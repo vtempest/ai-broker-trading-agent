@@ -124,7 +124,7 @@ export function StockIntervalDelta({
       <div
         key={period}
         className={cn(
-          "flex items-center font-semibold text-sm rounded-md px-[1px]",
+          "flex items-center font-semibold text-sm rounded-sm px-[1px]",
           getChangeTextColor(changePercent, isPositive),
           getChangeBackgroundClass(changePercent, isPositive),
           getChangeBorderClass(changePercent, isPositive)
