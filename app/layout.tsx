@@ -3,13 +3,9 @@ import type { Metadata, Viewport } from "next"
 import { cookies } from "next/headers"
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import { UIConfigProvider } from "@/lib/ui-config"
-import { Toaster } from "sonner"
 import "./globals.css"
 import "@/components/theme/themes-shadcn.css"
-import { StockTicker } from "@/components/investing/stock-ticker"
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/layout/app-sidebar"
-import { MobileDock } from "@/components/layout/mobile-dock"
+import { ConditionalLayoutWrapper } from "@/components/layout/conditional-layout-wrapper"
 
 export const metadata: Metadata = {
   title: "AI Broker - LLM Agents Debate Stocks & Events",
@@ -46,15 +42,9 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <UIConfigProvider>
-            <SidebarProvider defaultOpen={false}>
-              <AppSidebar />
-              <SidebarInset className="md:pb-0 overflow-x-hidden">
-                <StockTicker fixed="top" />
-                {children}
-              </SidebarInset>
-              <MobileDock />
-            </SidebarProvider>
-            <Toaster position="top-right" />
+            <ConditionalLayoutWrapper>
+              {children}
+            </ConditionalLayoutWrapper>
           </UIConfigProvider>
         </ThemeProvider>
       </body>
