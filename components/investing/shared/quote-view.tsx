@@ -6,8 +6,16 @@ import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 // @ts-ignore
-import { ArrowLeft, Loader2, TrendingUp, TrendingDown, DollarSign, Activity, BarChart3, Star } from "lucide-react"
+import { ArrowLeft, Loader2, TrendingUp, TrendingDown, DollarSign, Activity, BarChart3, Star, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { useSession } from "@/lib/auth-client"
 import { DynamicStockChart } from "@/components/investing/charts/dynamic-stock-chart"
@@ -486,6 +494,73 @@ export function QuoteView({ symbol, showBackButton = true, tradeSignals = [] }: 
               </span>
             </div>
             <div className="ml-auto flex items-center gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Open in...
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Brokers</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://robinhood.com/stocks/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Robinhood
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://app.webull.com/stocks/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Webull
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol=${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Fidelity
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel>Research</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://finance.yahoo.com/quote/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Yahoo Finance
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://www.tradingview.com/symbols/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      TradingView
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://www.google.com/finance/quote/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Google Finance
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://www.marketwatch.com/investing/stock/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      MarketWatch
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://finviz.com/quote.ashx?t=${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Finviz
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel>Social</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://stocktwits.com/symbol/${symbol}`} target="_blank" rel="noopener noreferrer">
+                      Stocktwits
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel>Filings</DropdownMenuLabel>
+                  <DropdownMenuItem asChild>
+                    <a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&ticker=${symbol}&type=&dateb=&owner=exclude&count=40`} target="_blank" rel="noopener noreferrer">
+                      SEC EDGAR
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               {session?.user && (
                 <>
                   <Button
