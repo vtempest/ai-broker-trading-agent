@@ -1,7 +1,7 @@
 {
   "name": "ai-broker-investing-agent",
-  "version": "0.2.0",
-  "description": "Investing with news research analysts, algorithmic strategies, copy experts, and prediction markets",
+  "version": "0.3.0",
+  "description": "Trading bots with news research analysts, algorithmic entry/exit signals, copy experts, and prediction markets",
   "license": "rights.institute/prosper",
   "author": "vtempest",
   "exports": {
@@ -24,12 +24,12 @@
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "install": "bun i --legacy-peer-deps",
     "docs:generate": "fumadocs-mdx",
     "docs:generate:api": "bun lib/docs/generate-docs.ts",
     "import:leaders": "bun lib/leaders/nvsty-leaders.ts",
     "import:stategies": "bun lib/algo-stategies/tv-scraper.ts --pages=10",
     "import:stocks": "bun lib/stocks/import-stock-names.ts",
-    "postinstall": "fumadocs-mdx && drizzle-kit push",
     "start": "next start",
     "sync:high-volume-markets": "tsx scripts/sync-high-volume-markets.ts",
     "sync:trade-history": "tsx scripts/sync-trade-history.ts"
@@ -44,7 +44,7 @@
     "@langchain/google-genai": "2.1.17",
     "@langchain/groq": "^1.1.0",
     "@langchain/langgraph": "^1.1.4",
-    "@langchain/openai": "^1.2.7",
+    "@langchain/openai": "^1.2.8",
     "@libsql/client": "^0.17.0",
     "@polymarket/clob-client": "5.2.1",
     "@radix-ui/react-accordion": "1.2.12",
