@@ -18,7 +18,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "concurrently \"NODE_NO_WARNINGS=1 next dev\" \"wait-on http://localhost:3000 && opener http://localhost:3000\"",
+    "dev": "concurrently \"next dev\" \"wait-on http://localhost:3000 && opener http://localhost:3000\"",
     "build": "next build",
     "build:lib": "vite build",
     "db:generate": "drizzle-kit generate",
@@ -26,12 +26,7 @@
     "db:studio": "drizzle-kit studio",
     "docs:generate": "fumadocs-mdx",
     "docs:generate:api": "bun lib/docs/generate-docs.ts",
-    "import:leaders": "bun lib/leaders/nvsty-leaders.ts",
-    "import:stategies": "bun lib/algo-stategies/tv-scraper.ts --pages=10",
-    "import:stocks": "bun lib/stocks/import-stock-names.ts",
-    "start": "next start",
-    "sync:high-volume-markets": "tsx scripts/sync-high-volume-markets.ts",
-    "sync:trade-history": "tsx scripts/sync-trade-history.ts"
+    "start": "next start"
   },
   "dependencies": {
     "@alpacahq/alpaca-trade-api": "^3.1.3",

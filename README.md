@@ -45,7 +45,7 @@
 
 ## 🚀 Overview
 
-The **Auto Investment Broker** is a sophisticated platform combining specialized LLM agents to analyze markets, debate strategies, and execute trades. It features real-time data processing, a "Bull vs. Bear" debate engine, and a modern dashboard for visualization.
+**Auto Investment Broker** combines specialized LLM agents to analyze markets, debate strategies, and execute trades. It features real-time data processing, a "Bull vs. Bear" debate engine, and a modern dashboard for visualization.
 
 ### ✨ Key Features
 
@@ -56,8 +56,8 @@ The **Auto Investment Broker** is a sophisticated platform combining specialized
 
 ## 🤖 AI Agents & Strategies
 
-| Agent/Team            | Role                                                                        |
-| :-------------------- | :-------------------------------------------------------------------------- |
+| Agent/Team                  | Role                                                                        |
+| :-------------------------- | :-------------------------------------------------------------------------- |
 | **Analyst Team**      | Gathers data: Fundamentals, Sentiment (Social), News, & Technical Analysis. |
 | **Researcher Team**   | Conducts "Bull vs. Bear" debates; assesses risk.                            |
 | **Trader Agent**      | Synthesizes reports to propose trades.                                      |

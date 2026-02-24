@@ -1,7 +1,6 @@
 import { NextProvider } from 'fumadocs-core/framework/next'
 import { DocsLayout } from 'fumadocs-ui/layouts/docs'
 import { RootProvider } from 'fumadocs-ui/provider/base'
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import { AISearchTrigger } from '@/components/fumadocs/ai/search'
 import { baseOptions, linkItems, logo } from '@/lib/layout.shared'
 import { source } from '@/lib/docs/source'
@@ -60,7 +59,6 @@ export default function Layout({ children }: { children: ReactNode }) {
             url: undefined,
             title: (
               <>
-                <SidebarTrigger className="mr-2" />
                 {logo}
                 <span className='font-medium max-md:hidden'>{DOCS_TITLE}</span>
               </>
