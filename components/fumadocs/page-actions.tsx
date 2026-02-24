@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Copy, Eye, Github } from 'lucide-react'
+import { Copy, Check, BotMessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -10,11 +10,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-interface LLMCopyButtonProps {
+interface PageActionsProps {
   markdownUrl: string
 }
 
-export function LLMCopyButton({ markdownUrl }: LLMCopyButtonProps) {
+export function CopyMarkdownButton({ markdownUrl }: PageActionsProps) {
   const [copied, setCopied] = React.useState(false)
 
   const handleCopy = async () => {
@@ -31,48 +31,66 @@ export function LLMCopyButton({ markdownUrl }: LLMCopyButtonProps) {
 
   return (
     <Button
-      variant='ghost'
-      size='icon'
-      className='size-8'
+      variant='outline'
+      size='sm'
+      className='gap-1.5 text-xs'
       onClick={handleCopy}
-      title='Copy markdown for LLM'
     >
-      <Copy className='size-4' />
-      {copied && (
-        <span className='sr-only'>Copied!</span>
+      {copied ? (
+        <Check className='size-3.5' />
+      ) : (
+        <Copy className='size-3.5' />
       )}
+      {copied ? 'Copied!' : 'Copy as Markdown'}
     </Button>
   )
 }
 
-interface ViewOptionsProps {
-  markdownUrl: string
-  githubUrl?: string
+async function fetchMarkdown(markdownUrl: string): Promise<string> {
+  const response = await fetch(markdownUrl)
+  return response.text()
 }
 
-export function ViewOptions({ markdownUrl, githubUrl }: ViewOptionsProps) {
+export function OpenInLLMButton({ markdownUrl }: PageActionsProps) {
+  const handleOpen = async (llm: 'chatgpt' | 'claude' | 'deepseek' | 'grok') => {
+    try {
+      const text = await fetchMarkdown(markdownUrl)
+      const prompt = `Here is a document in markdown. Please read it and answer any questions I have about it.\n\n${text}`
+
+      const urls: Record<typeof llm, string> = {
+        chatgpt: `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`,
+        claude: `https://claude.ai/new?q=${encodeURIComponent(prompt)}`,
+        deepseek: `https://chat.deepseek.com/?q=${encodeURIComponent(prompt)}`,
+        grok: `https://grok.com/?q=${encodeURIComponent(prompt)}`,
+      }
+
+      window.open(urls[llm], '_blank')
+    } catch (error) {
+      console.error('Failed to open in LLM:', error)
+    }
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon' className='size-8'>
-          <Eye className='size-4' />
-          <span className='sr-only'>View options</span>
+        <Button variant='outline' size='sm' className='gap-1.5 text-xs'>
+          <BotMessageSquare className='size-3.5' />
+          Open in LLM
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem asChild>
-          <a href={markdownUrl} target='_blank' rel='noopener noreferrer'>
-            View Markdown
-          </a>
+        <DropdownMenuItem onClick={() => handleOpen('chatgpt')}>
+          ChatGPT
         </DropdownMenuItem>
-        {githubUrl && (
-          <DropdownMenuItem asChild>
-            <a href={githubUrl} target='_blank' rel='noopener noreferrer'>
-              <Github className='mr-2 size-4' />
-              View on GitHub
-            </a>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem onClick={() => handleOpen('claude')}>
+          Claude
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleOpen('deepseek')}>
+          DeepSeek
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleOpen('grok')}>
+          Grok
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

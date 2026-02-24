@@ -6,18 +6,16 @@ import { createGenerator } from 'fumadocs-typescript'
 import { AutoTypeTable } from 'fumadocs-typescript/ui'
 import { Card, Cards } from 'fumadocs-ui/components/card'
 import { TypeTable } from 'fumadocs-ui/components/type-table'
-import { PageLastUpdate } from 'fumadocs-ui/layouts/docs/page'
 import { DocsPage } from 'fumadocs-ui/page'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import type { ReactElement } from 'react'
-import { LLMCopyButton, ViewOptions } from '@/components/fumadocs/page-actions'
+import { CopyMarkdownButton, OpenInLLMButton } from '@/components/fumadocs/page-actions'
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card'
-import { owner, repo } from '@/lib/github'
 import { createMetadata, getPageImage } from '@/lib/metadata'
 import { source } from '@/lib/docs/source'
 import { getMDXComponents } from '@/mdx-components'
@@ -48,23 +46,17 @@ export default async function Page(
           {page.data.title}
         </h1>
 
-        <div className='ml-auto flex hidden shrink-0 flex-row items-center items-center justify-end gap-2 sm:flex'>
-          <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-          <ViewOptions
-            markdownUrl={`${page.url}.mdx`}
-            githubUrl={`https://github.com/${owner}/${repo}/blob/main/content/docs/${page.path}`}
-          />
+        <div className='ml-auto flex hidden shrink-0 flex-row items-center justify-end gap-2 sm:flex'>
+          <CopyMarkdownButton markdownUrl={`${page.url}.mdx`} />
+          <OpenInLLMButton markdownUrl={`${page.url}.mdx`} />
         </div>
       </div>
       <p className='mb-2 text-fd-muted-foreground text-lg'>
         {page.data.description}
       </p>
       <div className='flex items-center gap-2 pb-6 sm:hidden'>
-        <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-        <ViewOptions
-          markdownUrl={`${page.url}.mdx`}
-          githubUrl={`https://github.com/${owner}/${repo}/blob/main/content/docs/${page.path}`}
-        />
+        <CopyMarkdownButton markdownUrl={`${page.url}.mdx`} />
+        <OpenInLLMButton markdownUrl={`${page.url}.mdx`} />
       </div>
       <div className='prose flex-1 text-fd-foreground/90'>
         <Mdx

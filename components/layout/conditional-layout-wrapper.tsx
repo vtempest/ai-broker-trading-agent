@@ -16,12 +16,15 @@ export function ConditionalLayoutWrapper({
   const isDocsPage = pathname.startsWith("/docs")
 
   if (isDocsPage) {
-    // Docs pages use their own layout without app sidebar
+    // Docs pages use app sidebar + their own fumadocs layout
     return (
-      <>
-        {children}
+      <SidebarProvider defaultOpen={false}>
+        <AppSidebar />
+        <SidebarInset className="md:pb-0 overflow-x-hidden">
+          {children}
+        </SidebarInset>
         <Toaster position="top-right" />
-      </>
+      </SidebarProvider>
     )
   }
 
